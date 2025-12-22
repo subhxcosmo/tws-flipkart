@@ -12,29 +12,60 @@ import { products } from "@/data/products";
 import StepIndicator from "@/components/checkout/StepIndicator";
 import MobileContainer from "@/components/MobileContainer";
 
+// SVG Icons for payment methods
+const PhonePeIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
+    <rect width="24" height="24" rx="4" fill="#5f259f"/>
+    <path d="M7 7h3.5v10H7V7zm4.5 0H15l3 5-3 5h-3.5l3-5-3-5z" fill="white"/>
+  </svg>
+);
+
+const PaytmIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
+    <rect width="24" height="24" rx="4" fill="#00baf2"/>
+    <path d="M4 12c0-1.5.8-2.8 2-3.5V7h2v1.1c.6-.1 1.3-.1 2-.1s1.4 0 2 .1V7h2v1.5c1.2.7 2 2 2 3.5s-.8 2.8-2 3.5V17h-2v-1.1c-.6.1-1.3.1-2 .1s-1.4 0-2-.1V17H6v-1.5c-1.2-.7-2-2-2-3.5zm4 0c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z" fill="white"/>
+  </svg>
+);
+
+const GPayIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
+    <rect width="24" height="24" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
+    <path d="M12.545 10.239v3.821h1.852c.772 0 1.389-.254 1.852-.762l.069-.069a2.37 2.37 0 0 0 .623-1.605c0-.636-.208-1.178-.623-1.627-.415-.427-1.018-.64-1.81-.64h-1.963v.882z" fill="#4285f4"/>
+    <path d="M5.304 7.03v4.093c0 .543.127.97.382 1.28.276.333.69.5 1.24.5.638 0 1.127-.207 1.466-.622.34-.414.509-.953.509-1.617V7.03h1.91v4.093c0 .961-.318 1.735-.955 2.32-.636.588-1.472.882-2.507.882-1.069 0-1.895-.28-2.479-.839-.584-.56-.876-1.347-.876-2.363V7.03h1.31z" fill="#ea4335"/>
+    <path d="M18.696 7.03v9.94h-1.91v-3.821h-1.963v3.821h-1.962V7.03h1.962v3.209h1.963V7.03h1.91z" fill="#34a853"/>
+  </svg>
+);
+
+const BhimIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
+    <rect width="24" height="24" rx="4" fill="#00796b"/>
+    <path d="M6 8h5v2H8v1h3v2H8v1h3v2H6V8zm7 0h3c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-3V8zm2 6h1v-4h-1v4z" fill="white"/>
+  </svg>
+);
+
 const paymentMethods = [
   {
     id: "phonepe",
     name: "PhonePe",
-    icon: "📱",
+    icon: PhonePeIcon,
     description: "Pay using PhonePe UPI"
   },
   {
     id: "paytm",
     name: "Paytm",
-    icon: "💳",
+    icon: PaytmIcon,
     description: "Pay using Paytm UPI"
   },
   {
     id: "gpay",
     name: "Google Pay",
-    icon: "🅿️",
+    icon: GPayIcon,
     description: "Pay using Google Pay"
   },
   {
     id: "bhim",
     name: "BHIM UPI",
-    icon: "🏦",
+    icon: BhimIcon,
     description: "Pay using any UPI app"
   }
 ];
@@ -153,7 +184,7 @@ const Payment = () => {
                 </div>
                 
                 {/* Icon */}
-                <span className="text-2xl">{method.icon}</span>
+                <method.icon />
                 
                 {/* Info */}
                 <div className="flex-1 min-w-0">

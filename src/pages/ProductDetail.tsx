@@ -176,7 +176,7 @@ const ProductDetail = () => {
           </div>
         </header>
 
-        {/* Image Carousel - Fixed container with swipe only */}
+        {/* Image Carousel - Fixed container covering half screen with swipe only */}
         <div 
           ref={containerRef}
           className="relative bg-card overflow-hidden"
@@ -184,7 +184,8 @@ const ProductDetail = () => {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="relative w-full h-80">
+          {/* Height set to 50vh (half screen) */}
+          <div className="relative w-full" style={{ height: '50vh' }}>
             <div 
               className="absolute inset-0 flex transition-transform duration-300 ease-out"
               style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
@@ -192,7 +193,8 @@ const ProductDetail = () => {
               {images.map((img, index) => (
                 <div 
                   key={index} 
-                  className="w-full h-full shrink-0 flex items-center justify-center p-8 bg-card"
+                  className="w-full shrink-0 flex items-center justify-center p-6 bg-card"
+                  style={{ height: '50vh' }}
                 >
                   <img
                     src={img}
