@@ -26,7 +26,7 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
 
   return (
     <Link to={`/product/${product.id}`} className="block">
-      <div className="group relative flex flex-col bg-card border-r border-b border-border transition-shadow hover:shadow-lg">
+      <div className="group relative flex flex-col bg-card border border-border rounded-sm overflow-hidden">
         {/* Wishlist Button */}
         <button 
           className="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-card shadow-sm"
@@ -45,84 +45,74 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
           </span>
         )}
 
-        {/* Image Container */}
-        <div className="relative aspect-square overflow-hidden p-4">
+        {/* Image Container - Fixed aspect ratio */}
+        <div className="relative aspect-square overflow-hidden p-3 bg-card">
           <img
             src={product.image}
             alt={product.name}
-            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full object-contain"
             loading="lazy"
           />
         </div>
 
         {/* Content */}
-        <div className="flex flex-1 flex-col p-3 pt-0">
+        <div className="flex flex-1 flex-col p-2.5 pt-0">
           {/* Brand */}
-          <p className="text-xs text-muted-foreground line-clamp-1">
+          <p className="text-2xs text-muted-foreground line-clamp-1">
             {product.brand}
           </p>
 
           {/* Name */}
-          <h3 className="mt-0.5 text-sm font-medium text-foreground line-clamp-2 leading-tight">
+          <h3 className="mt-0.5 text-xs font-medium text-foreground line-clamp-2 leading-tight">
             {product.name}
           </h3>
 
           {/* Rating Badge */}
-          <div className="mt-2 flex items-center gap-2">
-            <span className="inline-flex items-center gap-0.5 rounded-sm bg-rating-bg px-1.5 py-0.5 text-xs font-bold text-rating-text">
+          <div className="mt-1.5 flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-0.5 rounded-sm bg-rating-bg px-1 py-0.5 text-2xs font-bold text-rating-text">
               {product.rating}
-              <Star className="h-2.5 w-2.5 fill-current" />
+              <Star className="h-2 w-2 fill-current" />
             </span>
-            <span className="text-xs text-muted-foreground">
+            <span className="text-2xs text-muted-foreground">
               ({formatReviews(product.reviews)})
             </span>
           </div>
 
           {/* Price Section */}
-          <div className="mt-2 flex flex-wrap items-baseline gap-1.5">
-            <span className="text-base font-bold text-price">
+          <div className="mt-1.5 flex flex-wrap items-baseline gap-1">
+            <span className="text-sm font-bold text-price">
               {formatPrice(product.price)}
             </span>
-            <span className="text-xs text-price-original line-through">
+            <span className="text-2xs text-price-original line-through">
               {formatPrice(product.originalPrice)}
             </span>
-            <span className="text-xs font-medium text-discount">
-              {product.discount}% off
-            </span>
           </div>
+          
+          {/* Discount */}
+          <span className="text-2xs font-medium text-discount">
+            {product.discount}% off
+          </span>
 
           {/* Bank Offer */}
-          <div className="mt-2 flex items-center gap-1">
-            <Zap className="h-3 w-3 text-bank-offer" />
+          <div className="mt-1.5 flex items-center gap-1">
+            <Zap className="h-2.5 w-2.5 text-bank-offer" />
             <span className="text-2xs text-bank-offer font-medium">
               Bank Offer
             </span>
           </div>
 
           {/* Trust Badges */}
-          <div className="mt-2 flex flex-wrap items-center gap-2">
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             {product.hasANC && (
-              <span className="inline-flex items-center gap-0.5 rounded-sm border border-border px-1.5 py-0.5 text-2xs text-muted-foreground">
-                <ShieldCheck className="h-2.5 w-2.5" />
+              <span className="inline-flex items-center gap-0.5 rounded-sm border border-border px-1 py-0.5 text-2xs text-muted-foreground">
+                <ShieldCheck className="h-2 w-2" />
                 ANC
               </span>
             )}
             <span className="inline-flex items-center gap-0.5 text-2xs text-express">
-              <Truck className="h-2.5 w-2.5" />
+              <Truck className="h-2 w-2" />
               Express
             </span>
-          </div>
-
-          {/* Highlights - Hidden on mobile, shown on larger screens */}
-          <div className="mt-2 hidden gap-1 sm:flex sm:flex-wrap">
-            {product.highlights.slice(0, 2).map((highlight, index) => (
-              <span
-                key={index}
-                className="rounded-sm bg-muted px-1.5 py-0.5 text-2xs text-muted-foreground"
-              >
-                {highlight}
-              </span>
-            ))}
           </div>
         </div>
       </div>
