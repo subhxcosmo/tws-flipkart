@@ -27,6 +27,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   
   // Touch handling for swipe
   const touchStartX = useRef<number | null>(null);
@@ -140,7 +141,7 @@ const ProductDetail = () => {
                 <input
                   type="text"
                   placeholder="Search for products"
-                  className="h-full w-full rounded-sm bg-card pl-10 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+                  className="h-full w-full rounded-lg bg-card pl-10 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
                 />
               </div>
             </div>
@@ -249,17 +250,34 @@ const ProductDetail = () => {
             </span>
           </div>
 
-          {/* Price Block - Matching listing page emphasis */}
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-price">
+          {/* Price Block - Flipkart style emphasis */}
+          <div className="mt-3">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs font-semibold text-success bg-success/10 px-1.5 py-0.5 rounded">
+                {product.discount}% OFF
+              </span>
+              <span className="text-xs text-muted-foreground line-through">
+                {formatPrice(product.originalPrice)}
+              </span>
+            </div>
+            <span className="text-2xl font-bold text-foreground">
               {formatPrice(product.price)}
             </span>
-            <span className="text-sm text-price-original line-through">
-              {formatPrice(product.originalPrice)}
-            </span>
-            <span className="text-sm font-semibold text-discount">
-              {product.discount}% off
-            </span>
+          </div>
+
+          {/* Product Description - Collapsible */}
+          <div className="mt-3">
+            <p className={`text-xs text-muted-foreground leading-relaxed ${!isDescriptionExpanded ? 'line-clamp-2' : ''}`}>
+              Experience premium audio quality with the {product.name}. Featuring {product.batteryLife}H of battery life, 
+              {product.hasANC ? ' Active Noise Cancellation,' : ''} and exceptional sound clarity. Perfect for music lovers and professionals alike. 
+              Designed with comfort in mind for extended listening sessions. Comes with {product.highlights.join(', ')}.
+            </p>
+            <button 
+              onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+              className="text-xs font-medium text-primary mt-1"
+            >
+              {isDescriptionExpanded ? 'less' : 'more'}
+            </button>
           </div>
 
           {/* Bank Offer */}
