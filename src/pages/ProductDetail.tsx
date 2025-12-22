@@ -160,7 +160,7 @@ const ProductDetail = () => {
           </div>
         </header>
 
-        {/* Image Carousel - Fixed container covering half screen with swipe only */}
+        {/* Image Carousel - 1080x1425 aspect ratio */}
         <div 
           ref={containerRef}
           className="relative bg-card overflow-hidden"
@@ -168,8 +168,8 @@ const ProductDetail = () => {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Height set to 50vh (half screen) */}
-          <div className="relative w-full" style={{ height: '50vh' }}>
+          {/* Aspect ratio 1080:1425 = 0.757 */}
+          <div className="relative w-full" style={{ aspectRatio: '1080/1425' }}>
             <div 
               className="absolute inset-0 flex transition-transform duration-300 ease-out"
               style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
@@ -178,7 +178,7 @@ const ProductDetail = () => {
                 <div 
                   key={index} 
                   className="w-full shrink-0 flex items-center justify-center p-6 bg-card"
-                  style={{ height: '50vh' }}
+                  style={{ aspectRatio: '1080/1425' }}
                 >
                   <img
                     src={img}
