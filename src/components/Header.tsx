@@ -1,74 +1,110 @@
 import { useState } from "react";
-import { Search, ShoppingCart, User, Menu, Headphones } from "lucide-react";
+import { ArrowLeft, Search, Heart, ShoppingCart, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const Header = () => {
+interface HeaderProps {
+  showBackButton?: boolean;
+  title?: string;
+}
+
+const Header = ({ showBackButton = false, title }: HeaderProps) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === "/";
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
-          {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-              <Headphones className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="hidden text-xl font-bold text-foreground sm:inline">
-              AudioMart
-            </span>
-          </div>
+    <header className="sticky top-0 z-50 bg-primary shadow-md">
+      {/* Main Header Bar */}
+      <div className="px-3 py-2.5">
+        <div className="flex items-center gap-3">
+          {/* Back Button / Menu */}
+          {showBackButton ? (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={handleBack}
+              className="h-9 w-9 shrink-0 text-primary-foreground hover:bg-primary-foreground/10"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+          ) : (
+            <Link to="/" className="flex items-center gap-2 shrink-0">
+              <span className="text-lg font-bold text-primary-foreground italic">
+                AudioMart
+              </span>
+            </Link>
+          )}
 
           {/* Search Bar */}
-          <div className="flex flex-1 max-w-xl">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <div className="flex-1">
+            <div className="relative">
               <Input
                 type="search"
-                placeholder="Search for TWS earbuds, brands..."
+                placeholder={title || "Search for TWS earbuds"}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 border-border bg-muted/30 focus:bg-background"
+                className="h-9 w-full rounded-sm border-0 bg-card pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
               />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             </div>
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="hidden sm:flex">
-              <User className="h-5 w-5" />
+          {/* Action Icons */}
+          <div className="flex items-center gap-1 shrink-0">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-9 w-9 text-primary-foreground hover:bg-primary-foreground/10"
+            >
+              <Heart className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="relative">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative h-9 w-9 text-primary-foreground hover:bg-primary-foreground/10"
+            >
               <ShoppingCart className="h-5 w-5" />
-              <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs flex items-center justify-center">
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-2xs font-bold text-accent-foreground">
                 2
-              </Badge>
-            </Button>
-            <Button variant="ghost" size="icon" className="sm:hidden">
-              <Menu className="h-5 w-5" />
+              </span>
             </Button>
           </div>
         </div>
       </div>
 
-      {/* Breadcrumb */}
-      <div className="border-t border-border bg-muted/30">
-        <div className="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8">
-          <nav className="flex items-center gap-2 text-sm">
-            <span className="text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
-              Home
-            </span>
-            <span className="text-muted-foreground">/</span>
-            <span className="text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
-              Electronics
-            </span>
-            <span className="text-muted-foreground">/</span>
-            <span className="font-medium text-foreground">TWS Earbuds</span>
-          </nav>
+      {/* Breadcrumb - Only on home page on larger screens */}
+      {isHome && (
+        <div className="hidden border-t border-primary-foreground/10 bg-primary sm:block">
+          <div className="px-4 py-1.5">
+            <nav className="flex items-center gap-1.5 text-xs">
+              <span className="text-primary-foreground/70 hover:text-primary-foreground cursor-pointer">
+                Home
+              </span>
+              <span className="text-primary-foreground/50">&gt;</span>
+              <span className="text-primary-foreground/70 hover:text-primary-foreground cursor-pointer">
+                Electronics
+              </span>
+              <span className="text-primary-foreground/50">&gt;</span>
+              <span className="text-primary-foreground/70 hover:text-primary-foreground cursor-pointer">
+                Audio
+              </span>
+              <span className="text-primary-foreground/50">&gt;</span>
+              <span className="font-medium text-primary-foreground">
+                True Wireless Earbuds
+              </span>
+            </nav>
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 };
