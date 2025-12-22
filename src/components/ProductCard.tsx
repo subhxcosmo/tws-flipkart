@@ -1,98 +1,132 @@
-import { Star } from "lucide-react";
+import { Star, Heart, Zap, ShieldCheck, Truck } from "lucide-react";
 import { Product } from "@/data/products";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   product: Product;
+  isSponsored?: boolean;
 }
 
-const ProductCard = ({ product }: ProductCardProps) => {
+const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
       currency: "INR",
       minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
     }).format(price);
   };
 
   const formatReviews = (reviews: number) => {
     if (reviews >= 1000) {
-      return `${(reviews / 1000).toFixed(1)}k`;
+      return `${(reviews / 1000).toFixed(0)}k`;
     }
     return reviews.toString();
   };
 
   return (
-    <Card className="group cursor-pointer overflow-hidden border-border/50 bg-card transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
-      <CardContent className="p-0">
+    <Link to={`/product/${product.id}`} className="block">
+      <div className="group relative flex flex-col bg-card border-r border-b border-border transition-shadow hover:shadow-lg">
+        {/* Wishlist Button */}
+        <button 
+          className="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-card shadow-sm"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+        >
+          <Heart className="h-4 w-4 text-muted-foreground" />
+        </button>
+
+        {/* Sponsored Tag */}
+        {isSponsored && (
+          <span className="absolute left-2 top-2 z-10 rounded-sm bg-muted px-1.5 py-0.5 text-2xs text-sponsored">
+            Ad
+          </span>
+        )}
+
         {/* Image Container */}
-        <div className="relative aspect-square overflow-hidden bg-muted/30">
+        <div className="relative aspect-square overflow-hidden p-4">
           <img
             src={product.image}
             alt={product.name}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
           />
-          {product.discount > 0 && (
-            <Badge className="absolute left-2 top-2 bg-accent text-accent-foreground font-semibold">
-              {product.discount}% OFF
-            </Badge>
-          )}
-          {product.hasANC && (
-            <Badge variant="secondary" className="absolute right-2 top-2">
-              ANC
-            </Badge>
-          )}
         </div>
 
         {/* Content */}
-        <div className="space-y-3 p-4">
+        <div className="flex flex-1 flex-col p-3 pt-0">
           {/* Brand */}
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          <p className="text-xs text-muted-foreground line-clamp-1">
             {product.brand}
           </p>
 
           {/* Name */}
-          <h3 className="line-clamp-2 text-sm font-semibold leading-tight text-foreground transition-colors group-hover:text-primary">
+          <h3 className="mt-0.5 text-sm font-medium text-foreground line-clamp-2 leading-tight">
             {product.name}
           </h3>
 
-          {/* Rating */}
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 rounded bg-primary/10 px-2 py-0.5">
-              <span className="text-sm font-bold text-primary">{product.rating}</span>
-              <Star className="h-3 w-3 fill-primary text-primary" />
-            </div>
+          {/* Rating Badge */}
+          <div className="mt-2 flex items-center gap-2">
+            <span className="inline-flex items-center gap-0.5 rounded-sm bg-rating-bg px-1.5 py-0.5 text-xs font-bold text-rating-text">
+              {product.rating}
+              <Star className="h-2.5 w-2.5 fill-current" />
+            </span>
             <span className="text-xs text-muted-foreground">
-              ({formatReviews(product.reviews)} reviews)
+              ({formatReviews(product.reviews)})
             </span>
           </div>
 
-          {/* Price */}
-          <div className="flex items-baseline gap-2">
-            <span className="text-lg font-bold text-foreground">
+          {/* Price Section */}
+          <div className="mt-2 flex flex-wrap items-baseline gap-1.5">
+            <span className="text-base font-bold text-price">
               {formatPrice(product.price)}
             </span>
-            <span className="text-sm text-muted-foreground line-through">
+            <span className="text-xs text-price-original line-through">
               {formatPrice(product.originalPrice)}
+            </span>
+            <span className="text-xs font-medium text-discount">
+              {product.discount}% off
             </span>
           </div>
 
-          {/* Highlights */}
-          <div className="flex flex-wrap gap-1.5">
-            {product.highlights.map((highlight, index) => (
+          {/* Bank Offer */}
+          <div className="mt-2 flex items-center gap-1">
+            <Zap className="h-3 w-3 text-bank-offer" />
+            <span className="text-2xs text-bank-offer font-medium">
+              Bank Offer
+            </span>
+          </div>
+
+          {/* Trust Badges */}
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            {product.hasANC && (
+              <span className="inline-flex items-center gap-0.5 rounded-sm border border-border px-1.5 py-0.5 text-2xs text-muted-foreground">
+                <ShieldCheck className="h-2.5 w-2.5" />
+                ANC
+              </span>
+            )}
+            <span className="inline-flex items-center gap-0.5 text-2xs text-express">
+              <Truck className="h-2.5 w-2.5" />
+              Express
+            </span>
+          </div>
+
+          {/* Highlights - Hidden on mobile, shown on larger screens */}
+          <div className="mt-2 hidden gap-1 sm:flex sm:flex-wrap">
+            {product.highlights.slice(0, 2).map((highlight, index) => (
               <span
                 key={index}
-                className="rounded-full bg-secondary px-2 py-0.5 text-xs text-secondary-foreground"
+                className="rounded-sm bg-muted px-1.5 py-0.5 text-2xs text-muted-foreground"
               >
                 {highlight}
               </span>
             ))}
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </Link>
   );
 };
 
