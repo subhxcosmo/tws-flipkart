@@ -167,10 +167,28 @@ const Payment = () => {
         {/* Step Indicator - All steps checked except current */}
         <StepIndicator currentStep={2} steps={steps} />
 
+        {/* Delivery Address Card */}
+        <section className="mt-2 bg-card px-4 py-3">
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-semibold text-foreground">Rahul Kumar</span>
+                <span className="text-xs bg-muted px-2 py-0.5 rounded text-muted-foreground">HOME</span>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                123 Main Street, Apartment 4B<br />
+                Bangalore, Karnataka - 560001
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">+91 98765 43210</p>
+            </div>
+            <button className="text-xs text-primary font-medium">CHANGE</button>
+          </div>
+        </section>
+
         {/* Order Summary Card */}
         <section className="mt-2 bg-card px-4 py-3">
           <div className="flex gap-3">
-            <div className="w-14 h-14 shrink-0 rounded-sm border border-border overflow-hidden bg-muted p-1">
+            <div className="w-16 h-16 shrink-0 rounded-sm border border-border overflow-hidden bg-muted p-1">
               <img
                 src={product.image}
                 alt={product.name}
@@ -178,12 +196,15 @@ const Payment = () => {
               />
             </div>
             <div className="flex-1 min-w-0">
-              <h2 className="text-sm font-medium text-foreground line-clamp-1">
+              <h2 className="text-sm font-medium text-foreground line-clamp-2">
                 {product.name}
               </h2>
-              <p className="mt-0.5 text-base font-bold text-price">
-                {formatPrice(total)}
-              </p>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-sm font-bold text-foreground">{formatPrice(product.price)}</span>
+                <span className="text-xs text-muted-foreground line-through">{formatPrice(product.originalPrice)}</span>
+                <span className="text-xs font-medium text-success">{discountPercentage}% off</span>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">Qty: 1</p>
             </div>
           </div>
         </section>
