@@ -7,6 +7,7 @@ import SortBar, { SortOption } from "@/components/SortBar";
 import ProductCard from "@/components/ProductCard";
 import ProductSection from "@/components/ProductSection";
 import HomeBanner from "@/components/HomeBanner";
+import MobileContainer from "@/components/MobileContainer";
 import { products } from "@/data/products";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 
@@ -134,7 +135,7 @@ const Index = () => {
     filters.hasWirelessCharging !== null;
 
   return (
-    <>
+    <MobileContainer>
       <Helmet>
         <title>TWS Earbuds - Best True Wireless Earbuds | AudioMart</title>
         <meta
@@ -229,37 +230,27 @@ const Index = () => {
               </SheetContent>
             </Sheet>
 
-            {/* Main Content Area */}
-            <div className="flex">
-              {/* Desktop Filter Sidebar */}
-              <aside className="hidden w-60 shrink-0 border-r border-border bg-card lg:block">
-                <div className="sticky top-[76px] h-[calc(100vh-76px)] overflow-y-auto">
-                  <FilterSidebar filters={filters} onFiltersChange={setFilters} />
+            {/* Product Grid - Strict 2 columns */}
+            <main className="p-2">
+              {filteredAndSortedProducts.length > 0 ? (
+                <div className="grid grid-cols-2 gap-2">
+                  {filteredAndSortedProducts.map((product, index) => (
+                    <ProductCard 
+                      key={product.id} 
+                      product={product} 
+                      isSponsored={index === 0 || index === 5}
+                    />
+                  ))}
                 </div>
-              </aside>
-
-              {/* Product Grid */}
-              <main className="flex-1">
-                {filteredAndSortedProducts.length > 0 ? (
-                  <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-                    {filteredAndSortedProducts.map((product, index) => (
-                      <ProductCard 
-                        key={product.id} 
-                        product={product} 
-                        isSponsored={index === 0 || index === 5}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center py-20">
-                    <p className="text-base font-medium text-foreground">No products found</p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      Try adjusting your filters
-                    </p>
-                  </div>
-                )}
-              </main>
-            </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-20">
+                  <p className="text-base font-medium text-foreground">No products found</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Try adjusting your filters
+                  </p>
+                </div>
+              )}
+            </main>
           </>
         )}
 
@@ -272,7 +263,7 @@ const Index = () => {
           </div>
         </footer>
       </div>
-    </>
+    </MobileContainer>
   );
 };
 

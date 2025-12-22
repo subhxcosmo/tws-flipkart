@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { 
@@ -20,12 +20,18 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { products, Product } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
+import MobileContainer from "@/components/MobileContainer";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  
+  // Touch handling for swipe
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const product = products.find((p) => p.id === id);
   
@@ -37,27 +43,46 @@ const ProductDetail = () => {
   // Mock multiple images for carousel
   const images = product ? [product.image, product.image, product.image, product.image] : [];
 
-  // Auto-slide carousel every 12 seconds
-  useEffect(() => {
-    if (images.length <= 1) return;
+  const minSwipeDistance = 50;
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchEndX.current = null;
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
     
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }, 12000);
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
     
-    return () => clearInterval(interval);
-  }, [images.length]);
+    if (isLeftSwipe && currentImageIndex < images.length - 1) {
+      setCurrentImageIndex(prev => prev + 1);
+    } else if (isRightSwipe && currentImageIndex > 0) {
+      setCurrentImageIndex(prev => prev - 1);
+    }
+    
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
 
   if (!product) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="text-center">
-          <h1 className="text-xl font-semibold text-foreground">Product not found</h1>
-          <Link to="/" className="mt-4 text-primary underline">
-            Back to home
-          </Link>
+      <MobileContainer>
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-xl font-semibold text-foreground">Product not found</h1>
+            <Link to="/" className="mt-4 text-primary underline">
+              Back to home
+            </Link>
+          </div>
         </div>
-      </div>
+      </MobileContainer>
     );
   }
 
@@ -86,7 +111,7 @@ const ProductDetail = () => {
   };
 
   return (
-    <>
+    <MobileContainer>
       <Helmet>
         <title>{product.name} - Buy at Best Price | AudioMart</title>
         <meta
@@ -151,22 +176,29 @@ const ProductDetail = () => {
           </div>
         </header>
 
-        {/* Image Carousel - Fixed container, no overflow */}
-        <div className="relative bg-card">
-          <div className="relative w-full" style={{ paddingBottom: '100%' }}>
+        {/* Image Carousel - Fixed container with swipe only */}
+        <div 
+          ref={containerRef}
+          className="relative bg-card overflow-hidden"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="relative w-full h-80">
             <div 
-              className="absolute inset-0 flex transition-transform duration-500 ease-out"
+              className="absolute inset-0 flex transition-transform duration-300 ease-out"
               style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
             >
               {images.map((img, index) => (
                 <div 
                   key={index} 
-                  className="w-full h-full shrink-0 flex items-center justify-center p-6 bg-card"
+                  className="w-full h-full shrink-0 flex items-center justify-center p-8 bg-card"
                 >
                   <img
                     src={img}
                     alt={`${product.name} - Image ${index + 1}`}
                     className="max-h-full max-w-full object-contain"
+                    draggable={false}
                   />
                 </div>
               ))}
@@ -346,25 +378,27 @@ const ProductDetail = () => {
         )}
 
         {/* Sticky Bottom Action Bar - Fixed positioning, consistent sizing */}
-        <div className="fixed bottom-0 left-0 right-0 z-50 flex bg-card border-t border-border shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
-          <Button
-            variant="ghost"
-            onClick={handleAddToCart}
-            className="flex-1 h-14 rounded-none border-r border-border text-foreground hover:bg-muted font-semibold text-sm gap-2"
-          >
-            <ShoppingCart className="h-5 w-5" />
-            ADD TO CART
-          </Button>
-          <Button
-            onClick={handleBuyNow}
-            className="flex-1 h-14 rounded-none bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm gap-2"
-          >
-            <Zap className="h-5 w-5" />
-            BUY NOW
-          </Button>
+        <div className="fixed bottom-0 left-0 right-0 z-50">
+          <div className="mx-auto max-w-md flex bg-card border-t border-border shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
+            <Button
+              variant="ghost"
+              onClick={handleAddToCart}
+              className="flex-1 h-14 rounded-none border-r border-border text-foreground hover:bg-muted font-semibold text-sm gap-2"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              ADD TO CART
+            </Button>
+            <Button
+              onClick={handleBuyNow}
+              className="flex-1 h-14 rounded-none bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm gap-2"
+            >
+              <Zap className="h-5 w-5" />
+              BUY NOW
+            </Button>
+          </div>
         </div>
       </div>
-    </>
+    </MobileContainer>
   );
 };
 

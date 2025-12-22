@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
 import StepIndicator from "@/components/checkout/StepIndicator";
+import MobileContainer from "@/components/MobileContainer";
 
 const OrderSummary = () => {
   const { id } = useParams<{ id: string }>();
@@ -41,14 +42,16 @@ const OrderSummary = () => {
 
   if (!product) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="text-center">
-          <h1 className="text-xl font-semibold text-foreground">Product not found</h1>
-          <Link to="/" className="mt-4 text-primary underline">
-            Back to home
-          </Link>
+      <MobileContainer>
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-xl font-semibold text-foreground">Product not found</h1>
+            <Link to="/" className="mt-4 text-primary underline">
+              Back to home
+            </Link>
+          </div>
         </div>
-      </div>
+      </MobileContainer>
     );
   }
 
@@ -69,7 +72,7 @@ const OrderSummary = () => {
   const steps = ["Address", "Order Summary", "Payment"];
 
   return (
-    <>
+    <MobileContainer>
       <Helmet>
         <title>Order Summary | AudioMart</title>
         <meta name="description" content="Review your order before checkout" />
@@ -241,27 +244,28 @@ const OrderSummary = () => {
         </section>
 
         {/* Bottom CTA */}
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border px-4 py-3 shadow-lg">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-lg font-bold text-price">{formatPrice(total)}</span>
-            <button className="text-xs text-primary font-medium">View Details</button>
+        <div className="fixed bottom-0 left-0 right-0 z-50">
+          <div className="mx-auto max-w-md bg-card border-t border-border px-4 py-3 shadow-lg">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-lg font-bold text-price">{formatPrice(total)}</span>
+              <button className="text-xs text-primary font-medium">View Details</button>
+            </div>
+            <Button
+              onClick={() => {
+                if (!savedAddress) {
+                  navigate(`/checkout/address/${id}`);
+                } else {
+                  navigate(`/checkout/payment/${id}`);
+                }
+              }}
+              className="w-full h-12 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm"
+            >
+              {savedAddress ? "CONTINUE TO PAYMENT" : "ADD ADDRESS TO CONTINUE"}
+            </Button>
           </div>
-          <Button
-            onClick={() => {
-              if (!savedAddress) {
-                navigate(`/checkout/address/${id}`);
-              } else {
-                // Navigate to payment (mock for now)
-                alert("Payment integration coming soon!");
-              }
-            }}
-            className="w-full h-12 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm"
-          >
-            {savedAddress ? "CONTINUE TO PAYMENT" : "ADD ADDRESS TO CONTINUE"}
-          </Button>
         </div>
       </div>
-    </>
+    </MobileContainer>
   );
 };
 
