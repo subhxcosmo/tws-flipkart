@@ -164,7 +164,7 @@ const Index = () => {
             <div className="bg-card p-2">
               <h2 className="text-sm font-bold text-foreground mb-2 px-1">All Products</h2>
               <div className="grid grid-cols-2 gap-2">
-                {products.slice(0, 12).map((product, index) => (
+                {products.slice(0, 16).map((product, index) => (
                   <ProductCard 
                     key={product.id} 
                     product={product} 
