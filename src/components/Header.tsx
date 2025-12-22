@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
 
 interface HeaderProps {
   showBackButton?: boolean;
@@ -11,6 +12,7 @@ interface HeaderProps {
 }
 
 const Header = ({ showBackButton = false, title }: HeaderProps) => {
+  const { getTotalItems } = useCart();
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
@@ -67,16 +69,20 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
             >
               <Heart className="h-5 w-5" />
             </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative h-9 w-9 text-primary-foreground hover:bg-primary-foreground/10"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-2xs font-bold text-accent-foreground">
-                2
-              </span>
-            </Button>
+            <Link to="/cart">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="relative h-9 w-9 text-primary-foreground hover:bg-primary-foreground/10"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {getTotalItems() > 0 && (
+                  <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-2xs font-bold text-accent-foreground">
+                    {getTotalItems() > 99 ? '99+' : getTotalItems()}
+                  </span>
+                )}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

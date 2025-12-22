@@ -1,6 +1,8 @@
-import { Star, Heart, Zap, ShieldCheck, Truck } from "lucide-react";
+import { Star, Heart } from "lucide-react";
 import { Product } from "@/data/products";
 import { Link } from "react-router-dom";
+import wowBadge from "@/assets/wow-badge.png";
+import assuredBadge from "@/assets/assured-badge.png";
 
 interface ProductCardProps {
   product: Product;
@@ -23,6 +25,9 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
     }
     return reviews.toString();
   };
+
+  // Calculate bank offer price (approximately 5% extra off)
+  const bankOfferPrice = Math.round(product.price * 0.95);
 
   return (
     <Link to={`/product/${product.id}`} className="block">
@@ -57,18 +62,37 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
 
         {/* Content */}
         <div className="flex flex-1 flex-col p-2.5 pt-0">
-          {/* Brand */}
-          <p className="text-2xs text-muted-foreground line-clamp-1">
-            {product.brand}
-          </p>
+          {/* Row 1: Discount percentage with arrow + Original price struck */}
+          <div className="flex items-center gap-1.5">
+            <span className="inline-flex items-center text-xs font-semibold text-success">
+              {product.discount}% ↓
+            </span>
+            <span className="text-xs text-muted-foreground line-through">
+              {formatPrice(product.originalPrice)}
+            </span>
+          </div>
 
-          {/* Name */}
-          <h3 className="mt-0.5 text-xs font-medium text-foreground line-clamp-2 leading-tight">
-            {product.name}
-          </h3>
+          {/* Row 2: Bold selling price */}
+          <div className="mt-0.5">
+            <span className="text-base font-bold text-foreground">
+              {formatPrice(product.price)}
+            </span>
+          </div>
 
-          {/* Rating Badge */}
-          <div className="mt-1.5 flex items-center gap-1.5">
+          {/* Row 3: WOW badge with bank offer price */}
+          <div className="mt-1 flex items-center gap-1">
+            <img 
+              src={wowBadge} 
+              alt="WOW" 
+              className="h-3.5 w-auto"
+            />
+            <span className="text-xs text-muted-foreground">
+              {formatPrice(bankOfferPrice)} with Bank offer
+            </span>
+          </div>
+
+          {/* Row 4: Star rating */}
+          <div className="mt-1.5 flex items-center gap-1">
             <span className="inline-flex items-center gap-0.5 rounded-sm bg-rating-bg px-1 py-0.5 text-2xs font-bold text-rating-text">
               {product.rating}
               <Star className="h-2 w-2 fill-current" />
@@ -78,41 +102,13 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
             </span>
           </div>
 
-          {/* Price Section */}
-          <div className="mt-1.5 flex flex-wrap items-baseline gap-1">
-            <span className="text-sm font-bold text-price">
-              {formatPrice(product.price)}
-            </span>
-            <span className="text-2xs text-price-original line-through">
-              {formatPrice(product.originalPrice)}
-            </span>
-          </div>
-          
-          {/* Discount */}
-          <span className="text-2xs font-medium text-discount">
-            {product.discount}% off
-          </span>
-
-          {/* Bank Offer */}
-          <div className="mt-1.5 flex items-center gap-1">
-            <Zap className="h-2.5 w-2.5 text-bank-offer" />
-            <span className="text-2xs text-bank-offer font-medium">
-              Bank Offer
-            </span>
-          </div>
-
-          {/* Trust Badges */}
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            {product.hasANC && (
-              <span className="inline-flex items-center gap-0.5 rounded-sm border border-border px-1 py-0.5 text-2xs text-muted-foreground">
-                <ShieldCheck className="h-2 w-2" />
-                ANC
-              </span>
-            )}
-            <span className="inline-flex items-center gap-0.5 text-2xs text-express">
-              <Truck className="h-2 w-2" />
-              Express
-            </span>
+          {/* Row 5: Assured badge */}
+          <div className="mt-1.5">
+            <img 
+              src={assuredBadge} 
+              alt="Assured" 
+              className="h-4 w-auto"
+            />
           </div>
         </div>
       </div>
