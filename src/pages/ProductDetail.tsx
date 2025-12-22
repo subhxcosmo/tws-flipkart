@@ -21,10 +21,13 @@ import { Badge } from "@/components/ui/badge";
 import { products, Product } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import MobileContainer from "@/components/MobileContainer";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { addToCart, getTotalItems } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
@@ -108,7 +111,10 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    navigate(`/checkout/order/${id}`);
+    addToCart(product);
+    toast.success("Added to cart", {
+      description: product.name,
+    });
   };
 
   return (
@@ -150,12 +156,15 @@ const ProductDetail = () => {
             <Button
               variant="ghost"
               size="icon"
+              onClick={() => navigate("/cart")}
               className="relative h-10 w-10 shrink-0 text-primary-foreground hover:bg-primary-foreground/10"
             >
               <ShoppingCart className="h-5 w-5" />
-              <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-2xs font-bold text-accent-foreground">
-                2
-              </span>
+              {getTotalItems() > 0 && (
+                <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-2xs font-bold text-accent-foreground">
+                  {getTotalItems()}
+                </span>
+              )}
             </Button>
           </div>
         </header>
