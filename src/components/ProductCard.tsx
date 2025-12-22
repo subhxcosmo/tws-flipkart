@@ -91,22 +91,20 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
             </span>
           </div>
 
-          {/* Row 4: Star rating - individual stars */}
-          <div className="mt-1.5 flex items-center gap-0.5">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <Star
-                key={star}
-                className={`h-3.5 w-3.5 ${
-                  star <= Math.floor(product.rating)
-                    ? "fill-[#388e3c] text-[#388e3c]"
-                    : "fill-muted text-muted"
-                }`}
-              />
-            ))}
-          </div>
-
-          {/* Row 5: Assured badge */}
-          <div className="mt-1.5">
+          {/* Row 4: Star rating + Assured badge side by side */}
+          <div className="mt-1.5 flex items-center gap-2">
+            <div className="flex items-center gap-0.5">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star
+                  key={star}
+                  className={`h-3.5 w-3.5 ${
+                    star <= Math.floor(product.rating)
+                      ? "fill-[#388e3c] text-[#388e3c]"
+                      : "fill-muted text-muted"
+                  }`}
+                />
+              ))}
+            </div>
             <img 
               src={assuredBadge} 
               alt="Assured" 
