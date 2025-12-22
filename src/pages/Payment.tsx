@@ -195,6 +195,24 @@ const Payment = () => {
                 <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
               </button>
             ))}
+
+            {/* Cash on Delivery - Disabled */}
+            <div className="w-full flex items-center gap-3 px-4 py-4 text-left opacity-50 cursor-not-allowed">
+              {/* Selection Circle - Disabled */}
+              <div className="h-5 w-5 shrink-0 rounded-full border-2 border-muted-foreground/30" />
+              
+              {/* COD Icon */}
+              <div className="h-7 w-7 rounded bg-muted flex items-center justify-center">
+                <span className="text-xs font-bold text-muted-foreground">₹</span>
+              </div>
+              
+              {/* Info */}
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-muted-foreground">Cash on Delivery</p>
+                <p className="text-xs text-muted-foreground">Pay when you receive</p>
+                <p className="text-xs text-red-400 mt-0.5">Not available for your pincode</p>
+              </div>
+            </div>
           </div>
         </section>
 
