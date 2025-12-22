@@ -185,7 +185,7 @@ export const products: Product[] = [
     name: "BudZ Mini",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
-    rating: 3.9,
+    rating: 4.1,
     reviews: 21345,
     price: 399,
     originalPrice: 799,
