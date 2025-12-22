@@ -5,7 +5,8 @@ import {
   ArrowLeft, 
   Check,
   ChevronRight,
-  Shield
+  Shield,
+  Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
@@ -74,6 +75,7 @@ const Payment = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState<string>("phonepe");
+  const [isProcessing, setIsProcessing] = useState(false);
   
   const product = products.find((p) => p.id === id);
   
@@ -103,13 +105,19 @@ const Payment = () => {
 
   const deliveryCharge = product.price > 500 ? 0 : 40;
   const total = product.price + deliveryCharge;
+  const discount = product.originalPrice - product.price;
+  const discountPercentage = Math.round((discount / product.originalPrice) * 100);
 
   const steps = ["Address", "Order Summary", "Payment"];
 
   const handlePlaceOrder = () => {
-    // Mock order placement
-    alert("Order placed successfully!");
-    navigate("/");
+    setIsProcessing(true);
+    // Simulate payment processing
+    setTimeout(() => {
+      setIsProcessing(false);
+      alert("Order placed successfully!");
+      navigate("/");
+    }, 3000);
   };
 
   return (
@@ -119,7 +127,28 @@ const Payment = () => {
         <meta name="description" content="Complete your payment" />
       </Helmet>
 
-      <div className="min-h-screen bg-background pb-20">
+      <div className="min-h-screen bg-background pb-20 relative">
+        {/* Payment Processing Overlay */}
+        {isProcessing && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center">
+            {/* Blurred backdrop */}
+            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+            
+            {/* Loader content */}
+            <div className="relative z-10 flex flex-col items-center gap-4 px-8 text-center">
+              {/* Circular loader */}
+              <div className="relative h-16 w-16">
+                <div className="absolute inset-0 rounded-full border-4 border-muted" />
+                <div className="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin" />
+              </div>
+              
+              <div className="space-y-1">
+                <p className="text-base font-medium text-foreground">Processing your payment...</p>
+                <p className="text-sm text-muted-foreground">Please complete the payment in your UPI app.</p>
+              </div>
+            </div>
+          </div>
+        )}
         {/* Header */}
         <header className="sticky top-0 z-50 bg-card border-b border-border">
           <div className="flex items-center gap-3 px-3 py-3">
@@ -231,7 +260,12 @@ const Payment = () => {
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Price (1 item)</span>
-              <span className="text-sm text-foreground">{formatPrice(product.price)}</span>
+              <span className="text-sm text-muted-foreground line-through">{formatPrice(product.originalPrice)}</span>
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Discount</span>
+              <span className="text-sm font-medium text-success">-{formatPrice(discount)} ({discountPercentage}% off)</span>
             </div>
             
             <div className="flex items-center justify-between">
