@@ -258,13 +258,13 @@ const ProductDetail = () => {
 
           {/* Price Block */}
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-sm font-medium text-success flex items-center gap-0.5">
+            <span className="text-lg font-bold text-success flex items-center gap-0.5">
               <span>↓</span>{product.discount}%
             </span>
-            <span className="text-sm text-muted-foreground line-through">
+            <span className="text-lg text-muted-foreground/60 line-through">
               {formatPrice(product.originalPrice)}
             </span>
-            <span className="text-xl font-bold text-foreground">
+            <span className="text-2xl font-extrabold text-foreground">
               {formatPrice(product.price)}
             </span>
           </div>
