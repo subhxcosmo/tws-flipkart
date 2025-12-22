@@ -206,11 +206,27 @@ const Payment = () => {
           </div>
         </section>
 
-        {/* Price Summary */}
+        {/* Price Details */}
         <section className="mt-2 bg-card px-4 py-3">
+          <h3 className="text-sm font-semibold text-foreground mb-3">Price Details</h3>
+          
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Price (1 item)</span>
+              <span className="text-sm text-foreground">{formatPrice(product.price)}</span>
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Delivery Charges</span>
+              <span className="text-sm font-medium text-success">FREE</span>
+            </div>
+          </div>
+          
+          <div className="border-t border-border my-3"></div>
+          
           <div className="flex items-center justify-between">
-            <span className="text-sm text-foreground">Total Payable</span>
-            <span className="text-base font-bold text-price">{formatPrice(total)}</span>
+            <span className="text-sm font-semibold text-foreground">Amount Payable</span>
+            <span className="text-sm font-bold text-foreground">{formatPrice(total)}</span>
           </div>
         </section>
 
