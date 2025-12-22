@@ -196,6 +196,14 @@ const ProductDetail = () => {
             {product.discount}% OFF
           </Badge>
 
+          {/* Rating Badge - Floating over image, bottom-left */}
+          <div className="absolute bottom-12 left-3 inline-flex items-center gap-1 bg-white rounded px-2 py-1 shadow-sm">
+            <span className="text-sm font-semibold text-foreground">{product.rating}</span>
+            <Star className="h-3 w-3 fill-success text-success" />
+            <span className="text-muted-foreground text-sm">|</span>
+            <span className="text-sm text-muted-foreground">{formatReviews(product.reviews)}+</span>
+          </div>
+
           {/* Pagination Dots */}
           <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
             {images.map((_, index) => (
@@ -218,22 +226,6 @@ const ProductDetail = () => {
           <div className="flex items-center justify-between">
             <span className="text-sm font-semibold text-foreground">{product.brand}</span>
             <button className="text-xs text-primary font-medium">Visit store</button>
-          </div>
-          
-          {/* Product Name */}
-          <h1 className="mt-1.5 text-sm text-foreground leading-snug">
-            {product.name}
-          </h1>
-
-          {/* Rating */}
-          <div className="mt-2 flex items-center gap-2">
-            <span className="inline-flex items-center gap-0.5 rounded-sm bg-rating-bg px-1.5 py-0.5 text-xs font-bold text-rating-text">
-              {product.rating}
-              <Star className="h-2.5 w-2.5 fill-current" />
-            </span>
-            <span className="text-xs text-muted-foreground">
-              {formatReviews(product.reviews)} Ratings & Reviews
-            </span>
           </div>
 
           {/* Product Description - Collapsible */}
