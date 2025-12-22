@@ -388,6 +388,191 @@ const ProductDetail = () => {
           </div>
         )}
 
+        {/* Ratings & Reviews Section */}
+        <div className="mt-2 bg-card px-4 py-4">
+          {/* Section Header */}
+          <div className="flex items-center justify-between pb-3 border-b border-border">
+            <h2 className="text-sm font-semibold text-foreground">Ratings & Reviews</h2>
+            <span className="text-xs text-muted-foreground/50">Rate Product</span>
+          </div>
+
+          {/* Total Reviews Count */}
+          <p className="mt-3 text-xs text-muted-foreground">350+ Reviews</p>
+
+          {/* Star Distribution */}
+          <div className="mt-3 space-y-2">
+            {[
+              { stars: 5, count: '1,43,027', percentage: 70 },
+              { stars: 4, count: '39,003', percentage: 45 },
+              { stars: 3, count: '10,411', percentage: 20 },
+              { stars: 2, count: '4,844', percentage: 10 },
+              { stars: 1, count: '10,847', percentage: 15 },
+            ].map((item) => (
+              <div key={item.stars} className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground w-5 flex items-center gap-0.5">
+                  {item.stars}<Star className="h-2.5 w-2.5 fill-current text-muted-foreground" />
+                </span>
+                <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-success rounded-full"
+                    style={{ width: `${item.percentage}%` }}
+                  />
+                </div>
+                <span className="text-xs text-muted-foreground w-14 text-right">{item.count}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Circular Rating Rings */}
+          <div className="mt-5 flex justify-around">
+            {[
+              { rating: 4.7, label: 'Product Quality' },
+              { rating: 4.8, label: 'Packaging Quality' },
+              { rating: 4.5, label: 'Delivery Time' },
+            ].map((item, index) => (
+              <div key={index} className="flex flex-col items-center gap-1.5">
+                <div className="relative w-14 h-14">
+                  {/* Background circle */}
+                  <svg className="w-full h-full -rotate-90">
+                    <circle
+                      cx="28"
+                      cy="28"
+                      r="24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      className="text-muted"
+                    />
+                    <circle
+                      cx="28"
+                      cy="28"
+                      r="24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      strokeDasharray={`${(item.rating / 5) * 150.8} 150.8`}
+                      className="text-success"
+                    />
+                  </svg>
+                  {/* Rating number in center */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-sm font-bold text-foreground">{item.rating}</span>
+                  </div>
+                </div>
+                <span className="text-2xs text-muted-foreground text-center leading-tight">{item.label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Review Cards */}
+          <div className="mt-5 space-y-4">
+            {/* Review 1 */}
+            <div className="border-t border-border pt-4">
+              <div className="flex items-start gap-2">
+                <span className="inline-flex items-center gap-0.5 rounded-sm bg-success px-1.5 py-0.5 text-xs font-bold text-white">
+                  5.0
+                  <Star className="h-2.5 w-2.5 fill-current" />
+                </span>
+                <p className="text-xs font-semibold text-foreground">Excellent Sound & Battery Life</p>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                I bought this during an offer and I'm very satisfied. Sound quality is clear, bass is balanced, and battery backup easily lasts a full day. Works smoothly for calls and music. Totally worth the price.
+              </p>
+              <div className="mt-2 flex items-center gap-2 text-2xs text-muted-foreground">
+                <span className="font-medium text-foreground">Rahul Sharma</span>
+                <span>·</span>
+                <span>Delhi</span>
+              </div>
+              <div className="mt-1 flex items-center gap-2 text-2xs">
+                <span className="text-success flex items-center gap-0.5">
+                  <CheckCircle2 className="h-3 w-3" />
+                  Verified Purchase
+                </span>
+                <span className="text-muted-foreground">· 2 hours ago</span>
+              </div>
+            </div>
+
+            {/* Review 2 */}
+            <div className="border-t border-border pt-4">
+              <div className="flex items-start gap-2">
+                <span className="inline-flex items-center gap-0.5 rounded-sm bg-success px-1.5 py-0.5 text-xs font-bold text-white">
+                  4.0
+                  <Star className="h-2.5 w-2.5 fill-current" />
+                </span>
+                <p className="text-xs font-semibold text-foreground">Very Good Product</p>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                The product quality is solid and feels premium. Connectivity is fast and stable. Charging case is compact and easy to carry. Overall, a very good experience.
+              </p>
+              <div className="mt-2 flex items-center gap-2 text-2xs text-muted-foreground">
+                <span className="font-medium text-foreground">Priya Mehta</span>
+                <span>·</span>
+                <span>Mumbai</span>
+              </div>
+              <div className="mt-1 flex items-center gap-2 text-2xs">
+                <span className="text-success flex items-center gap-0.5">
+                  <CheckCircle2 className="h-3 w-3" />
+                  Verified Purchase
+                </span>
+                <span className="text-muted-foreground">· 10 hours ago</span>
+              </div>
+            </div>
+
+            {/* Review 3 */}
+            <div className="border-t border-border pt-4">
+              <div className="flex items-start gap-2">
+                <span className="inline-flex items-center gap-0.5 rounded-sm bg-success px-1.5 py-0.5 text-xs font-bold text-white">
+                  5.0
+                  <Star className="h-2.5 w-2.5 fill-current" />
+                </span>
+                <p className="text-xs font-semibold text-foreground">Must Buy</p>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                Amazing earbuds for daily use. Sound clarity is impressive and mic quality is better than expected. Delivery was quick and packaging was neat. Highly recommended.
+              </p>
+              <div className="mt-2 flex items-center gap-2 text-2xs text-muted-foreground">
+                <span className="font-medium text-foreground">Anjali Verma</span>
+                <span>·</span>
+                <span>Bengaluru</span>
+              </div>
+              <div className="mt-1 flex items-center gap-2 text-2xs">
+                <span className="text-success flex items-center gap-0.5">
+                  <CheckCircle2 className="h-3 w-3" />
+                  Verified Purchase
+                </span>
+                <span className="text-muted-foreground">· 1 day ago</span>
+              </div>
+            </div>
+
+            {/* Review 4 */}
+            <div className="border-t border-border pt-4">
+              <div className="flex items-start gap-2">
+                <span className="inline-flex items-center gap-0.5 rounded-sm bg-success px-1.5 py-0.5 text-xs font-bold text-white">
+                  4.0
+                  <Star className="h-2.5 w-2.5 fill-current" />
+                </span>
+                <p className="text-xs font-semibold text-foreground">Value for Money</p>
+              </div>
+              <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                Comfortable fit and good noise isolation. Battery performance is reliable and pairs instantly. For this price range, it's a great deal.
+              </p>
+              <div className="mt-2 flex items-center gap-2 text-2xs text-muted-foreground">
+                <span className="font-medium text-foreground">Amit Singh</span>
+                <span>·</span>
+                <span>Noida</span>
+              </div>
+              <div className="mt-1 flex items-center gap-2 text-2xs">
+                <span className="text-success flex items-center gap-0.5">
+                  <CheckCircle2 className="h-3 w-3" />
+                  Verified Purchase
+                </span>
+                <span className="text-muted-foreground">· 1 day ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Sticky Bottom Action Bar - Fixed positioning, consistent sizing */}
         <div className="fixed bottom-0 left-0 right-0 z-50">
           <div className="mx-auto max-w-md flex bg-card border-t border-border shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
