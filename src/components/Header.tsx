@@ -52,7 +52,7 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
                 placeholder={title || "Search for TWS earbuds"}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="h-9 w-full rounded-sm border-0 bg-card pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="h-9 w-full rounded-lg border-0 bg-card pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
               />
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             </div>
