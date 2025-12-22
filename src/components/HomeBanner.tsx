@@ -32,7 +32,7 @@ const HomeBanner = () => {
   }, []);
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden w-full">
       <div 
         className="flex transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -40,7 +40,7 @@ const HomeBanner = () => {
         {banners.map((banner) => (
           <div
             key={banner.id}
-            className={`w-full shrink-0 bg-gradient-to-r ${banner.bgColor} px-4 py-6`}
+            className={`w-full shrink-0 bg-gradient-to-r ${banner.bgColor} py-6`}
           >
             <div className="text-center text-primary-foreground">
               <p className="text-xs font-medium opacity-90">{banner.subtitle}</p>

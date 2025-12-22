@@ -146,19 +146,19 @@ const Index = () => {
       <div className="min-h-screen bg-background">
         <Header />
 
-        {/* Quick Filters */}
-        <QuickFilters
-          selectedBrands={filters.brands}
-          onBrandToggle={handleBrandToggle}
-          hasANC={filters.hasANC}
-          onANCToggle={handleANCToggle}
-        />
-
         {/* Show Homepage sections or Full Listing */}
         {!showFullListing && !hasActiveFilters ? (
           <>
-            {/* Banner Carousel */}
+            {/* Banner Carousel - directly after header */}
             <HomeBanner />
+            
+            {/* Quick Filters */}
+            <QuickFilters
+              selectedBrands={filters.brands}
+              onBrandToggle={handleBrandToggle}
+              hasANC={filters.hasANC}
+              onANCToggle={handleANCToggle}
+            />
 
             {/* Static 2-column Product Grid - All 12 products */}
             <div className="bg-card p-2">
@@ -186,6 +186,14 @@ const Index = () => {
           </>
         ) : (
           <>
+            {/* Quick Filters for listing view */}
+            <QuickFilters
+              selectedBrands={filters.brands}
+              onBrandToggle={handleBrandToggle}
+              hasANC={filters.hasANC}
+              onANCToggle={handleANCToggle}
+            />
+            
             {/* Sort Bar */}
             <SortBar
               sortBy={sortBy}
