@@ -5,7 +5,6 @@ import QuickFilters from "@/components/QuickFilters";
 import FilterSidebar, { Filters } from "@/components/FilterSidebar";
 import SortBar, { SortOption } from "@/components/SortBar";
 import ProductCard from "@/components/ProductCard";
-import ProductSection from "@/components/ProductSection";
 import HomeBanner from "@/components/HomeBanner";
 import MobileContainer from "@/components/MobileContainer";
 import { products } from "@/data/products";
@@ -161,40 +160,18 @@ const Index = () => {
             {/* Banner Carousel */}
             <HomeBanner />
 
-            {/* Product Sections */}
-            <div className="space-y-2 pb-4">
-              <ProductSection 
-                title="Best Deals on TWS" 
-                products={bestDeals} 
-              />
-              
-              <ProductSection 
-                title="Top Rated Earbuds" 
-                products={topRated}
-              />
-              
-              <ProductSection 
-                title="New Arrivals" 
-                products={newArrivals}
-              />
-              
-              {under999.length > 0 && (
-                <ProductSection 
-                  title="Under ₹999" 
-                  products={under999}
-                  bgColor="bg-accent/5"
-                />
-              )}
-              
-              <ProductSection 
-                title="Recommended for You" 
-                products={recommended}
-              />
-              
-              <ProductSection 
-                title="Sponsored Picks" 
-                products={sponsored}
-              />
+            {/* Static 2-column Product Grid - All 12 products */}
+            <div className="bg-card p-2">
+              <h2 className="text-sm font-bold text-foreground mb-2 px-1">All Products</h2>
+              <div className="grid grid-cols-2 gap-2">
+                {products.slice(0, 12).map((product, index) => (
+                  <ProductCard 
+                    key={product.id} 
+                    product={product} 
+                    isSponsored={index === 0 || index === 5}
+                  />
+                ))}
+              </div>
             </div>
 
             {/* View All Products Button */}
