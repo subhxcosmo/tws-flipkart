@@ -22,7 +22,7 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-primary shadow-md">
+    <header className="sticky top-0 z-50 bg-primary">
       {/* Main Header Bar */}
       <div className="px-3 py-2.5">
         <div className="flex items-center gap-3">
