@@ -19,19 +19,12 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
     }).format(price);
   };
 
-  const formatReviews = (reviews: number) => {
-    if (reviews >= 1000) {
-      return `${(reviews / 1000).toFixed(0)}k`;
-    }
-    return reviews.toString();
-  };
-
   // Calculate bank offer price (approximately 5% extra off)
   const bankOfferPrice = Math.round(product.price * 0.95);
 
   return (
     <Link to={`/product/${product.id}`} className="block">
-      <div className="group relative flex flex-col bg-card border border-border rounded-sm overflow-hidden">
+      <div className="group relative flex flex-col bg-card overflow-hidden">
         {/* Wishlist Button */}
         <button 
           className="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-card shadow-sm"
@@ -43,15 +36,8 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
           <Heart className="h-4 w-4 text-muted-foreground" />
         </button>
 
-        {/* Sponsored Tag */}
-        {isSponsored && (
-          <span className="absolute left-2 top-2 z-10 rounded-sm bg-muted px-1.5 py-0.5 text-2xs text-sponsored">
-            Ad
-          </span>
-        )}
-
-        {/* Image Container - Fixed aspect ratio */}
-        <div className="relative aspect-square overflow-hidden p-3 bg-card">
+        {/* Image Container */}
+        <div className="relative aspect-square overflow-hidden bg-card">
           <img
             src={product.image}
             alt={product.name}
@@ -60,47 +46,61 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
           />
         </div>
 
-        {/* Content */}
-        <div className="flex flex-1 flex-col p-2.5 pt-0">
-          {/* Row 1: Discount percentage with arrow + Original price struck */}
-          <div className="flex items-center gap-1.5">
-            <span className="inline-flex items-center text-xs font-semibold text-success">
-              {product.discount}% ↓
+        {/* Content - All left-aligned, tight spacing */}
+        <div className="flex flex-col px-2 py-2">
+          
+          {/* Row 1: Sponsored tag (if applicable) */}
+          {isSponsored && (
+            <span className="text-[11px] text-[#878787] mb-0.5">
+              Sponsored
             </span>
-            <span className="text-xs text-muted-foreground line-through">
+          )}
+
+          {/* Row 2: Brand Name */}
+          <p className="text-[13px] font-medium text-[#212121] leading-tight">
+            {product.brand}
+          </p>
+
+          {/* Row 3: Product Title - truncated */}
+          <p className="text-[12px] text-[#878787] leading-tight mt-0.5 truncate">
+            {product.name}
+          </p>
+
+          {/* Row 4: Discount + Original Price + Final Price */}
+          <div className="flex items-baseline gap-1.5 mt-1.5">
+            <span className="text-[13px] font-medium text-[#388e3c]">
+              ↓{product.discount}%
+            </span>
+            <span className="text-[13px] text-[#878787] line-through">
               {formatPrice(product.originalPrice)}
             </span>
-          </div>
-
-          {/* Row 2: Bold selling price */}
-          <div className="mt-0.5">
-            <span className="text-base font-bold text-foreground">
+            <span className="text-[16px] font-bold text-[#212121]">
               {formatPrice(product.price)}
             </span>
           </div>
 
-          {/* Row 3: WOW badge with bank offer price */}
-          <div className="mt-1 flex items-center gap-1">
+          {/* Row 5: WOW badge + Bank offer */}
+          <div className="flex items-center gap-1.5 mt-1.5">
             <img 
               src={wowBadge} 
               alt="WOW" 
-              className="h-3.5 w-auto"
+              className="h-[14px] w-auto"
             />
-            <span className="text-xs text-muted-foreground">
+            <span className="text-[12px] text-[#212121]">
               {formatPrice(bankOfferPrice)} with Bank offer
             </span>
           </div>
 
-          {/* Row 4: Star rating + Assured badge side by side */}
-          <div className="mt-1.5 flex items-center gap-2">
-            <div className="flex items-center gap-0.5">
+          {/* Row 6: Stars + Assured badge */}
+          <div className="flex items-center gap-2 mt-1.5">
+            <div className="flex items-center">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}
-                  className={`h-3.5 w-3.5 ${
+                  className={`h-[14px] w-[14px] ${
                     star <= Math.floor(product.rating)
                       ? "fill-[#388e3c] text-[#388e3c]"
-                      : "fill-muted text-muted"
+                      : "fill-[#c2c2c2] text-[#c2c2c2]"
                   }`}
                 />
               ))}
@@ -108,7 +108,7 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
             <img 
               src={assuredBadge} 
               alt="Assured" 
-              className="h-4 w-auto"
+              className="h-[16px] w-auto"
             />
           </div>
         </div>
