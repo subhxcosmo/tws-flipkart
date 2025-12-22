@@ -214,11 +214,14 @@ const ProductDetail = () => {
 
         {/* Product Info */}
         <div className="bg-card px-4 py-3">
-          {/* Brand */}
-          <p className="text-xs text-muted-foreground">{product.brand}</p>
+          {/* Brand + Visit Store Row */}
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-semibold text-foreground">{product.brand}</span>
+            <button className="text-xs text-primary font-medium">Visit store</button>
+          </div>
           
-          {/* Name */}
-          <h1 className="mt-1 text-base font-medium text-foreground leading-tight">
+          {/* Product Name */}
+          <h1 className="mt-1.5 text-sm text-foreground leading-snug">
             {product.name}
           </h1>
 
@@ -233,35 +236,44 @@ const ProductDetail = () => {
             </span>
           </div>
 
-          {/* Price Block - Flipkart style emphasis */}
-          <div className="mt-3">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-xs font-semibold text-success bg-success/10 px-1.5 py-0.5 rounded">
-                {product.discount}% OFF
-              </span>
-              <span className="text-xs text-muted-foreground line-through">
-                {formatPrice(product.originalPrice)}
-              </span>
-            </div>
-            <span className="text-2xl font-bold text-foreground">
-              {formatPrice(product.price)}
-            </span>
-          </div>
-
           {/* Product Description - Collapsible */}
-          <div className="mt-3">
+          <div className="mt-2.5">
             <p className={`text-xs text-muted-foreground leading-relaxed ${!isDescriptionExpanded ? 'line-clamp-2' : ''}`}>
-              Experience premium audio quality with the {product.name}. Featuring {product.batteryLife}H of battery life, 
-              {product.hasANC ? ' Active Noise Cancellation,' : ''} and exceptional sound clarity. Perfect for music lovers and professionals alike. 
-              Designed with comfort in mind for extended listening sessions. Comes with {product.highlights.join(', ')}.
+              Experience premium audio quality with the {product.name}. Featuring {product.batteryLife}H of battery life{product.hasANC ? ', Active Noise Cancellation,' : ''} and exceptional sound clarity. Perfect for music lovers and professionals alike. Designed with comfort in mind for extended listening sessions. Comes with {product.highlights.join(', ')}.
             </p>
             <button 
               onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-              className="text-xs font-medium text-primary mt-1"
+              className="text-xs text-primary"
             >
               {isDescriptionExpanded ? 'less' : 'more'}
             </button>
           </div>
+
+          {/* Hot Deal Badge */}
+          <div className="mt-3">
+            <span className="inline-block text-2xs font-medium text-white bg-success px-2 py-0.5 rounded">
+              Hot Deal
+            </span>
+          </div>
+
+          {/* Price Block */}
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="text-sm font-medium text-success flex items-center gap-0.5">
+              <span>↓</span>{product.discount}%
+            </span>
+            <span className="text-sm text-muted-foreground line-through">
+              {formatPrice(product.originalPrice)}
+            </span>
+            <span className="text-xl font-bold text-foreground">
+              {formatPrice(product.price)}
+            </span>
+          </div>
+
+          {/* Protect Promise Fee */}
+          <button className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
+            <span>+₹9 Protect Promise Fee</span>
+            <ChevronRight className="h-3 w-3" />
+          </button>
 
           {/* Bank Offer */}
           <div className="mt-3 flex items-start gap-2 rounded-sm bg-success/5 p-2.5 border border-success/20">
