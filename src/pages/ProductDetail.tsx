@@ -220,10 +220,6 @@ const ProductDetail = () => {
             <button className="text-xs text-primary font-medium">Visit store</button>
           </div>
           
-          {/* Product Name */}
-          <h1 className="mt-1.5 text-sm text-foreground leading-snug">
-            {product.name}
-          </h1>
 
           {/* Rating */}
           <div className="mt-2 flex items-center gap-2">
