@@ -134,7 +134,7 @@ const ProductDetail = () => {
               <ArrowLeft className="h-5 w-5" />
             </Button>
             
-            {/* Search Bar - Full width, aligned */}
+            {/* Search Bar - Full width */}
             <div className="flex-1">
               <div className="relative h-10 w-full">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -146,34 +146,17 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Icons - evenly spaced */}
-            <div className="flex items-center shrink-0">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-10 w-10 text-primary-foreground hover:bg-primary-foreground/10"
-              >
-                <Share2 className="h-5 w-5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsWishlisted(!isWishlisted)}
-                className="h-10 w-10 text-primary-foreground hover:bg-primary-foreground/10"
-              >
-                <Heart className={`h-5 w-5 ${isWishlisted ? "fill-current" : ""}`} />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative h-10 w-10 text-primary-foreground hover:bg-primary-foreground/10"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-2xs font-bold text-accent-foreground">
-                  2
-                </span>
-              </Button>
-            </div>
+            {/* Cart Icon Only */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative h-10 w-10 shrink-0 text-primary-foreground hover:bg-primary-foreground/10"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-2xs font-bold text-accent-foreground">
+                2
+              </span>
+            </Button>
           </div>
         </header>
 
