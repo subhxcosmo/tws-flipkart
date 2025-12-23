@@ -44,30 +44,52 @@ const BhimIcon = () => (
   </svg>
 );
 
+const UPIIcon = () => (
+  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
+    <rect width="24" height="24" rx="4" fill="#3d3d3d"/>
+    <path d="M7 8h2l2 8h-2L7 8zm4 0h2l1 4 1-4h2l-2 8h-2l-2-8zm6 0h2v8h-2V8z" fill="#00bfa5"/>
+  </svg>
+);
+
+// UPI ID for receiving payments
+const UPI_ID = "trendaura432220.rzp@icici";
+const MERCHANT_NAME = "TrendAura";
+
 const paymentMethods = [
   {
     id: "phonepe",
     name: "PhonePe",
     icon: PhonePeIcon,
-    description: "Pay using PhonePe UPI"
+    description: "Pay using PhonePe UPI",
+    deepLinkPrefix: "phonepe://pay"
   },
   {
     id: "paytm",
     name: "Paytm",
     icon: PaytmIcon,
-    description: "Pay using Paytm UPI"
+    description: "Pay using Paytm UPI",
+    deepLinkPrefix: "paytmmp://pay"
   },
   {
     id: "gpay",
     name: "Google Pay",
     icon: GPayIcon,
-    description: "Pay using Google Pay"
+    description: "Pay using Google Pay",
+    deepLinkPrefix: "tez://upi/pay"
   },
   {
     id: "bhim",
     name: "BHIM UPI",
     icon: BhimIcon,
-    description: "Pay using any UPI app"
+    description: "Pay using BHIM app",
+    deepLinkPrefix: "upi://pay"
+  },
+  {
+    id: "upi",
+    name: "Pay With UPI",
+    icon: UPIIcon,
+    description: "Open any UPI app on your phone",
+    deepLinkPrefix: "upi://pay"
   }
 ];
 
@@ -110,14 +132,33 @@ const Payment = () => {
 
   const steps = ["Address", "Order Summary", "Payment"];
 
+  // Generate UPI deep link URL
+  const generateUPILink = (prefix: string, amount: number) => {
+    const params = new URLSearchParams({
+      pa: UPI_ID,
+      pn: MERCHANT_NAME,
+      am: amount.toString(),
+      cu: "INR",
+      tn: `Order Payment - ${product.name.substring(0, 30)}`
+    });
+    return `${prefix}?${params.toString()}`;
+  };
+
   const handlePlaceOrder = () => {
+    const selectedPaymentMethod = paymentMethods.find(m => m.id === selectedMethod);
+    if (!selectedPaymentMethod) return;
+
     setIsProcessing(true);
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      alert("Order placed successfully!");
-      navigate("/");
-    }, 3000);
+
+    // Generate the UPI deep link with total amount
+    const upiLink = generateUPILink(selectedPaymentMethod.deepLinkPrefix, total);
+    
+    // Open the UPI app
+    window.location.href = upiLink;
+
+    // Since we can't automatically detect payment completion,
+    // we'll keep the processing state and let user manually confirm
+    // In a real app, you'd use a webhook or polling to verify payment
   };
 
   return (
