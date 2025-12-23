@@ -76,7 +76,7 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
             placeholder={title || "Search for Products"}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-12 w-full rounded-full border-0 bg-[#F0F0F0] pl-12 pr-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+            className="h-12 w-full rounded-lg border-0 bg-[#F0F0F0] pl-12 pr-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
           />
         </div>
       </div>
