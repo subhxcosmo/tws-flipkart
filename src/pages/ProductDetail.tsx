@@ -169,7 +169,7 @@ const ProductDetail = () => {
               <input
                 type="text"
                 placeholder="Search for Products"
-                className="h-9 w-full rounded-md bg-[#F0F0F0] pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+                className="h-9 w-full rounded-full bg-[#F0F0F0] pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
               />
             </div>
 
