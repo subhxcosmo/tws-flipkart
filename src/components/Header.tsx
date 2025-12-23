@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, Search, Heart, ShoppingCart, Menu, X } from "lucide-react";
+import logoImage from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -39,10 +40,12 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
               <ArrowLeft className="h-5 w-5" />
             </Button>
           ) : (
-            <Link to="/" className="flex items-center gap-2 shrink-0">
-              <span className="text-lg font-bold text-primary-foreground italic">
-                AudioMart
-              </span>
+            <Link to="/" className="flex items-center shrink-0">
+              <img 
+                src={logoImage} 
+                alt="Flipkart" 
+                className="h-7 w-auto object-contain"
+              />
             </Link>
           )}
 
