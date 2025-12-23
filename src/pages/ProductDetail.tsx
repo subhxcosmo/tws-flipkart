@@ -6,7 +6,6 @@ import {
   Search, 
   Share2, 
   Heart, 
-  ShoppingCart, 
   Star, 
   ChevronRight,
   ChevronUp,
@@ -28,6 +27,7 @@ import ProductCard from "@/components/ProductCard";
 import MobileContainer from "@/components/MobileContainer";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
+import cartIcon from "@/assets/shopping-cart.png";
 
 // Color options for products
 const colorOptions = [
@@ -174,19 +174,21 @@ const ProductDetail = () => {
             </div>
 
             {/* Cart Icon */}
-            <Button
-              variant="ghost"
-              size="icon"
+            <button
               onClick={() => navigate("/cart")}
-              className="relative h-9 w-9 shrink-0 text-foreground hover:bg-muted"
+              className="relative shrink-0"
             >
-              <ShoppingCart className="h-5 w-5" />
+              <img 
+                src={cartIcon} 
+                alt="Cart" 
+                className="h-6 w-6 object-contain"
+              />
               {getTotalItems() > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-2xs font-bold text-primary-foreground">
+                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-2xs font-bold text-primary-foreground">
                   {getTotalItems()}
                 </span>
               )}
-            </Button>
+            </button>
           </div>
         </header>
 
