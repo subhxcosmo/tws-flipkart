@@ -24,6 +24,15 @@ import MobileContainer from "@/components/MobileContainer";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 
+// Color options for products
+const colorOptions = [
+  { name: "Wine Red", color: "#8B2346" },
+  { name: "Navy Blue", color: "#1E3A5F" },
+  { name: "Jungle Green", color: "#2D4739" },
+  { name: "Black", color: "#1A1A1A" },
+  { name: "Silver", color: "#C0C0C0" },
+];
+
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -31,6 +40,7 @@ const ProductDetail = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(colorOptions[2]); // Default to Jungle Green
   
   // Touch handling for swipe
   const touchStartX = useRef<number | null>(null);
@@ -44,8 +54,8 @@ const ProductDetail = () => {
     .filter((p) => p.id !== id && (p.brand === product?.brand || Math.abs(p.price - (product?.price || 0)) < 1000))
     .slice(0, 6);
 
-  // Mock multiple images for carousel
-  const images = product ? [product.image, product.image, product.image, product.image] : [];
+  // Mock multiple images for carousel (6 images like reference)
+  const images = product ? [product.image, product.image, product.image, product.image, product.image, product.image] : [];
 
   const minSwipeDistance = 50;
 
@@ -101,7 +111,7 @@ const ProductDetail = () => {
 
   const formatReviews = (reviews: number) => {
     if (reviews >= 1000) {
-      return `${(reviews / 1000).toFixed(0)}k`;
+      return `${(reviews / 1000).toFixed(1)}K+`;
     }
     return reviews.toString();
   };
@@ -169,16 +179,16 @@ const ProductDetail = () => {
           </div>
         </header>
 
-        {/* Image Carousel - 1080x1425 aspect ratio */}
+        {/* Image Carousel */}
         <div 
           ref={containerRef}
-          className="relative bg-card overflow-hidden"
+          className="relative bg-[#f5f5f5] overflow-hidden"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Aspect ratio 1080:1425 = 0.757 */}
-          <div className="relative w-full" style={{ aspectRatio: '1080/1425' }}>
+          {/* Square aspect ratio for product image */}
+          <div className="relative w-full" style={{ aspectRatio: '1/1' }}>
             <div 
               className="absolute inset-0 flex transition-transform duration-300 ease-out"
               style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
@@ -186,13 +196,13 @@ const ProductDetail = () => {
               {images.map((img, index) => (
                 <div 
                   key={index} 
-                  className="w-full shrink-0 flex items-center justify-center p-6 bg-card"
-                  style={{ aspectRatio: '1080/1425' }}
+                  className="w-full shrink-0 flex items-center justify-center bg-[#f5f5f5]"
+                  style={{ aspectRatio: '1/1' }}
                 >
                   <img
                     src={img}
                     alt={`${product.name} - Image ${index + 1}`}
-                    className="max-h-full max-w-full object-contain"
+                    className="max-h-[90%] max-w-[90%] object-contain"
                     draggable={false}
                   />
                 </div>
@@ -200,10 +210,15 @@ const ProductDetail = () => {
             </div>
           </div>
           
-          {/* Discount Badge */}
-          <Badge className="absolute left-3 top-3 bg-discount text-discount-foreground font-semibold text-xs px-2 py-1">
-            {product.discount}% OFF
-          </Badge>
+          {/* Floating Rating Badge - stays fixed while swiping */}
+          <div className="absolute left-3 top-3 bg-white/95 rounded-md px-2 py-1 shadow-sm">
+            <span className="text-sm font-medium text-[#212121] flex items-center gap-1">
+              {product.rating}
+              <Star className="h-3.5 w-3.5 fill-[#388e3c] text-[#388e3c]" />
+              <span className="text-[#878787] mx-0.5">|</span>
+              <span className="text-[#878787]">{formatReviews(product.reviews)}</span>
+            </span>
+          </div>
 
           {/* Pagination Dots */}
           <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
@@ -211,85 +226,93 @@ const ProductDetail = () => {
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`h-2 rounded-full transition-all ${
+                className={`h-2 w-2 rounded-full transition-all ${
                   index === currentImageIndex
-                    ? "w-5 bg-primary"
-                    : "w-2 bg-muted-foreground/30"
+                    ? "bg-primary"
+                    : "bg-[#c2c2c2]"
                 }`}
               />
             ))}
           </div>
         </div>
 
+        {/* Color Options Section */}
+        <div className="bg-white px-4 py-3 border-b border-[#f0f0f0]">
+          <p className="text-sm text-[#212121]">
+            <span className="font-medium">Selected Color:</span> {selectedColor.name}
+          </p>
+          <div className="flex gap-2 mt-3 overflow-x-auto scrollbar-hide">
+            {colorOptions.map((colorOption) => (
+              <button
+                key={colorOption.name}
+                onClick={() => setSelectedColor(colorOption)}
+                className={`shrink-0 w-20 h-24 rounded-lg border-2 overflow-hidden transition-all ${
+                  selectedColor.name === colorOption.name 
+                    ? "border-[#212121]" 
+                    : "border-[#e0e0e0]"
+                }`}
+              >
+                <div 
+                  className="w-full h-full flex items-center justify-center"
+                  style={{ backgroundColor: '#f5f5f5' }}
+                >
+                  <img
+                    src={product.image}
+                    alt={colorOption.name}
+                    className="max-h-[80%] max-w-[80%] object-contain"
+                  />
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Product Info */}
-        <div className="bg-card px-4 py-3">
-          {/* Brand + Visit Store Row */}
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-foreground">{product.brand}</span>
-            <button className="text-xs text-primary font-medium">Visit store</button>
-          </div>
+        <div className="bg-white px-4 py-3">
+          {/* Brand Name */}
+          <h2 className="text-base font-semibold text-[#212121]">{product.brand}</h2>
           
-
-          {/* Rating */}
-          <div className="mt-2 flex items-center gap-2">
-            <span className="inline-flex items-center gap-0.5 rounded-sm bg-rating-bg px-1.5 py-0.5 text-xs font-bold text-rating-text">
-              {product.rating}
-              <Star className="h-2.5 w-2.5 fill-current" />
-            </span>
-            <span className="text-xs text-muted-foreground">
-              {formatReviews(product.reviews)} Ratings & Reviews
-            </span>
-          </div>
-
-          {/* Product Description - Collapsible */}
-          <div className="mt-2.5">
-            <p className={`text-xs text-muted-foreground leading-relaxed ${!isDescriptionExpanded ? 'line-clamp-2' : ''}`}>
-              Experience premium audio quality with the {product.name}. Featuring {product.batteryLife}H of battery life{product.hasANC ? ', Active Noise Cancellation,' : ''} and exceptional sound clarity. Perfect for music lovers and professionals alike. Designed with comfort in mind for extended listening sessions. Comes with {product.highlights.join(', ')}.
+          {/* Product Description - Collapsible with "more" */}
+          <div className="mt-1">
+            <p className="text-sm text-[#878787] leading-snug">
+              {isDescriptionExpanded 
+                ? `${product.name} with Dual Pairing, ENC, Fast Charge, ${product.batteryLife}H Battery, ${product.highlights.join(', ')}. Premium audio quality with crystal clear sound and deep bass.`
+                : `${product.name} with Dual Pairing, ENC, Fast Charge, ${product.batteryLife}H Battery, Rubbe...`
+              }
+              <button 
+                onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                className="text-primary font-medium"
+              >
+                {isDescriptionExpanded ? 'less' : 'more'}
+              </button>
             </p>
-            <button 
-              onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-              className="text-xs text-primary"
-            >
-              {isDescriptionExpanded ? 'less' : 'more'}
-            </button>
           </div>
 
-          {/* Hot Deal Badge */}
+          {/* SUPER DEALS Label */}
           <div className="mt-3">
-            <span className="inline-block text-2xs font-medium text-white bg-success px-2 py-0.5 rounded">
-              Hot Deal
+            <span className="text-xs font-bold text-[#388e3c] tracking-wide">
+              SUPER DEALS
             </span>
           </div>
 
-          {/* Price Block */}
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-lg font-bold text-success flex items-center gap-0.5">
-              <span>↓</span>{product.discount}%
+          {/* Price Block - Matching reference exactly */}
+          <div className="mt-1 flex items-baseline gap-2">
+            <span className="text-xl font-bold text-[#388e3c] flex items-center">
+              ↓{product.discount}%
             </span>
-            <span className="text-lg text-muted-foreground/60 line-through">
+            <span className="text-xl text-[#878787] line-through">
               {formatPrice(product.originalPrice)}
             </span>
-            <span className="text-2xl font-extrabold text-foreground">
+            <span className="text-3xl font-bold text-[#212121]">
               {formatPrice(product.price)}
             </span>
           </div>
 
           {/* Protect Promise Fee */}
-          <button className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
+          <button className="mt-2 flex items-center gap-1 text-sm text-[#878787]">
             <span>+₹9 Protect Promise Fee</span>
-            <ChevronRight className="h-3 w-3" />
+            <ChevronRight className="h-4 w-4" />
           </button>
-
-          {/* Bank Offer */}
-          <div className="mt-3 flex items-start gap-2 rounded-sm bg-success/5 p-2.5 border border-success/20">
-            <Zap className="h-4 w-4 shrink-0 text-bank-offer mt-0.5" />
-            <div>
-              <p className="text-xs font-medium text-foreground">Bank Offer</p>
-              <p className="text-xs text-muted-foreground">
-                10% instant discount on SBI Credit Card, up to ₹500
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* Delivery Section */}

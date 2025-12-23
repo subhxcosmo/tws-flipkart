@@ -33,21 +33,27 @@ const HomeBanner = () => {
 
   return (
     <div className="relative overflow-hidden w-full">
+      {/* Container with exact 943x460 aspect ratio */}
       <div 
-        className="flex transition-transform duration-500 ease-out"
-        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        className="relative w-full"
+        style={{ aspectRatio: '943/460' }}
       >
-        {banners.map((banner) => (
-          <div
-            key={banner.id}
-            className={`w-full shrink-0 bg-gradient-to-r ${banner.bgColor} py-6`}
-          >
-            <div className="text-center text-primary-foreground">
-              <p className="text-xs font-medium opacity-90">{banner.subtitle}</p>
-              <h2 className="mt-1 text-xl font-bold">{banner.title}</h2>
+        <div 
+          className="absolute inset-0 flex transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {banners.map((banner) => (
+            <div
+              key={banner.id}
+              className={`w-full h-full shrink-0 bg-gradient-to-r ${banner.bgColor} flex items-center justify-center`}
+            >
+              <div className="text-center text-primary-foreground">
+                <p className="text-xs font-medium opacity-90">{banner.subtitle}</p>
+                <h2 className="mt-1 text-xl font-bold">{banner.title}</h2>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       
       {/* Dots */}
