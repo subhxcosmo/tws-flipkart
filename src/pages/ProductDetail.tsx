@@ -683,21 +683,19 @@ const ProductDetail = () => {
 
         {/* Sticky Bottom Action Bar - Fixed positioning, consistent sizing */}
         <div className="fixed bottom-0 left-0 right-0 z-50">
-          <div className="mx-auto max-w-md flex bg-card border-t border-border shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
+          <div className="mx-auto max-w-md flex gap-3 bg-card border-t border-border shadow-[0_-2px_10px_rgba(0,0,0,0.1)] px-4 py-3">
             <Button
-              variant="ghost"
+              variant="outline"
               onClick={handleAddToCart}
-              className="flex-1 h-14 rounded-none border-r border-border text-foreground hover:bg-muted font-semibold text-sm gap-2"
+              className="flex-1 h-12 rounded-full border-muted-foreground/30 bg-card text-foreground hover:bg-muted font-bold text-sm"
             >
-              <ShoppingCart className="h-5 w-5" />
-              ADD TO CART
+              Add to cart
             </Button>
             <Button
               onClick={handleBuyNow}
-              className="flex-1 h-14 rounded-none bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm gap-2"
+              className="flex-1 h-12 rounded-full bg-[#FFD814] hover:bg-[#F7CA00] text-[#0F1111] font-bold text-sm"
             >
-              <Zap className="h-5 w-5" />
-              BUY NOW
+              Buy at ₹{product.price.toLocaleString()}
             </Button>
           </div>
         </div>
