@@ -111,21 +111,16 @@ const Payment = () => {
     const transactionNote = `Order Payment - ${product.name.substring(0, 30)}`;
     
     // Build UPI params
-    const upiParams = new URLSearchParams({
-      pa: UPI_ID,
-      pn: MERCHANT_NAME,
-      am: amount.toString(),
-      cu: "INR",
-      tn: transactionNote
-    });
+    const upiParams = `pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent(transactionNote)}`;
     
-    // For generic UPI, use upi:// scheme directly - this opens app chooser on Android
+    // For generic UPI, use Android intent scheme - this opens app chooser
     if (method.isGenericUPI) {
-      return `upi://pay?${upiParams.toString()}`;
+      // Android Intent format that triggers UPI app chooser
+      return `intent://pay?${upiParams}#Intent;scheme=upi;package=;end`;
     }
     
     // For specific apps, use their dedicated deep links
-    return `${method.deepLinkPrefix}?${upiParams.toString()}`;
+    return `${method.deepLinkPrefix}?${upiParams}`;
   };
 
   const handlePlaceOrder = () => {
