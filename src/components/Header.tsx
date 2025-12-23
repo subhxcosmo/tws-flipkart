@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { ArrowLeft, Search, Heart, ShoppingCart, Menu, X } from "lucide-react";
+import { ArrowLeft, Search, Heart, Menu, X } from "lucide-react";
 import logoImage from "@/assets/logo.png";
+import cartIcon from "@/assets/shopping-cart.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -50,19 +51,17 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
           )}
 
           {/* Cart Icon */}
-          <Link to="/cart">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative h-10 w-10 text-foreground hover:bg-muted"
-            >
-              <ShoppingCart className="h-6 w-6" />
-              {getTotalItems() > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-2xs font-bold text-primary-foreground">
-                  {getTotalItems() > 99 ? '99+' : getTotalItems()}
-                </span>
-              )}
-            </Button>
+          <Link to="/cart" className="relative">
+            <img 
+              src={cartIcon} 
+              alt="Cart" 
+              className="h-7 w-7 object-contain"
+            />
+            {getTotalItems() > 0 && (
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-2xs font-bold text-primary-foreground">
+                {getTotalItems() > 99 ? '99+' : getTotalItems()}
+              </span>
+            )}
           </Link>
         </div>
       </div>
