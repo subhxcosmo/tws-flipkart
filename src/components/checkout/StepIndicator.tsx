@@ -7,29 +7,31 @@ interface StepIndicatorProps {
 
 const StepIndicator = ({ currentStep, steps }: StepIndicatorProps) => {
   return (
-    <div className="bg-card border-b border-border px-4 py-3">
-      <div className="flex items-center justify-center gap-2">
+    <div className="bg-card px-4 py-5">
+      <div className="flex items-center justify-center">
         {steps.map((step, index) => (
-          <div key={step} className="flex items-center gap-2">
-            {/* Step Circle */}
-            <div className="flex items-center gap-1.5">
+          <div key={step} className="flex items-center">
+            {/* Step with Circle and Label */}
+            <div className="flex flex-col items-center">
+              {/* Circle */}
               <div
-                className={`flex h-5 w-5 items-center justify-center rounded-full text-2xs font-bold ${
+                className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
                   index < currentStep
-                    ? "bg-success text-success-foreground"
+                    ? "border-2 border-primary bg-transparent text-primary"
                     : index === currentStep
                     ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground"
+                    : "border-2 border-muted-foreground/30 bg-transparent text-muted-foreground"
                 }`}
               >
                 {index < currentStep ? (
-                  <Check className="h-3 w-3" />
+                  <Check className="h-5 w-5 stroke-[2.5]" />
                 ) : (
                   index + 1
                 )}
               </div>
+              {/* Label */}
               <span
-                className={`text-xs font-medium ${
+                className={`mt-2 text-xs font-medium ${
                   index <= currentStep
                     ? "text-foreground"
                     : "text-muted-foreground"
@@ -42,8 +44,8 @@ const StepIndicator = ({ currentStep, steps }: StepIndicatorProps) => {
             {/* Connector Line */}
             {index < steps.length - 1 && (
               <div
-                className={`h-0.5 w-6 ${
-                  index < currentStep ? "bg-success" : "bg-muted"
+                className={`h-0.5 w-16 mx-2 -mt-5 ${
+                  index < currentStep ? "bg-primary" : "bg-primary"
                 }`}
               />
             )}
