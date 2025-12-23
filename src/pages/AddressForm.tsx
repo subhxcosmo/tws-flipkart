@@ -296,7 +296,7 @@ const AddressForm = () => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-12 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm"
+              className="w-full h-12 bg-cta hover:bg-cta/90 text-cta-foreground font-semibold text-sm"
             >
               {isSubmitting ? "SAVING..." : "SAVE ADDRESS"}
             </Button>

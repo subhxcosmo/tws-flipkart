@@ -17,14 +17,7 @@ import phonepeLogo from "@/assets/phonepe-logo.png";
 import paytmLogo from "@/assets/paytm-logo.png";
 import gpayLogo from "@/assets/gpay-logo.png";
 import upiLogo from "@/assets/upi-logo.png";
-
-// BHIM Icon (SVG fallback since logo download failed)
-const BhimIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
-    <rect width="24" height="24" rx="4" fill="#00796b"/>
-    <path d="M6 8h5v2H8v1h3v2H8v1h3v2H6V8zm7 0h3c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-3V8zm2 6h1v-4h-1v4z" fill="white"/>
-  </svg>
-);
+import bhimLogo from "@/assets/bhim-logo.png";
 
 // UPI ID for receiving payments
 const UPI_ID = "trendaura432220.rzp@icici";
@@ -58,8 +51,8 @@ const paymentMethods = [
   {
     id: "bhim",
     name: "BHIM UPI",
-    icon: BhimIcon,
-    isImage: false,
+    icon: bhimLogo,
+    isImage: true,
     description: "Pay using BHIM app",
     deepLinkPrefix: "upi://pay"
   },
@@ -117,23 +110,22 @@ const Payment = () => {
   const generateUPILink = (method: typeof paymentMethods[0], amount: number) => {
     const transactionNote = `Order Payment - ${product.name.substring(0, 30)}`;
     
-    // For generic UPI (Pay With UPI option), use Android Intent format
-    // This opens the UPI app chooser showing ALL installed UPI apps
-    if (method.isGenericUPI) {
-      const upiParams = `pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${amount}&cu=INR&tn=${encodeURIComponent(transactionNote)}`;
-      // Android Intent format that works with all UPI apps
-      return `intent://pay?${upiParams}#Intent;scheme=upi;package=;end`;
-    }
-    
-    // For specific apps, use their dedicated deep links
-    const params = new URLSearchParams({
+    // Build UPI params
+    const upiParams = new URLSearchParams({
       pa: UPI_ID,
       pn: MERCHANT_NAME,
       am: amount.toString(),
       cu: "INR",
       tn: transactionNote
     });
-    return `${method.deepLinkPrefix}?${params.toString()}`;
+    
+    // For generic UPI, use upi:// scheme directly - this opens app chooser on Android
+    if (method.isGenericUPI) {
+      return `upi://pay?${upiParams.toString()}`;
+    }
+    
+    // For specific apps, use their dedicated deep links
+    return `${method.deepLinkPrefix}?${upiParams.toString()}`;
   };
 
   const handlePlaceOrder = () => {
@@ -145,13 +137,8 @@ const Payment = () => {
     // Generate the UPI deep link with total amount
     const upiLink = generateUPILink(selectedPaymentMethod, total);
     
-    // For generic UPI, also try simple upi:// scheme as fallback for iOS
-    if (selectedPaymentMethod.isGenericUPI) {
-      const simpleUpiLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${total}&cu=INR&tn=${encodeURIComponent(`Order Payment - ${product.name.substring(0, 30)}`)}`;
-      window.location.href = simpleUpiLink;
-    } else {
-      window.location.href = upiLink;
-    }
+    // Open the UPI app
+    window.location.href = upiLink;
 
     // Since we can't automatically detect payment completion,
     // we'll keep the processing state and let user manually confirm
@@ -349,7 +336,7 @@ const Payment = () => {
           <div className="mx-auto max-w-md bg-card border-t border-border px-4 py-3 shadow-lg">
             <Button
               onClick={handlePlaceOrder}
-              className="w-full h-12 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm"
+              className="w-full h-12 bg-cta hover:bg-cta/90 text-cta-foreground font-semibold text-sm"
             >
               PAY {formatPrice(total)}
             </Button>

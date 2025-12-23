@@ -30,6 +30,10 @@
     --accent: 24 100% 50%;
     --accent-foreground: 0 0% 100%;
     
+    /* Yellow for CTA buttons */
+    --cta: 45 100% 51%;
+    --cta-foreground: 0 0% 13%;
+    
     /* Green for success/offers */
     --success: 145 63% 42%;
     --success-foreground: 0 0% 100%;
@@ -91,6 +95,10 @@
     
     --accent: 24 100% 50%;
     --accent-foreground: 0 0% 100%;
+    
+    /* Yellow for CTA buttons */
+    --cta: 45 100% 51%;
+    --cta-foreground: 0 0% 13%;
     
     --success: 145 63% 42%;
     --success-foreground: 0 0% 100%;
