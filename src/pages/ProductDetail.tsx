@@ -150,48 +150,43 @@ const ProductDetail = () => {
       </Helmet>
 
       <div className="min-h-screen bg-background pb-16">
-        {/* Sticky Header - Matching Homepage */}
+        {/* Sticky Header - Compact single row */}
         <header className="sticky top-0 z-50 bg-white shadow-sm">
-          {/* Top Header Bar - Back, Logo area and Cart */}
-          <div className="px-4 py-3">
-            <div className="flex items-center justify-between">
-              {/* Back Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => navigate(-1)}
-                className="h-10 w-10 shrink-0 text-foreground hover:bg-muted"
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </Button>
+          <div className="flex items-center gap-2 px-2 py-2">
+            {/* Back Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate(-1)}
+              className="h-9 w-9 shrink-0 text-foreground hover:bg-muted"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
 
-              {/* Cart Icon */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => navigate("/cart")}
-                className="relative h-10 w-10 text-foreground hover:bg-muted"
-              >
-                <ShoppingCart className="h-6 w-6" />
-                {getTotalItems() > 0 && (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-2xs font-bold text-primary-foreground">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </Button>
-            </div>
-          </div>
-
-          {/* Search Bar - Below header */}
-          <div className="px-4 pb-3">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+            {/* Search Bar - Inline */}
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
                 type="text"
                 placeholder="Search for Products"
-                className="h-12 w-full rounded-md bg-[#F0F0F0] pl-12 pr-4 text-base text-foreground placeholder:text-muted-foreground focus:outline-none"
+                className="h-9 w-full rounded-md bg-[#F0F0F0] pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
               />
             </div>
+
+            {/* Cart Icon */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => navigate("/cart")}
+              className="relative h-9 w-9 shrink-0 text-foreground hover:bg-muted"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {getTotalItems() > 0 && (
+                <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-2xs font-bold text-primary-foreground">
+                  {getTotalItems()}
+                </span>
+              )}
+            </Button>
           </div>
         </header>
 
