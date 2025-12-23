@@ -71,6 +71,11 @@ export default {
         "bank-offer": "hsl(var(--bank-offer))",
         express: "hsl(var(--express))",
         sponsored: "hsl(var(--sponsored))",
+        // CTA button color
+        cta: {
+          DEFAULT: "hsl(var(--cta))",
+          foreground: "hsl(var(--cta-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
