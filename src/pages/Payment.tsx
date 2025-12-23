@@ -106,17 +106,17 @@ const Payment = () => {
 
   const steps = ["Address", "Order Summary", "Payment"];
 
-  // Generate UPI deep link URL
+  // Generate UPI deep link URL - uses upi:// scheme for all methods
   const generateUPILink = (method: typeof paymentMethods[0], amount: number) => {
     const transactionNote = `Order Payment - ${product.name.substring(0, 30)}`;
     
-    // Build UPI params
+    // Build UPI params with proper encoding
     const upiParams = `pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent(transactionNote)}`;
     
-    // For generic UPI, use Android intent scheme - this opens app chooser
-    if (method.isGenericUPI) {
-      // Android Intent format that triggers UPI app chooser
-      return `intent://pay?${upiParams}#Intent;scheme=upi;package=;end`;
+    // For generic UPI or BHIM, use universal upi://pay scheme
+    // This opens the system UPI app chooser on Android
+    if (method.isGenericUPI || method.id === "bhim") {
+      return `upi://pay?${upiParams}`;
     }
     
     // For specific apps, use their dedicated deep links
@@ -132,11 +132,19 @@ const Payment = () => {
     // Generate the UPI deep link with total amount
     const upiLink = generateUPILink(selectedPaymentMethod, total);
     
-    // Open the UPI app
-    window.location.href = upiLink;
-
-    // Since we can't automatically detect payment completion,
-    // we'll keep the processing state and let user manually confirm
+    // Method 1: Create hidden anchor tag and click it programmatically
+    // This is more reliable on mobile browsers than window.location.href
+    const link = document.createElement('a');
+    link.href = upiLink;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Method 2: Fallback with window.location after small delay
+    setTimeout(() => {
+      window.location.href = upiLink;
+    }, 100);
   };
 
   return (
