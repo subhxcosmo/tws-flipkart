@@ -190,16 +190,15 @@ const ProductDetail = () => {
           </div>
         </header>
 
-        {/* Image Carousel */}
+        {/* Image Carousel - Half screen height */}
         <div 
           ref={containerRef}
-          className="relative bg-[#f5f5f5] overflow-hidden"
+          className="relative bg-[#f5f5f5] overflow-hidden h-[50vh]"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Square aspect ratio for product image */}
-          <div className="relative w-full" style={{ aspectRatio: '1/1' }}>
+          <div className="relative w-full h-full">
             <div 
               className="absolute inset-0 flex transition-transform duration-300 ease-out"
               style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
@@ -207,8 +206,7 @@ const ProductDetail = () => {
               {images.map((img, index) => (
                 <div 
                   key={index} 
-                  className="w-full shrink-0 flex items-center justify-center bg-[#f5f5f5]"
-                  style={{ aspectRatio: '1/1' }}
+                  className="w-full h-full shrink-0 flex items-center justify-center bg-[#f5f5f5]"
                 >
                   <img
                     src={img}
