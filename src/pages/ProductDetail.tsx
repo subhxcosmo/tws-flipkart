@@ -9,12 +9,17 @@ import {
   ShoppingCart, 
   Star, 
   ChevronRight,
+  ChevronUp,
   Truck,
   ShieldCheck,
   RotateCcw,
   Zap,
   Package,
-  CheckCircle2
+  CheckCircle2,
+  BatteryCharging,
+  AudioLines,
+  SlidersHorizontal,
+  Radio
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -40,12 +45,19 @@ const ProductDetail = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [isHighlightsExpanded, setIsHighlightsExpanded] = useState(true);
+  const [isLongDescExpanded, setIsLongDescExpanded] = useState(false);
   const [selectedColor, setSelectedColor] = useState(colorOptions[2]); // Default to Jungle Green
   
   // Touch handling for swipe
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to top when component mounts or id changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   const product = products.find((p) => p.id === id);
   
@@ -332,33 +344,97 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Highlights */}
-        <div className="mt-2 bg-card px-4 py-3">
-          <h2 className="text-sm font-semibold text-foreground">Highlights</h2>
-          <ul className="mt-2 space-y-2">
-            {product.highlights.map((highlight, index) => (
-              <li key={index} className="flex items-center gap-2 text-xs text-muted-foreground">
-                <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-success" />
-                {highlight}
-              </li>
-            ))}
-            <li className="flex items-center gap-2 text-xs text-muted-foreground">
-              <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-success" />
-              {product.batteryLife}H Total Battery Life
-            </li>
-            {product.hasANC && (
-              <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-success" />
-                Active Noise Cancellation
-              </li>
-            )}
-            {product.hasWirelessCharging && (
-              <li className="flex items-center gap-2 text-xs text-muted-foreground">
-                <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-success" />
-                Wireless Charging Support
-              </li>
-            )}
-          </ul>
+        {/* Product Highlights - Matching reference image style */}
+        <div className="mt-2 bg-card px-4 py-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-base font-bold text-[#212121]">Product highlights</h2>
+            <button 
+              onClick={() => setIsHighlightsExpanded(!isHighlightsExpanded)}
+              className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#f5f5f5]"
+            >
+              <ChevronUp className={`h-5 w-5 text-[#212121] transition-transform ${isHighlightsExpanded ? '' : 'rotate-180'}`} />
+            </button>
+          </div>
+          
+          {isHighlightsExpanded && (
+            <div className="mt-5 space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#e8f4fd] flex items-center justify-center shrink-0">
+                  <BatteryCharging className="h-6 w-6 text-[#212121]" />
+                </div>
+                <span className="text-sm font-medium text-[#212121]">Fast Charging Support</span>
+              </div>
+              
+              {product.hasANC && (
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#e8f4fd] flex items-center justify-center shrink-0">
+                    <AudioLines className="h-6 w-6 text-[#212121]" />
+                  </div>
+                  <span className="text-sm font-medium text-[#212121]">With Noise Cancellation</span>
+                </div>
+              )}
+              
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#e8f4fd] flex items-center justify-center shrink-0">
+                  <SlidersHorizontal className="h-6 w-6 text-[#212121]" />
+                </div>
+                <span className="text-sm font-medium text-[#212121]">With Deep Bass</span>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#e8f4fd] flex items-center justify-center shrink-0">
+                  <Radio className="h-6 w-6 text-[#212121]" />
+                </div>
+                <span className="text-sm font-medium text-[#212121]">Bluetooth Connectivity</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Long Product Description - Expandable */}
+        <div className="mt-2 bg-card px-4 py-4">
+          <h2 className="text-base font-bold text-[#212121]">Product Description</h2>
+          <div className="mt-3">
+            <p className="text-sm text-[#666] leading-relaxed">
+              {isLongDescExpanded ? (
+                <>
+                  Experience premium audio quality with the {product.name} from {product.brand}. These wireless earbuds are engineered to deliver exceptional sound performance with rich bass, crystal-clear mids, and crisp highs.
+
+                  <span className="block mt-3 font-semibold text-[#212121]">Sound Quality:</span>
+                  Featuring advanced audio drivers, these earbuds produce immersive sound with deep bass response and balanced audio profiles. Perfect for music lovers, gamers, and professionals alike.
+
+                  <span className="block mt-3 font-semibold text-[#212121]">Battery Life:</span>
+                  With up to {product.batteryLife} hours of total playback time, you can enjoy uninterrupted listening throughout your day. The charging case provides multiple recharges on the go, and fast charging gives you hours of playback in just minutes.
+
+                  <span className="block mt-3 font-semibold text-[#212121]">Comfort & Fit:</span>
+                  Ergonomically designed with multiple ear tip sizes included for a secure and comfortable fit. Lightweight construction ensures all-day comfort without ear fatigue.
+
+                  <span className="block mt-3 font-semibold text-[#212121]">Connectivity:</span>
+                  Bluetooth 5.0 technology ensures stable connection up to 10 meters with minimal latency. Seamless pairing with smartphones, tablets, laptops, and other Bluetooth-enabled devices.
+
+                  {product.hasANC && (
+                    <>
+                      <span className="block mt-3 font-semibold text-[#212121]">Active Noise Cancellation:</span>
+                      Advanced ANC technology blocks out ambient noise, allowing you to focus on your music, calls, or podcasts without distractions.
+                    </>
+                  )}
+
+                  <span className="block mt-3 font-semibold text-[#212121]">Additional Features:</span>
+                  {product.highlights.join(', ')}. Touch controls for easy operation, voice assistant support, and IPX water resistance for workout sessions.
+                </>
+              ) : (
+                <>
+                  Experience premium audio quality with the {product.name} from {product.brand}. These wireless earbuds are engineered to deliver exceptional sound performance with rich bass, crystal-clear mids, and crisp highs...
+                </>
+              )}
+              <button 
+                onClick={() => setIsLongDescExpanded(!isLongDescExpanded)}
+                className="text-primary font-medium ml-1"
+              >
+                {isLongDescExpanded ? 'less' : 'more'}
+              </button>
+            </p>
+          </div>
         </div>
 
         {/* Seller & Warranty Icons */}
