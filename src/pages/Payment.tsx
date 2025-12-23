@@ -12,42 +12,17 @@ import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
 import StepIndicator from "@/components/checkout/StepIndicator";
 import MobileContainer from "@/components/MobileContainer";
+// Import real logos
+import phonepeLogo from "@/assets/phonepe-logo.png";
+import paytmLogo from "@/assets/paytm-logo.png";
+import gpayLogo from "@/assets/gpay-logo.png";
+import upiLogo from "@/assets/upi-logo.png";
 
-// SVG Icons for payment methods
-const PhonePeIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
-    <rect width="24" height="24" rx="4" fill="#5f259f"/>
-    <path d="M7 7h3.5v10H7V7zm4.5 0H15l3 5-3 5h-3.5l3-5-3-5z" fill="white"/>
-  </svg>
-);
-
-const PaytmIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
-    <rect width="24" height="24" rx="4" fill="#00baf2"/>
-    <path d="M4 12c0-1.5.8-2.8 2-3.5V7h2v1.1c.6-.1 1.3-.1 2-.1s1.4 0 2 .1V7h2v1.5c1.2.7 2 2 2 3.5s-.8 2.8-2 3.5V17h-2v-1.1c-.6.1-1.3.1-2 .1s-1.4 0-2-.1V17H6v-1.5c-1.2-.7-2-2-2-3.5zm4 0c0 1.1.9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2z" fill="white"/>
-  </svg>
-);
-
-const GPayIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
-    <rect width="24" height="24" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
-    <path d="M12.545 10.239v3.821h1.852c.772 0 1.389-.254 1.852-.762l.069-.069a2.37 2.37 0 0 0 .623-1.605c0-.636-.208-1.178-.623-1.627-.415-.427-1.018-.64-1.81-.64h-1.963v.882z" fill="#4285f4"/>
-    <path d="M5.304 7.03v4.093c0 .543.127.97.382 1.28.276.333.69.5 1.24.5.638 0 1.127-.207 1.466-.622.34-.414.509-.953.509-1.617V7.03h1.91v4.093c0 .961-.318 1.735-.955 2.32-.636.588-1.472.882-2.507.882-1.069 0-1.895-.28-2.479-.839-.584-.56-.876-1.347-.876-2.363V7.03h1.31z" fill="#ea4335"/>
-    <path d="M18.696 7.03v9.94h-1.91v-3.821h-1.963v3.821h-1.962V7.03h1.962v3.209h1.963V7.03h1.91z" fill="#34a853"/>
-  </svg>
-);
-
+// BHIM Icon (SVG fallback since logo download failed)
 const BhimIcon = () => (
   <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
     <rect width="24" height="24" rx="4" fill="#00796b"/>
     <path d="M6 8h5v2H8v1h3v2H8v1h3v2H6V8zm7 0h3c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-3V8zm2 6h1v-4h-1v4z" fill="white"/>
-  </svg>
-);
-
-const UPIIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none">
-    <rect width="24" height="24" rx="4" fill="#3d3d3d"/>
-    <path d="M7 8h2l2 8h-2L7 8zm4 0h2l1 4 1-4h2l-2 8h-2l-2-8zm6 0h2v8h-2V8z" fill="#00bfa5"/>
   </svg>
 );
 
@@ -59,21 +34,24 @@ const paymentMethods = [
   {
     id: "phonepe",
     name: "PhonePe",
-    icon: PhonePeIcon,
+    icon: phonepeLogo,
+    isImage: true,
     description: "Pay using PhonePe UPI",
     deepLinkPrefix: "phonepe://pay"
   },
   {
     id: "paytm",
     name: "Paytm",
-    icon: PaytmIcon,
+    icon: paytmLogo,
+    isImage: true,
     description: "Pay using Paytm UPI",
     deepLinkPrefix: "paytmmp://pay"
   },
   {
     id: "gpay",
     name: "Google Pay",
-    icon: GPayIcon,
+    icon: gpayLogo,
+    isImage: true,
     description: "Pay using Google Pay",
     deepLinkPrefix: "tez://upi/pay"
   },
@@ -81,15 +59,18 @@ const paymentMethods = [
     id: "bhim",
     name: "BHIM UPI",
     icon: BhimIcon,
+    isImage: false,
     description: "Pay using BHIM app",
     deepLinkPrefix: "upi://pay"
   },
   {
     id: "upi",
     name: "Pay With UPI",
-    icon: UPIIcon,
+    icon: upiLogo,
+    isImage: true,
     description: "Open any UPI app on your phone",
-    deepLinkPrefix: "upi://pay"
+    deepLinkPrefix: "intent://pay",
+    isGenericUPI: true
   }
 ];
 
@@ -133,15 +114,26 @@ const Payment = () => {
   const steps = ["Address", "Order Summary", "Payment"];
 
   // Generate UPI deep link URL
-  const generateUPILink = (prefix: string, amount: number) => {
+  const generateUPILink = (method: typeof paymentMethods[0], amount: number) => {
+    const transactionNote = `Order Payment - ${product.name.substring(0, 30)}`;
+    
+    // For generic UPI (Pay With UPI option), use Android Intent format
+    // This opens the UPI app chooser showing ALL installed UPI apps
+    if (method.isGenericUPI) {
+      const upiParams = `pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${amount}&cu=INR&tn=${encodeURIComponent(transactionNote)}`;
+      // Android Intent format that works with all UPI apps
+      return `intent://pay?${upiParams}#Intent;scheme=upi;package=;end`;
+    }
+    
+    // For specific apps, use their dedicated deep links
     const params = new URLSearchParams({
       pa: UPI_ID,
       pn: MERCHANT_NAME,
       am: amount.toString(),
       cu: "INR",
-      tn: `Order Payment - ${product.name.substring(0, 30)}`
+      tn: transactionNote
     });
-    return `${prefix}?${params.toString()}`;
+    return `${method.deepLinkPrefix}?${params.toString()}`;
   };
 
   const handlePlaceOrder = () => {
@@ -151,14 +143,18 @@ const Payment = () => {
     setIsProcessing(true);
 
     // Generate the UPI deep link with total amount
-    const upiLink = generateUPILink(selectedPaymentMethod.deepLinkPrefix, total);
+    const upiLink = generateUPILink(selectedPaymentMethod, total);
     
-    // Open the UPI app
-    window.location.href = upiLink;
+    // For generic UPI, also try simple upi:// scheme as fallback for iOS
+    if (selectedPaymentMethod.isGenericUPI) {
+      const simpleUpiLink = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${total}&cu=INR&tn=${encodeURIComponent(`Order Payment - ${product.name.substring(0, 30)}`)}`;
+      window.location.href = simpleUpiLink;
+    } else {
+      window.location.href = upiLink;
+    }
 
     // Since we can't automatically detect payment completion,
     // we'll keep the processing state and let user manually confirm
-    // In a real app, you'd use a webhook or polling to verify payment
   };
 
   return (
@@ -275,7 +271,11 @@ const Payment = () => {
                 </div>
                 
                 {/* Icon */}
-                <method.icon />
+                {method.isImage ? (
+                  <img src={method.icon as string} alt={method.name} className="h-7 w-7 object-contain rounded" />
+                ) : (
+                  <method.icon />
+                )}
                 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
