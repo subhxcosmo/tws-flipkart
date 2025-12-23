@@ -42,11 +42,11 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
             </Button>
           ) : (
             <Link to="/" className="flex items-center shrink-0">
-              <img 
-                src={logoImage} 
-                alt="Flipkart" 
-                className="h-12 w-auto object-contain"
-              />
+            <img 
+              src={logoImage} 
+              alt="Flipkart" 
+              className="h-16 w-auto object-contain"
+            />
             </Link>
           )}
 
