@@ -1,3 +1,7 @@
+import airpods1 from "@/assets/airpods-1.webp";
+import airpods2 from "@/assets/airpods-2.jpeg";
+import airpods3 from "@/assets/airpods-3.jpeg";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -69,6 +73,8 @@ export interface Product {
   hasANC: boolean;
   hasWirelessCharging: boolean;
   colorVariants?: ColorVariant[]; // optional - uses defaultColorVariants if not specified
+  description?: string; // optional detailed description for product page
+  images?: string[]; // optional array of images for product slider
 }
 
 export const products: Product[] = [
@@ -371,9 +377,27 @@ export const products: Product[] = [
     hasANC: false,
     hasWirelessCharging: true,
   },
+  {
+    id: "19",
+    name: "AirPods 4th Generation",
+    brand: "Apple",
+    image: airpods1,
+    rating: 4.8,
+    reviews: 24567,
+    price: 12900,
+    originalPrice: 14900,
+    discount: 13,
+    highlights: ["30H Battery", "Seamless Pairing", "Spatial Audio"],
+    batteryLife: 30,
+    hasANC: true,
+    hasWirelessCharging: true,
+    colorVariants: [], // Empty array to disable color options for this product
+    description: "Experience next-level audio with Apple AirPods 4th Generation. Featuring the powerful H2 chip, these earbuds deliver exceptional sound quality with richer bass and crisp highs. Personalized Spatial Audio with dynamic head tracking creates an immersive listening experience that surrounds you in sound. With up to 30 hours of total listening time using the charging case, seamless switching between Apple devices, and one-touch setup, AirPods 4 redefine wireless convenience. The redesigned contoured fit ensures all-day comfort, while the force sensor stem lets you control music and calls effortlessly.",
+    images: [airpods1, airpods2, airpods3],
+  },
 ];
 
-export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear"];
+export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple"];
 
 export const priceRanges = [
   { label: "Under ₹500", min: 0, max: 500 },
@@ -395,7 +419,8 @@ export const batteryFilters = [
 
 // Helper function to get random color variants (2-3 per product)
 export const getProductColorVariants = (product: Product): ColorVariant[] => {
-  if (product.colorVariants) return product.colorVariants;
+  // If colorVariants is explicitly set (even empty array), use it
+  if (product.colorVariants !== undefined) return product.colorVariants;
   
   // Use product id as seed for consistent random selection
   const seed = parseInt(product.id, 10) || 1;
