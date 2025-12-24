@@ -352,7 +352,7 @@ const Cart = () => {
             {/* Place Order Button */}
             <Button
               onClick={() => navigate(`/checkout/order/${items[0]?.product.id}`)}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm h-12 px-8"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm h-12 px-8 rounded-lg"
             >
               Place Order
             </Button>

@@ -1,5 +1,5 @@
 import { Star, Heart } from "lucide-react";
-import { Product } from "@/data/products";
+import { Product, getDisplayRating } from "@/data/products";
 import { Link } from "react-router-dom";
 import wowBadge from "@/assets/wow-badge.png";
 import assuredBadge from "@/assets/assured-badge.png";
@@ -98,7 +98,7 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
                 <Star
                   key={star}
                   className={`h-[14px] w-[14px] ${
-                    star <= Math.floor(product.rating)
+                    star <= Math.floor(getDisplayRating(product))
                       ? "fill-[#388e3c] text-[#388e3c]"
                       : "fill-[#c2c2c2] text-[#c2c2c2]"
                   }`}

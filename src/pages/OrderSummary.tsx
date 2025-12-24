@@ -258,7 +258,7 @@ const OrderSummary = () => {
                   navigate(`/checkout/payment/${id}`);
                 }
               }}
-              className="w-full h-12 bg-cta hover:bg-cta/90 text-cta-foreground font-semibold text-sm"
+              className="w-full h-12 bg-cta hover:bg-cta/90 text-cta-foreground font-semibold text-sm rounded-lg"
             >
               {savedAddress ? "CONTINUE TO PAYMENT" : "ADD ADDRESS TO CONTINUE"}
             </Button>

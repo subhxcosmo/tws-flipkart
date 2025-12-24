@@ -339,7 +339,7 @@ const Payment = () => {
           <div className="mx-auto max-w-md bg-card border-t border-border px-4 py-3 shadow-lg">
             <Button
               onClick={handlePlaceOrder}
-              className="w-full h-12 bg-cta hover:bg-cta/90 text-cta-foreground font-semibold text-sm"
+              className="w-full h-12 bg-cta hover:bg-cta/90 text-cta-foreground font-semibold text-sm rounded-lg"
             >
               PAY {formatPrice(total)}
             </Button>
