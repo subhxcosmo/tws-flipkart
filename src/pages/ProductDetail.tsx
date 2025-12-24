@@ -61,8 +61,10 @@ const ProductDetail = () => {
     .filter((p) => p.id !== id && (p.brand === product?.brand || Math.abs(p.price - (product?.price || 0)) < 1000))
     .slice(0, 6);
 
-  // Get images from selected color variant
-  const images = selectedColor?.images || (product ? [product.image, product.image, product.image] : []);
+  // Get images: use product's custom images, or color variant images, or fallback to product image
+  const images = product?.images && product.images.length > 0
+    ? product.images
+    : selectedColor?.images || (product ? [product.image, product.image, product.image] : []);
 
   const minSwipeDistance = 50;
 
@@ -242,39 +244,41 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Color Options Section */}
-        <div className="bg-white px-4 py-3 border-b border-[#f0f0f0]">
-          <p className="text-sm text-[#212121]">
-            <span className="font-medium">Selected Color:</span> {selectedColor?.name}
-          </p>
-          <div className="flex gap-2 mt-3 overflow-x-auto scrollbar-hide">
-            {colorVariants.map((colorOption, index) => (
-              <button
-                key={colorOption.name}
-                onClick={() => {
-                  setSelectedColorIndex(index);
-                  setCurrentImageIndex(0); // Reset image carousel when color changes
-                }}
-                className={`shrink-0 w-20 h-24 rounded-lg border-2 overflow-hidden transition-all ${
-                  selectedColorIndex === index 
-                    ? "border-[#212121]" 
-                    : "border-[#e0e0e0]"
-                }`}
-              >
-                <div 
-                  className="w-full h-full flex items-center justify-center"
-                  style={{ backgroundColor: '#f5f5f5' }}
+        {/* Color Options Section - Only show if color variants exist */}
+        {colorVariants.length > 0 && (
+          <div className="bg-white px-4 py-3 border-b border-[#f0f0f0]">
+            <p className="text-sm text-[#212121]">
+              <span className="font-medium">Selected Color:</span> {selectedColor?.name}
+            </p>
+            <div className="flex gap-2 mt-3 overflow-x-auto scrollbar-hide">
+              {colorVariants.map((colorOption, index) => (
+                <button
+                  key={colorOption.name}
+                  onClick={() => {
+                    setSelectedColorIndex(index);
+                    setCurrentImageIndex(0); // Reset image carousel when color changes
+                  }}
+                  className={`shrink-0 w-20 h-24 rounded-lg border-2 overflow-hidden transition-all ${
+                    selectedColorIndex === index 
+                      ? "border-[#212121]" 
+                      : "border-[#e0e0e0]"
+                  }`}
                 >
-                  <img
-                    src={colorOption.images[0]}
-                    alt={colorOption.name}
-                    className="max-h-[80%] max-w-[80%] object-contain"
-                  />
-                </div>
-              </button>
-            ))}
+                  <div 
+                    className="w-full h-full flex items-center justify-center"
+                    style={{ backgroundColor: '#f5f5f5' }}
+                  >
+                    <img
+                      src={colorOption.images[0]}
+                      alt={colorOption.name}
+                      className="max-h-[80%] max-w-[80%] object-contain"
+                    />
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Product Info */}
         <div className="bg-white px-4 py-3">
@@ -285,8 +289,11 @@ const ProductDetail = () => {
           <div className="mt-1">
             <p className="text-sm text-[#878787] leading-snug">
               {isDescriptionExpanded 
-                ? `${product.name} with Dual Pairing, ENC, Fast Charge, ${product.batteryLife}H Battery, ${product.highlights.join(', ')}. Premium audio quality with crystal clear sound and deep bass.`
-                : `${product.name} with Dual Pairing, ENC, Fast Charge, ${product.batteryLife}H Battery, Rubbe...`
+                ? (product.description || `${product.name} with Dual Pairing, ENC, Fast Charge, ${product.batteryLife}H Battery, ${product.highlights.join(', ')}. Premium audio quality with crystal clear sound and deep bass.`)
+                : (product.description 
+                    ? (product.description.length > 90 ? product.description.substring(0, 90) + '...' : product.description)
+                    : `${product.name} with Dual Pairing, ENC, Fast Charge, ${product.batteryLife}H Battery, Rubbe...`
+                  )
               }
               <button 
                 onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
