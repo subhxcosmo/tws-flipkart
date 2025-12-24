@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
-// Import banner images locally for instant loading
-import banner1 from "@/assets/banner-1.jpg";
-import banner2 from "@/assets/banner-2.jpeg";
-import banner3 from "@/assets/banner-3.jpeg";
 
-// Banner images array - DO NOT MODIFY THIS LAYOUT
+// Banner configuration - DO NOT MODIFY THIS LAYOUT
 const banners = [
-  { id: 1, image: banner1 },
-  { id: 2, image: banner2 },
-  { id: 3, image: banner3 },
+  { id: 1, image: "/images/banner-1.jpg" },
+  { id: 2, image: "/images/banner-2.jpeg" },
+  { id: 3, image: "/images/banner-3.jpeg" },
 ];
 
 const HomeBanner = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState<boolean[]>([false, false, false]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -21,9 +18,17 @@ const HomeBanner = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleImageLoad = (index: number) => {
+    setImagesLoaded(prev => {
+      const newState = [...prev];
+      newState[index] = true;
+      return newState;
+    });
+  };
+
   return (
     // Full-width edge-to-edge container - NO padding, NO margin - DO NOT MODIFY
-    <div className="relative overflow-hidden w-full">
+    <div className="relative w-full overflow-hidden bg-muted">
       {/* Fixed aspect ratio container 21:9 - DO NOT MODIFY */}
       <div 
         className="relative w-full"
@@ -33,18 +38,21 @@ const HomeBanner = () => {
           className="absolute inset-0 flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          {banners.map((banner) => (
+          {banners.map((banner, index) => (
             <div
               key={banner.id}
-              className="w-full h-full shrink-0"
+              className="relative w-full h-full shrink-0 flex-none"
+              style={{ minWidth: '100%' }}
             >
               {/* Image covers entire banner area - edge-to-edge, no gaps */}
               <img 
                 src={banner.image} 
                 alt={`Banner ${banner.id}`}
-                className="w-full h-full object-cover"
-                loading="eager"
-                fetchPriority="high"
+                className="absolute inset-0 w-full h-full object-cover"
+                onLoad={() => handleImageLoad(index)}
+                onError={(e) => {
+                  console.error(`Failed to load banner ${index + 1}:`, banner.image);
+                }}
               />
             </div>
           ))}
@@ -52,7 +60,7 @@ const HomeBanner = () => {
       </div>
       
       {/* Dots indicator */}
-      <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
+      <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5 z-10">
         {banners.map((_, index) => (
           <button
             key={index}
