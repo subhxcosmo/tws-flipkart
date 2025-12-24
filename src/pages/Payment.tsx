@@ -216,11 +216,12 @@ const Payment = () => {
         <section className="mt-2 bg-card px-4 py-3">
           <div className="flex gap-3">
             {/* Image - Fixed container with edge-to-edge image */}
-            <div className="w-16 h-16 shrink-0 rounded-sm overflow-hidden bg-[#f5f5f5]">
+            <div className="w-16 h-16 shrink-0 rounded-sm overflow-hidden bg-muted">
               <img
                 src={product.image}
                 alt={product.name}
                 className="w-full h-full object-cover"
+                style={{ objectFit: 'cover' }}
               />
             </div>
             <div className="flex-1 min-w-0">

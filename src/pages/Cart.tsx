@@ -127,11 +127,12 @@ const Cart = () => {
               {/* Product Info Row */}
               <div className="p-4 flex gap-3">
                 {/* Product Image - Fixed container with edge-to-edge image */}
-                <div className="w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-[#f5f5f5]">
+                <div className="w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-muted">
                   <img
                     src={item.product.image}
                     alt={item.product.name}
                     className="w-full h-full object-cover"
+                    style={{ objectFit: 'cover' }}
                   />
                 </div>
 

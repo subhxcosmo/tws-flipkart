@@ -37,13 +37,13 @@ const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardPro
           <Heart className="h-4 w-4 text-muted-foreground" />
         </button>
 
-        {/* Image Container - Fixed aspect-square with edge-to-edge image */}
-        <div className="relative aspect-square overflow-hidden bg-[#f5f5f5]">
+        {/* Image Container - Fixed height with edge-to-edge image */}
+        <div className="relative h-[180px] w-full overflow-hidden bg-muted flex items-center justify-center">
           <img
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover"
-            loading={index < 4 ? "eager" : "lazy"}
+            style={{ objectFit: 'cover' }}
           />
         </div>
 
