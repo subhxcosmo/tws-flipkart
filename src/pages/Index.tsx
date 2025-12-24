@@ -22,9 +22,20 @@ const Index = () => {
   const [sortBy, setSortBy] = useState<SortOption>("popularity");
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [showFullListing, setShowFullListing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredAndSortedProducts = useMemo(() => {
     let result = [...products];
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      result = result.filter((p) => 
+        p.name.toLowerCase().includes(query) ||
+        p.brand.toLowerCase().includes(query) ||
+        p.highlights.some(h => h.toLowerCase().includes(query))
+      );
+    }
 
     // Apply filters
     if (filters.brands.length > 0) {
@@ -80,7 +91,7 @@ const Index = () => {
     }
 
     return result;
-  }, [filters, sortBy]);
+  }, [filters, sortBy, searchQuery]);
 
   // Curated product sections
   const bestDeals = useMemo(() => 
@@ -131,7 +142,15 @@ const Index = () => {
     filters.minRating !== null || 
     filters.batteryLife !== null || 
     filters.hasANC !== null || 
-    filters.hasWirelessCharging !== null;
+    filters.hasWirelessCharging !== null ||
+    searchQuery.trim().length > 0;
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    if (query.trim()) {
+      setShowFullListing(true);
+    }
+  };
 
   return (
     <MobileContainer>
@@ -144,7 +163,7 @@ const Index = () => {
       </Helmet>
 
       <div className="min-h-screen min-h-[100dvh] bg-background">
-        <Header compact />
+        <Header compact searchQuery={searchQuery} onSearchChange={handleSearchChange} />
 
         {/* Quick Filters */}
         <QuickFilters
@@ -160,11 +179,11 @@ const Index = () => {
             {/* Banner Carousel - full width edge-to-edge */}
             <HomeBanner />
 
-            {/* Static 2-column Product Grid - All 12 products */}
+            {/* Static 2-column Product Grid - All 18 products */}
             <div className="bg-card p-2">
               <h2 className="text-sm font-bold text-foreground mb-2 px-1">All Products</h2>
               <div className="grid grid-cols-2 gap-2">
-                {products.slice(0, 16).map((product, index) => (
+                {products.slice(0, 18).map((product, index) => (
                   <ProductCard 
                     key={product.id} 
                     product={product} 
