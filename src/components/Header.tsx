@@ -42,11 +42,11 @@ const Header = ({ showBackButton = false, title, compact = false }: HeaderProps)
               <ArrowLeft className="h-6 w-6" />
             </Button>
           ) : (
-            <Link to="/" className="flex items-center shrink-0">
+            <Link to="/" className="flex items-center shrink-0 flex-1">
               <img 
                 src={logoImage} 
                 alt="Flipkart" 
-                className={`${compact ? 'h-10 sm:h-12' : 'h-12 sm:h-14'} w-auto max-w-[140px] sm:max-w-[180px] object-contain`}
+                className={`${compact ? 'h-12 sm:h-14' : 'h-14 sm:h-16'} w-auto max-w-[200px] sm:max-w-[280px] object-contain`}
               />
             </Link>
           )}
