@@ -36,12 +36,12 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
           <Heart className="h-4 w-4 text-muted-foreground" />
         </button>
 
-        {/* Image Container - Edge to edge */}
+        {/* Image Container - Fixed aspect-square with edge-to-edge image */}
         <div className="relative aspect-square overflow-hidden bg-[#f5f5f5]">
           <img
-            src={typeof product.image === 'string' ? product.image : product.image}
+            src={product.image}
             alt={product.name}
-            className="h-full w-full object-contain"
+            className="w-full h-full object-contain"
             loading="lazy"
           />
         </div>
