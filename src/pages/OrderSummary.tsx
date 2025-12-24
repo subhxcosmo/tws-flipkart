@@ -229,9 +229,7 @@ const OrderSummary = () => {
             
             <div className="flex items-center justify-between text-sm">
               <span className="text-foreground">Delivery Charges</span>
-              <span className={deliveryCharge === 0 ? "text-success" : "text-foreground"}>
-                {deliveryCharge === 0 ? "FREE" : formatPrice(deliveryCharge)}
-              </span>
+              <span className="text-success">FREE</span>
             </div>
             
             <div className="border-t border-dashed border-border pt-2.5 mt-2.5">
