@@ -7,9 +7,10 @@ import assuredBadge from "@/assets/assured-badge.png";
 interface ProductCardProps {
   product: Product;
   isSponsored?: boolean;
+  index?: number; // For controlling lazy loading
 }
 
-const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
+const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardProps) => {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
@@ -41,8 +42,8 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-contain"
-            loading="lazy"
+            className="w-full h-full object-cover"
+            loading={index < 4 ? "eager" : "lazy"}
           />
         </div>
 

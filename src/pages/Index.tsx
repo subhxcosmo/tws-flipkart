@@ -188,6 +188,7 @@ const Index = () => {
                     key={product.id} 
                     product={product} 
                     isSponsored={index === 0 || index === 5}
+                    index={index}
                   />
                 ))}
               </div>
@@ -236,6 +237,7 @@ const Index = () => {
                       key={product.id} 
                       product={product} 
                       isSponsored={index === 0 || index === 5}
+                      index={index}
                     />
                   ))}
                 </div>

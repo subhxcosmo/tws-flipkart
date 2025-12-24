@@ -33,10 +33,10 @@ const HomeBanner = () => {
 
   return (
     <div className="relative overflow-hidden w-full">
-      {/* Container with exact 943x460 aspect ratio */}
+      {/* Container with compact height for better product visibility */}
       <div 
         className="relative w-full"
-        style={{ aspectRatio: '943/460' }}
+        style={{ aspectRatio: '21/9' }}
       >
         <div 
           className="absolute inset-0 flex transition-transform duration-500 ease-out"

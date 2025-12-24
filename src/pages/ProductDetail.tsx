@@ -210,7 +210,7 @@ const ProductDetail = () => {
                   <img
                     src={img}
                     alt={`${product.name} - Image ${index + 1}`}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-cover"
                     draggable={false}
                   />
                 </div>

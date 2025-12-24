@@ -131,7 +131,7 @@ const Cart = () => {
                   <img
                     src={item.product.image}
                     alt={item.product.name}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-cover"
                   />
                 </div>
 
