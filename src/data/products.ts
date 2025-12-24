@@ -1,6 +1,6 @@
-import airpods1 from "@/assets/airpods-1.webp";
-import airpods2 from "@/assets/airpods-2.jpeg";
-import airpods3 from "@/assets/airpods-3.jpeg";
+import airpods1 from "@/assets/airpods-4-main.png";
+import airpods2 from "@/assets/airpods-4-case.png";
+import airpods3 from "@/assets/airpods-4-detail.jpeg";
 
 // Color variant interface
 export interface ColorVariant {
