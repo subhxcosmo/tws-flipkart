@@ -7,8 +7,8 @@ interface MobileContainerProps {
 
 const MobileContainer = ({ children, className = "" }: MobileContainerProps) => {
   return (
-    <div className="min-h-screen bg-muted">
-      <div className={`mx-auto max-w-md bg-background min-h-screen ${className}`}>
+    <div className="min-h-screen min-h-[100dvh] bg-background">
+      <div className={`w-full min-h-screen min-h-[100dvh] bg-background ${className}`}>
         {children}
       </div>
     </div>
