@@ -1,24 +1,14 @@
 import { useState, useEffect } from "react";
+// Import banner images locally for instant loading
+import banner1 from "@/assets/banner-1.jpg";
+import banner2 from "@/assets/banner-2.jpeg";
+import banner3 from "@/assets/banner-3.jpeg";
 
+// Banner images array - DO NOT MODIFY THIS LAYOUT
 const banners = [
-  {
-    id: 1,
-    title: "Best TWS Deals",
-    subtitle: "Up to 70% Off",
-    bgColor: "from-primary to-primary/80",
-  },
-  {
-    id: 2,
-    title: "New Arrivals",
-    subtitle: "Premium Sound Quality",
-    bgColor: "from-accent to-accent/80",
-  },
-  {
-    id: 3,
-    title: "Bank Offers",
-    subtitle: "Extra 10% Off on SBI Cards",
-    bgColor: "from-success to-success/80",
-  },
+  { id: 1, image: banner1 },
+  { id: 2, image: banner2 },
+  { id: 3, image: banner3 },
 ];
 
 const HomeBanner = () => {
@@ -32,8 +22,9 @@ const HomeBanner = () => {
   }, []);
 
   return (
+    // Full-width edge-to-edge container - NO padding, NO margin - DO NOT MODIFY
     <div className="relative overflow-hidden w-full">
-      {/* Container with 21/9 aspect ratio - DO NOT MODIFY */}
+      {/* Fixed aspect ratio container 21:9 - DO NOT MODIFY */}
       <div 
         className="relative w-full"
         style={{ aspectRatio: '21/9' }}
@@ -45,18 +36,22 @@ const HomeBanner = () => {
           {banners.map((banner) => (
             <div
               key={banner.id}
-              className={`w-full h-full shrink-0 bg-gradient-to-r ${banner.bgColor} flex items-center justify-center`}
+              className="w-full h-full shrink-0"
             >
-              <div className="text-center text-primary-foreground">
-                <p className="text-xs font-medium opacity-90">{banner.subtitle}</p>
-                <h2 className="mt-1 text-xl font-bold">{banner.title}</h2>
-              </div>
+              {/* Image covers entire banner area - edge-to-edge, no gaps */}
+              <img 
+                src={banner.image} 
+                alt={`Banner ${banner.id}`}
+                className="w-full h-full object-cover"
+                loading="eager"
+                fetchPriority="high"
+              />
             </div>
           ))}
         </div>
       </div>
       
-      {/* Dots */}
+      {/* Dots indicator */}
       <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
         {banners.map((_, index) => (
           <button
@@ -64,8 +59,8 @@ const HomeBanner = () => {
             onClick={() => setCurrentIndex(index)}
             className={`h-1.5 rounded-full transition-all ${
               index === currentIndex
-                ? "w-4 bg-primary-foreground"
-                : "w-1.5 bg-primary-foreground/50"
+                ? "w-4 bg-white"
+                : "w-1.5 bg-white/50"
             }`}
           />
         ))}
