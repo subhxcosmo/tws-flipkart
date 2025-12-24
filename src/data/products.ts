@@ -81,14 +81,14 @@ export interface Product {
 export const products: Product[] = [
   {
     id: "1",
-    name: "AirPods 4th Generation",
+    name: "AirPods 4 Wireless Earbuds, Personalised Spatial Audio, Sweat and Water Resistant Bluetooth Headset (White, True Wireless)",
     brand: "Apple",
     image: airpods4, // Earbuds image for homepage thumbnail
     rating: 4.8,
     reviews: 24567,
-    price: 12900,
-    originalPrice: 14900,
-    discount: 13,
+    price: 149,
+    originalPrice: 12000,
+    discount: 98,
     highlights: ["30H Battery", "Seamless Pairing", "Spatial Audio"],
     batteryLife: 30,
     hasANC: true,
