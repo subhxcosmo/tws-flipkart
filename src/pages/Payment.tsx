@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { 
@@ -12,13 +12,19 @@ import { Button } from "@/components/ui/button";
 import { products } from "@/data/products";
 import StepIndicator from "@/components/checkout/StepIndicator";
 import MobileContainer from "@/components/MobileContainer";
-// Import real logos
+// Import real logos - preloaded for instant display
 import phonepeLogo from "@/assets/phonepe-logo.png";
 import paytmLogo from "@/assets/paytm-logo.png";
 import gpayLogo from "@/assets/gpay-logo.png";
 import upiLogo from "@/assets/upi-logo.png";
 import bhimLogo from "@/assets/bhim-logo.png";
 
+// Preload payment logos immediately
+const preloadImages = [phonepeLogo, paytmLogo, gpayLogo, upiLogo, bhimLogo];
+preloadImages.forEach((src) => {
+  const img = new Image();
+  img.src = src;
+});
 // UPI ID for receiving payments
 const UPI_ID = "trendaura432220.rzp@icici";
 const MERCHANT_NAME = "TrendAura";
@@ -262,9 +268,9 @@ const Payment = () => {
                   )}
                 </div>
                 
-                {/* Icon */}
+                {/* Icon - Eager loading for instant display */}
                 {method.isImage ? (
-                  <img src={method.icon as string} alt={method.name} className="h-7 w-7 object-contain rounded" />
+                  <img src={method.icon as string} alt={method.name} className="h-7 w-7 object-contain rounded" loading="eager" fetchPriority="high" />
                 ) : (
                   <method.icon />
                 )}
