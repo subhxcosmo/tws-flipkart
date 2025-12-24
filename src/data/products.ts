@@ -1,6 +1,7 @@
 import airpods1 from "@/assets/airpods-4-main.png";
 import airpods2 from "@/assets/airpods-4-case.png";
 import airpods3 from "@/assets/airpods-4-detail.jpeg";
+import airpods4 from "@/assets/airpods-4-earbuds.png";
 
 // Color variant interface
 export interface ColorVariant {
@@ -82,7 +83,7 @@ export const products: Product[] = [
     id: "1",
     name: "AirPods 4th Generation",
     brand: "Apple",
-    image: airpods2, // Case image for homepage thumbnail
+    image: airpods4, // Earbuds image for homepage thumbnail
     rating: 4.8,
     reviews: 24567,
     price: 12900,

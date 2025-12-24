@@ -194,15 +194,6 @@ const Index = () => {
               </div>
             </div>
 
-            {/* View All Products Button */}
-            <div className="px-4 py-4 bg-card border-t border-border">
-              <button
-                onClick={() => setShowFullListing(true)}
-                className="w-full py-3 border border-primary text-primary font-medium text-sm rounded-sm hover:bg-primary/5 transition-colors"
-              >
-                View All Products
-              </button>
-            </div>
           </>
         ) : (
           <>
@@ -257,7 +248,7 @@ const Index = () => {
         <footer className="border-t border-border bg-card">
           <div className="px-4 py-6 text-center">
             <p className="text-xs text-muted-foreground">
-              © 2024 AudioMart. All rights reserved.
+              © 2025 Flipkart. All rights reserved.
             </p>
           </div>
         </footer>
