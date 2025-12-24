@@ -83,7 +83,7 @@ export const products: Product[] = [
     id: "1",
     name: "AirPods 4th Generation",
     brand: "Apple",
-    image: airpods1, // Main image for homepage (better contrast)
+    image: airpods4, // Earbuds image for homepage thumbnail
     rating: 4.8,
     reviews: 24567,
     price: 12900,

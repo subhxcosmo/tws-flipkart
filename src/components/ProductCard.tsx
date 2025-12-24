@@ -38,12 +38,12 @@ const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardPro
         </button>
 
         {/* Image Container - Fixed aspect-square with edge-to-edge image */}
-        <div className="relative aspect-square overflow-hidden bg-[#e8e8e8]">
+        <div className="relative aspect-square overflow-hidden bg-[#f5f5f5]">
           <img
             src={product.image}
             alt={product.name}
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="eager"
+            className="w-full h-full object-cover"
+            loading={index < 4 ? "eager" : "lazy"}
           />
         </div>
 
