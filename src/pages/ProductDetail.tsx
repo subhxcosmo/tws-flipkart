@@ -189,10 +189,10 @@ const ProductDetail = () => {
           </div>
         </header>
 
-        {/* Image Carousel - 65% screen height */}
+        {/* Image Carousel - 50% screen height */}
         <div 
           ref={containerRef}
-          className="relative bg-[#f5f5f5] overflow-hidden h-[65vh]"
+          className="relative bg-[#f5f5f5] overflow-hidden h-[50vh]"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
