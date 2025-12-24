@@ -37,13 +37,12 @@ const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardPro
           <Heart className="h-4 w-4 text-muted-foreground" />
         </button>
 
-        {/* Image Container - Fixed height with edge-to-edge image */}
-        <div className="relative h-[180px] w-full overflow-hidden bg-muted flex items-center justify-center">
+        {/* Image Container - Large prominent images like Flipkart - DO NOT MODIFY */}
+        <div className="relative aspect-square w-full overflow-hidden bg-muted">
           <img
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover"
-            style={{ objectFit: 'cover' }}
           />
         </div>
 
