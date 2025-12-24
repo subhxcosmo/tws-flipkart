@@ -94,16 +94,27 @@ const ProductCard = ({ product, isSponsored = false }: ProductCardProps) => {
           {/* Row 6: Stars + Assured badge */}
           <div className="flex items-center gap-2 mt-1.5">
             <div className="flex items-center">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star
-                  key={star}
-                  className={`h-[14px] w-[14px] ${
-                    star <= Math.floor(getDisplayRating(product))
-                      ? "fill-[#388e3c] text-[#388e3c]"
-                      : "fill-[#c2c2c2] text-[#c2c2c2]"
-                  }`}
-                />
-              ))}
+              {[1, 2, 3, 4, 5].map((star) => {
+                const rating = getDisplayRating(product);
+                const isFull = star <= Math.floor(rating);
+                const isPartial = star === Math.ceil(rating) && rating % 1 !== 0;
+                
+                return (
+                  <div key={star} className="relative h-[14px] w-[14px]">
+                    {/* Empty star background */}
+                    <Star className="absolute h-[14px] w-[14px] fill-[#c2c2c2] text-[#c2c2c2]" />
+                    {/* Filled star with clip for partial */}
+                    {(isFull || isPartial) && (
+                      <div 
+                        className="absolute overflow-hidden" 
+                        style={{ width: isPartial ? `${(rating % 1) * 100}%` : '100%' }}
+                      >
+                        <Star className="h-[14px] w-[14px] fill-[#388e3c] text-[#388e3c]" />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
             <img 
               src={assuredBadge} 
