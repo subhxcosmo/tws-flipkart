@@ -64,10 +64,13 @@ const OrderSummary = () => {
     }).format(price);
   };
 
+  const discountPercentage = product.originalPrice > product.price 
+    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) 
+    : 0;
   const subtotal = product.price * quantity;
   const discount = (product.originalPrice - product.price) * quantity;
-  const deliveryCharge = subtotal > 500 ? 0 : 40;
-  const total = subtotal + deliveryCharge;
+  const deliveryCharge = 0; // Always FREE delivery
+  const total = subtotal;
 
   const steps = ["Address", "Order Summary", "Payment"];
 
@@ -162,7 +165,7 @@ const OrderSummary = () => {
                   {formatPrice(product.originalPrice)}
                 </span>
                 <span className="text-xs font-medium text-discount">
-                  {product.discount}% off
+                  {discountPercentage}% off
                 </span>
               </div>
               

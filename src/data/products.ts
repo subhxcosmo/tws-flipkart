@@ -68,7 +68,7 @@ export interface Product {
   reviews: number;
   price: number;
   originalPrice: number;
-  discount: number;
+  discount?: number; // Optional - calculated from price/originalPrice if not set
   highlights: string[];
   batteryLife: number;
   hasANC: boolean;
@@ -88,7 +88,6 @@ export const products: Product[] = [
     reviews: 24567,
     price: 149,
     originalPrice: 12000,
-    discount: 98,
     highlights: ["30H Battery", "Seamless Pairing", "Spatial Audio"],
     batteryLife: 30,
     hasANC: true,
@@ -429,4 +428,13 @@ export const getDisplayRating = (product: Product): number => {
   const ratings = [4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5.0];
   const index = seed % ratings.length;
   return ratings[index];
+};
+
+// Helper function to calculate discount percentage dynamically
+export const getDiscountPercentage = (product: Product): number => {
+  if (product.discount !== undefined) return product.discount;
+  if (product.originalPrice > product.price) {
+    return Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+  }
+  return 0;
 };

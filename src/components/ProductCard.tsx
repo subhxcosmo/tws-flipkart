@@ -1,5 +1,5 @@
 import { Star, Heart } from "lucide-react";
-import { Product, getDisplayRating } from "@/data/products";
+import { Product, getDisplayRating, getDiscountPercentage } from "@/data/products";
 import { Link } from "react-router-dom";
 import wowBadge from "@/assets/wow-badge.png";
 import assuredBadge from "@/assets/assured-badge.png";
@@ -69,7 +69,7 @@ const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardPro
           {/* Row 4: Discount + Original Price + Final Price */}
           <div className="flex items-baseline gap-1.5 mt-1.5">
             <span className="text-[13px] font-medium text-[#388e3c]">
-              ↓{product.discount}%
+              ↓{getDiscountPercentage(product)}%
             </span>
             <span className="text-[13px] text-[#878787] line-through">
               {formatPrice(product.originalPrice)}

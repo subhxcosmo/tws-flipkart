@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import MobileContainer from "@/components/MobileContainer";
 import { useCart } from "@/contexts/CartContext";
+import { getDiscountPercentage } from "@/data/products";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -206,7 +207,7 @@ const Cart = () => {
                   {/* Price Row */}
                   <div className="flex items-baseline gap-2 mt-2">
                     <span className="text-sm font-bold text-success flex items-center gap-0.5">
-                      <span>↓</span>{item.product.discount}%
+                      <span>↓</span>{getDiscountPercentage(item.product)}%
                     </span>
                     <span className="text-sm text-muted-foreground line-through">
                       {formatPrice(item.product.originalPrice)}
