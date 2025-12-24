@@ -36,7 +36,7 @@ const HomeBanner = () => {
       {/* Container with compact height for better product visibility */}
       <div 
         className="relative w-full"
-        style={{ aspectRatio: '21/9' }}
+        style={{ aspectRatio: '3/1' }}
       >
         <div 
           className="absolute inset-0 flex transition-transform duration-500 ease-out"
