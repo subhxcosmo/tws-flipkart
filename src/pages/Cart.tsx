@@ -89,7 +89,7 @@ const Cart = () => {
   return (
     <MobileContainer>
       <Helmet>
-        <title>My Cart ({getTotalItems()}) - AudioMart</title>
+        <title>{`My Cart (${getTotalItems()}) - AudioMart`}</title>
       </Helmet>
 
       <div className="min-h-screen bg-background pb-24">
