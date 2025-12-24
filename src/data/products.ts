@@ -82,7 +82,7 @@ export const products: Product[] = [
     id: "1",
     name: "AirPods 4th Generation",
     brand: "Apple",
-    image: airpods1,
+    image: airpods2, // Case image for homepage thumbnail
     rating: 4.8,
     reviews: 24567,
     price: 12900,
@@ -94,7 +94,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
     colorVariants: [],
     description: "Experience next-level audio with Apple AirPods 4th Generation. Featuring the powerful H2 chip, these earbuds deliver exceptional sound quality with richer bass and crisp highs. Personalized Spatial Audio with dynamic head tracking creates an immersive listening experience that surrounds you in sound. With up to 30 hours of total listening time using the charging case, seamless switching between Apple devices, and one-touch setup, AirPods 4 redefine wireless convenience. The redesigned contoured fit ensures all-day comfort, while the force sensor stem lets you control music and calls effortlessly.",
-    images: [airpods1, airpods2, airpods3],
+    images: [airpods1, airpods2, airpods3], // Detail page uses all images
   },
   {
     id: "2",
