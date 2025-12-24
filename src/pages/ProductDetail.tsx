@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { products, Product, getProductColorVariants, ColorVariant } from "@/data/products";
+import { products, Product, getProductColorVariants, ColorVariant, getDiscountPercentage } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import MobileContainer from "@/components/MobileContainer";
 import { useCart } from "@/contexts/CartContext";
@@ -285,22 +285,21 @@ const ProductDetail = () => {
           {/* Brand Name */}
           <h2 className="text-base font-semibold text-[#212121]">{product.brand}</h2>
           
-          {/* Product Description - Collapsible with "more" */}
+          {/* Product Description - Shows product name with more/less */}
           <div className="mt-1">
             <p className="text-sm text-[#878787] leading-snug">
               {isDescriptionExpanded 
-                ? (product.description || `${product.name} with Dual Pairing, ENC, Fast Charge, ${product.batteryLife}H Battery, ${product.highlights.join(', ')}. Premium audio quality with crystal clear sound and deep bass.`)
-                : (product.description 
-                    ? (product.description.length > 90 ? product.description.substring(0, 90) + '...' : product.description)
-                    : `${product.name} with Dual Pairing, ENC, Fast Charge, ${product.batteryLife}H Battery, Rubbe...`
-                  )
+                ? product.name
+                : (product.name.length > 90 ? product.name.substring(0, 90) + '...' : product.name)
               }
-              <button 
-                onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                className="text-primary font-medium"
-              >
-                {isDescriptionExpanded ? 'less' : 'more'}
-              </button>
+              {product.name.length > 90 && (
+                <button 
+                  onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                  className="text-primary font-medium"
+                >
+                  {isDescriptionExpanded ? 'less' : 'more'}
+                </button>
+              )}
             </p>
           </div>
 
@@ -314,7 +313,7 @@ const ProductDetail = () => {
           {/* Price Block - Matching reference exactly */}
           <div className="mt-1 flex items-baseline gap-2">
             <span className="text-xl font-bold text-[#388e3c] flex items-center">
-              ↓{product.discount}%
+              ↓{getDiscountPercentage(product)}%
             </span>
             <span className="text-xl text-[#878787] line-through">
               {formatPrice(product.originalPrice)}
