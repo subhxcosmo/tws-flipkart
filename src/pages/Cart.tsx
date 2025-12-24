@@ -126,12 +126,12 @@ const Cart = () => {
             <div key={item.product.id} className="bg-card mb-2">
               {/* Product Info Row */}
               <div className="p-4 flex gap-3">
-                {/* Product Image */}
-                <div className="w-24 h-24 bg-muted rounded-lg flex items-center justify-center shrink-0">
+                {/* Product Image - Fixed container with edge-to-edge image */}
+                <div className="w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-[#f5f5f5]">
                   <img
                     src={item.product.image}
                     alt={item.product.name}
-                    className="max-h-full max-w-full object-contain p-2"
+                    className="w-full h-full object-contain"
                   />
                 </div>
 
