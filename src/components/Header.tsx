@@ -14,13 +14,37 @@ interface HeaderProps {
   compact?: boolean;
 }
 
-const Header = ({ showBackButton = false, title, compact = false }: HeaderProps) => {
+interface HeaderProps {
+  showBackButton?: boolean;
+  title?: string;
+  compact?: boolean;
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
+}
+
+const Header = ({ 
+  showBackButton = false, 
+  title, 
+  compact = false,
+  searchQuery: externalSearchQuery,
+  onSearchChange 
+}: HeaderProps) => {
   const { getTotalItems } = useCart();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [internalSearchQuery, setInternalSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
+
+  // Use external or internal search query
+  const searchQuery = externalSearchQuery !== undefined ? externalSearchQuery : internalSearchQuery;
+  const handleSearchChange = (value: string) => {
+    if (onSearchChange) {
+      onSearchChange(value);
+    } else {
+      setInternalSearchQuery(value);
+    }
+  };
 
   const handleBack = () => {
     navigate(-1);
@@ -75,7 +99,7 @@ const Header = ({ showBackButton = false, title, compact = false }: HeaderProps)
             type="search"
             placeholder={title || "Search for Products"}
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             className={`${compact ? 'h-11' : 'h-12'} w-full rounded-lg border-0 bg-[#F0F0F0] pl-12 pr-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0`}
           />
         </div>
