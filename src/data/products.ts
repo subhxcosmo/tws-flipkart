@@ -363,7 +363,29 @@ export const batteryFilters = [
   { label: "Under 20 Hours", min: 0, max: 20 },
 ];
 
-// Helper function to get color variants for a product
+// Helper function to get random color variants (2-3 per product)
 export const getProductColorVariants = (product: Product): ColorVariant[] => {
-  return product.colorVariants || defaultColorVariants;
+  if (product.colorVariants) return product.colorVariants;
+  
+  // Use product id as seed for consistent random selection
+  const seed = parseInt(product.id, 10) || 1;
+  const count = (seed % 2) + 2; // Returns 2 or 3
+  
+  // Shuffle based on seed and pick first 2-3
+  const shuffled = [...defaultColorVariants].sort((a, b) => {
+    const hashA = (seed * a.name.charCodeAt(0)) % 100;
+    const hashB = (seed * b.name.charCodeAt(0)) % 100;
+    return hashA - hashB;
+  });
+  
+  return shuffled.slice(0, count);
+};
+
+// Helper function to get randomized rating for display (4.0 - 5.0)
+export const getDisplayRating = (product: Product): number => {
+  // Use product id as seed for consistent random rating
+  const seed = parseInt(product.id, 10) || 1;
+  const ratings = [4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5.0];
+  const index = seed % ratings.length;
+  return ratings[index];
 };
