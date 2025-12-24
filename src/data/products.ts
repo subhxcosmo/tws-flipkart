@@ -1,3 +1,59 @@
+// Color variant interface
+export interface ColorVariant {
+  name: string;
+  color: string; // hex color for the dot/preview
+  images: string[]; // array of images for this color variant
+}
+
+// Default color variants that can be applied to products
+export const defaultColorVariants: ColorVariant[] = [
+  {
+    name: "Navy Blue",
+    color: "#1E3A5F",
+    images: [
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
+    ],
+  },
+  {
+    name: "Jet Black",
+    color: "#1A1A1A",
+    images: [
+      "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
+    ],
+  },
+  {
+    name: "Olive Green",
+    color: "#4A5D23",
+    images: [
+      "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
+    ],
+  },
+  {
+    name: "Wine Red",
+    color: "#8B2346",
+    images: [
+      "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
+    ],
+  },
+  {
+    name: "Silver",
+    color: "#C0C0C0",
+    images: [
+      "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
+    ],
+  },
+];
+
 export interface Product {
   id: string;
   name: string;
@@ -12,6 +68,7 @@ export interface Product {
   batteryLife: number;
   hasANC: boolean;
   hasWirelessCharging: boolean;
+  colorVariants?: ColorVariant[]; // optional - uses defaultColorVariants if not specified
 }
 
 export const products: Product[] = [
@@ -29,6 +86,35 @@ export const products: Product[] = [
     batteryLife: 40,
     hasANC: true,
     hasWirelessCharging: true,
+    colorVariants: [
+      {
+        name: "Midnight Black",
+        color: "#1A1A1A",
+        images: [
+          "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
+          "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
+          "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
+        ],
+      },
+      {
+        name: "Pearl White",
+        color: "#F5F5F5",
+        images: [
+          "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
+          "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
+          "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
+        ],
+      },
+      {
+        name: "Ocean Blue",
+        color: "#1E3A5F",
+        images: [
+          "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
+          "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
+          "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
+        ],
+      },
+    ],
   },
   {
     id: "2",
@@ -276,3 +362,8 @@ export const batteryFilters = [
   { label: "20-30 Hours", min: 20, max: 30 },
   { label: "Under 20 Hours", min: 0, max: 20 },
 ];
+
+// Helper function to get color variants for a product
+export const getProductColorVariants = (product: Product): ColorVariant[] => {
+  return product.colorVariants || defaultColorVariants;
+};

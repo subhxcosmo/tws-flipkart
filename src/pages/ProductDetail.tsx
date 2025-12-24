@@ -22,21 +22,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { products, Product } from "@/data/products";
+import { products, Product, getProductColorVariants, ColorVariant } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import MobileContainer from "@/components/MobileContainer";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import cartIcon from "@/assets/shopping-cart.png";
-
-// Color options for products
-const colorOptions = [
-  { name: "Wine Red", color: "#8B2346" },
-  { name: "Navy Blue", color: "#1E3A5F" },
-  { name: "Jungle Green", color: "#2D4739" },
-  { name: "Black", color: "#1A1A1A" },
-  { name: "Silver", color: "#C0C0C0" },
-];
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,7 +38,7 @@ const ProductDetail = () => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [isHighlightsExpanded, setIsHighlightsExpanded] = useState(true);
   const [isLongDescExpanded, setIsLongDescExpanded] = useState(false);
-  const [selectedColor, setSelectedColor] = useState(colorOptions[2]); // Default to Jungle Green
+  const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   
   // Touch handling for swipe
   const touchStartX = useRef<number | null>(null);
@@ -61,13 +52,17 @@ const ProductDetail = () => {
 
   const product = products.find((p) => p.id === id);
   
+  // Get color variants for this product
+  const colorVariants = product ? getProductColorVariants(product) : [];
+  const selectedColor = colorVariants[selectedColorIndex] || colorVariants[0];
+  
   // Get similar products (same brand or similar price range)
   const similarProducts = products
     .filter((p) => p.id !== id && (p.brand === product?.brand || Math.abs(p.price - (product?.price || 0)) < 1000))
     .slice(0, 6);
 
-  // Mock multiple images for carousel (6 images like reference)
-  const images = product ? [product.image, product.image, product.image, product.image, product.image, product.image] : [];
+  // Get images from selected color variant
+  const images = selectedColor?.images || (product ? [product.image, product.image, product.image] : []);
 
   const minSwipeDistance = 50;
 
@@ -250,15 +245,18 @@ const ProductDetail = () => {
         {/* Color Options Section */}
         <div className="bg-white px-4 py-3 border-b border-[#f0f0f0]">
           <p className="text-sm text-[#212121]">
-            <span className="font-medium">Selected Color:</span> {selectedColor.name}
+            <span className="font-medium">Selected Color:</span> {selectedColor?.name}
           </p>
           <div className="flex gap-2 mt-3 overflow-x-auto scrollbar-hide">
-            {colorOptions.map((colorOption) => (
+            {colorVariants.map((colorOption, index) => (
               <button
                 key={colorOption.name}
-                onClick={() => setSelectedColor(colorOption)}
+                onClick={() => {
+                  setSelectedColorIndex(index);
+                  setCurrentImageIndex(0); // Reset image carousel when color changes
+                }}
                 className={`shrink-0 w-20 h-24 rounded-lg border-2 overflow-hidden transition-all ${
-                  selectedColor.name === colorOption.name 
+                  selectedColorIndex === index 
                     ? "border-[#212121]" 
                     : "border-[#e0e0e0]"
                 }`}
@@ -268,7 +266,7 @@ const ProductDetail = () => {
                   style={{ backgroundColor: '#f5f5f5' }}
                 >
                   <img
-                    src={product.image}
+                    src={colorOption.images[0]}
                     alt={colorOption.name}
                     className="max-h-[80%] max-w-[80%] object-contain"
                   />
@@ -319,11 +317,6 @@ const ProductDetail = () => {
             </span>
           </div>
 
-          {/* Protect Promise Fee */}
-          <button className="mt-2 flex items-center gap-1 text-sm text-[#878787]">
-            <span>+₹9 Protect Promise Fee</span>
-            <ChevronRight className="h-4 w-4" />
-          </button>
         </div>
 
         {/* Delivery Section */}
