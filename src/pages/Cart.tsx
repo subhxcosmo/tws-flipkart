@@ -31,8 +31,6 @@ const Cart = () => {
   const [isPriceDetailsOpen, setIsPriceDetailsOpen] = useState(true);
   const [openQuantityDropdown, setOpenQuantityDropdown] = useState<string | null>(null);
 
-  const protectFee = 9;
-
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-IN", {
       style: "currency",
@@ -46,7 +44,7 @@ const Cart = () => {
     return new Intl.NumberFormat("en-IN").format(num);
   };
 
-  const totalAmount = getTotalPrice() + protectFee;
+  const totalAmount = getTotalPrice();
   const totalSavings = getTotalDiscount();
 
   if (items.length === 0) {
@@ -226,12 +224,6 @@ const Cart = () => {
                       Buy at {formatPrice(item.product.price - 70)}
                     </span>
                   </div>
-
-                  {/* Protect Fee */}
-                  <div className="flex items-center gap-1 mt-1.5 text-xs text-muted-foreground">
-                    <span>+ ₹{protectFee} Protect Promise Fee</span>
-                    <Info className="h-3 w-3" />
-                  </div>
                 </div>
               </div>
 
@@ -306,14 +298,6 @@ const Cart = () => {
                   <span className="text-sm text-success font-medium">
                     - {formatPrice(getTotalDiscount())}
                   </span>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                    <span>Protect Promise Fee</span>
-                    <Info className="h-3 w-3" />
-                  </div>
-                  <span className="text-sm text-foreground">₹{protectFee}</span>
                 </div>
               </div>
 
