@@ -46,7 +46,7 @@ const Header = ({ showBackButton = false, title, compact = false }: HeaderProps)
               <img 
                 src={logoImage} 
                 alt="Flipkart" 
-                className="h-14 w-auto object-contain"
+                className={`${compact ? 'h-10 sm:h-12' : 'h-12 sm:h-14'} w-auto max-w-[140px] sm:max-w-[180px] object-contain`}
               />
             </Link>
           )}
