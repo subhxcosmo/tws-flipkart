@@ -205,12 +205,12 @@ const ProductDetail = () => {
               {images.map((img, index) => (
                 <div 
                   key={index} 
-                  className="w-full h-full shrink-0 flex items-center justify-center bg-[#f5f5f5]"
+                  className="w-full h-full shrink-0 bg-[#f5f5f5]"
                 >
                   <img
                     src={img}
                     alt={`${product.name} - Image ${index + 1}`}
-                    className="max-h-[90%] max-w-[90%] object-contain"
+                    className="w-full h-full object-contain"
                     draggable={false}
                   />
                 </div>
