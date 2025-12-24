@@ -105,8 +105,8 @@ const Payment = () => {
     }).format(price);
   };
 
-  const deliveryCharge = product.price > 500 ? 0 : 40;
-  const total = product.price + deliveryCharge;
+  const deliveryCharge = 0; // Always FREE delivery
+  const total = product.price;
   const discount = product.originalPrice - product.price;
   const discountPercentage = Math.round((discount / product.originalPrice) * 100);
 
