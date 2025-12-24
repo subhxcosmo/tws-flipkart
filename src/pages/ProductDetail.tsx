@@ -202,19 +202,23 @@ const ProductDetail = () => {
               className="absolute inset-0 flex transition-transform duration-300 ease-out"
               style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
             >
-              {images.map((img, index) => (
-                <div 
-                  key={index} 
-                  className="w-full h-full shrink-0 bg-[#f5f5f5]"
-                >
-                  <img
-                    src={img}
-                    alt={`${product.name} - Image ${index + 1}`}
-                    className="w-full h-full object-cover"
-                    draggable={false}
-                  />
-                </div>
-              ))}
+              {images.map((img, index) => {
+                // For AirPods (product id "1"), 4th image (index 3) uses contain to show full product
+                const isAirPodsFourthImage = product.id === "1" && index === 3;
+                return (
+                  <div 
+                    key={index} 
+                    className="w-full h-full shrink-0 bg-[#f5f5f5] flex items-center justify-center"
+                  >
+                    <img
+                      src={img}
+                      alt={`${product.name} - Image ${index + 1}`}
+                      className={`w-full h-full ${isAirPodsFourthImage ? 'object-contain p-4' : 'object-cover'}`}
+                      draggable={false}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
           
