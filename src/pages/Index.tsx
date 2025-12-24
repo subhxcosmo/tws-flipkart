@@ -143,8 +143,8 @@ const Index = () => {
         />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
-        <Header />
+      <div className="min-h-screen min-h-[100dvh] bg-background">
+        <Header compact />
 
         {/* Quick Filters */}
         <QuickFilters

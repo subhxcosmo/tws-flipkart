@@ -11,9 +11,10 @@ import { useCart } from "@/contexts/CartContext";
 interface HeaderProps {
   showBackButton?: boolean;
   title?: string;
+  compact?: boolean;
 }
 
-const Header = ({ showBackButton = false, title }: HeaderProps) => {
+const Header = ({ showBackButton = false, title, compact = false }: HeaderProps) => {
   const { getTotalItems } = useCart();
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -28,7 +29,7 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
       {/* Top Header Bar - Logo and Cart */}
-      <div className="px-4 py-3">
+      <div className={`px-3 sm:px-4 ${compact ? 'py-1.5' : 'py-3'}`}>
         <div className="flex items-center justify-between">
           {/* Back Button or Logo */}
           {showBackButton ? (
@@ -42,11 +43,11 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
             </Button>
           ) : (
             <Link to="/" className="flex items-center shrink-0">
-            <img 
-              src={logoImage} 
-              alt="Flipkart" 
-              className="h-16 w-auto object-contain"
-            />
+              <img 
+                src={logoImage} 
+                alt="Flipkart" 
+                className={`${compact ? 'h-10' : 'h-16'} w-auto object-contain transition-all`}
+              />
             </Link>
           )}
 
@@ -67,15 +68,15 @@ const Header = ({ showBackButton = false, title }: HeaderProps) => {
       </div>
 
       {/* Search Bar - Below header */}
-      <div className="px-4 pb-3">
+      <div className={`px-3 sm:px-4 ${compact ? 'pb-2' : 'pb-3'}`}>
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 sm:h-5 sm:w-5 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
             placeholder={title || "Search for Products"}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-12 w-full rounded-lg border-0 bg-[#F0F0F0] pl-12 pr-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+            className={`${compact ? 'h-10' : 'h-12'} w-full rounded-lg border-0 bg-[#F0F0F0] pl-10 sm:pl-12 pr-3 sm:pr-4 text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:ring-offset-0`}
           />
         </div>
       </div>
