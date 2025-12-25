@@ -5,6 +5,18 @@ import airpods4 from "@/assets/airpods-4-earbuds.png";
 import airpods5 from "@/assets/airpods-5.jpg";
 import airpods6 from "@/assets/airpods-6.webp";
 
+// OnePlus Buds Pro 2 images
+import oneplusBudsPro2_1 from "@/assets/oneplus-buds-pro2-1.png";
+import oneplusBudsPro2_2 from "@/assets/oneplus-buds-pro2-2.jpg";
+import oneplusBudsPro2_3 from "@/assets/oneplus-buds-pro2-3.jpg";
+import oneplusBudsPro2_4 from "@/assets/oneplus-buds-pro2-4.jpg";
+
+// CMF Buds Pro 2 images - White variant
+import cmfBudsPro2White1 from "@/assets/cmf-buds-pro2-white-1.png";
+import cmfBudsPro2White2 from "@/assets/cmf-buds-pro2-white-2.png";
+import cmfBudsPro2White3 from "@/assets/cmf-buds-pro2-white-3.jpeg";
+import cmfBudsPro2White4 from "@/assets/cmf-buds-pro2-white-4.jpg";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -382,9 +394,55 @@ export const products: Product[] = [
     hasANC: true,
     hasWirelessCharging: false,
   },
+  {
+    id: "19",
+    name: "OnePlus Buds Pro 2, Obsidian Black, Audiophile-Grade Sound Quality Co-Created with Dynaudio, Best-in-Class ANC",
+    brand: "OnePlus",
+    image: oneplusBudsPro2_1,
+    rating: 4.7,
+    reviews: 11234,
+    price: 99,
+    originalPrice: 9500,
+    highlights: ["39H Battery", "48dB ANC", "Spatial Audio"],
+    batteryLife: 39,
+    hasANC: true,
+    hasWirelessCharging: true,
+    colorVariants: [],
+    description: "Experience audiophile-grade sound with OnePlus Buds Pro 2, co-created with legendary Danish audio experts Dynaudio. Featuring MelodyBoost Dual Drivers with BassWave enhancement algorithm, these earbuds deliver powerful, immersive audio. With up to 48dB Adaptive Noise Cancellation, 39 hours total playback, Google Spatial Audio, Hi-Res Audio certification, and 54ms low latency mode for gaming, these are the ultimate true wireless earbuds for discerning listeners.",
+    images: [oneplusBudsPro2_1, oneplusBudsPro2_2, oneplusBudsPro2_3, oneplusBudsPro2_4],
+  },
+  {
+    id: "20",
+    name: "CMF Buds Pro 2 Wireless Earbuds with Smart Dial, 50dB Hybrid Noise Cancelling, Wireless Bluetooth 5.3",
+    brand: "Nothing Inc.",
+    image: cmfBudsPro2White1,
+    rating: 4.5,
+    reviews: 8456,
+    price: 120,
+    originalPrice: 6000,
+    highlights: ["43H Battery", "50dB ANC", "Smart Dial"],
+    batteryLife: 43,
+    hasANC: true,
+    hasWirelessCharging: false,
+    colorVariants: [
+      {
+        name: "White",
+        color: "#F5F5F5",
+        images: [cmfBudsPro2White1, cmfBudsPro2White2, cmfBudsPro2White3, cmfBudsPro2White4],
+      },
+      // Black variant placeholder - images to be added later
+      // {
+      //   name: "Black",
+      //   color: "#1A1A1A",
+      //   images: [],
+      // },
+    ],
+    description: "CMF Buds Pro 2 from Nothing Inc. feature an innovative Smart Dial for intuitive control, industry-leading 50dB Hybrid Active Noise Cancellation, and Hi-Res LDAC-certified audio. With Audiodo hearing test and compensation for personalized sound, 43 hours total battery life, Bluetooth 5.3, and IP55 water resistance, these buds deliver premium features at an accessible price.",
+    images: [cmfBudsPro2White1, cmfBudsPro2White2, cmfBudsPro2White3, cmfBudsPro2White4],
+  },
 ];
 
-export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple"];
+export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple", "OnePlus", "Nothing Inc."];
 
 export const priceRanges = [
   { label: "Under ₹500", min: 0, max: 500 },
