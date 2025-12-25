@@ -76,6 +76,8 @@ const Header = ({
                 src={logoImage} 
                 alt="Flipkart" 
                 className="h-[52px] sm:h-[60px] w-auto object-contain"
+                width={128}
+                height={52}
               />
             </Link>
           )}
@@ -86,6 +88,8 @@ const Header = ({
               src={cartIcon} 
               alt="Cart" 
               className="h-8 w-8 object-contain"
+              width={32}
+              height={32}
             />
             {getTotalItems() > 0 && (
               <span className="absolute right-0 top-0 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">

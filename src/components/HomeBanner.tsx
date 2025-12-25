@@ -49,6 +49,10 @@ const HomeBanner = () => {
                 src={banner.image} 
                 alt={`Banner ${banner.id}`}
                 className="absolute inset-0 w-full h-full object-cover"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
+                width={943}
+                height={405}
                 onLoad={() => handleImageLoad(index)}
                 onError={(e) => {
                   console.error(`Failed to load banner ${index + 1}:`, banner.image);
