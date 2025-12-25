@@ -142,7 +142,7 @@ const AddressForm = () => {
         <StepIndicator currentStep={0} steps={steps} />
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="mt-2">
+        <form onSubmit={handleSubmit} className="mt-2" autoComplete="off">
           <section className="bg-card px-4 py-4">
             <h2 className="text-sm font-semibold text-foreground mb-4">CONTACT DETAILS</h2>
             
@@ -160,6 +160,7 @@ const AddressForm = () => {
                   placeholder="Enter your full name"
                   className={`mt-1 h-11 ${errors.name ? "border-destructive" : ""}`}
                   maxLength={100}
+                  autoComplete="off"
                 />
                 {errors.name && (
                   <p className="mt-1 text-xs text-destructive">{errors.name}</p>
@@ -178,6 +179,7 @@ const AddressForm = () => {
                   onChange={(e) => handleInputChange("phone", e.target.value.replace(/\D/g, "").slice(0, 10))}
                   placeholder="10-digit mobile number"
                   className={`mt-1 h-11 ${errors.phone ? "border-destructive" : ""}`}
+                  autoComplete="off"
                 />
                 {errors.phone && (
                   <p className="mt-1 text-xs text-destructive">{errors.phone}</p>
@@ -203,6 +205,7 @@ const AddressForm = () => {
                     onChange={(e) => handleInputChange("pincode", e.target.value.replace(/\D/g, "").slice(0, 6))}
                     placeholder="6-digit pincode"
                     className={`mt-1 h-11 ${errors.pincode ? "border-destructive" : ""}`}
+                    autoComplete="off"
                   />
                   {errors.pincode && (
                     <p className="mt-1 text-xs text-destructive">{errors.pincode}</p>
@@ -221,6 +224,7 @@ const AddressForm = () => {
                     placeholder="City"
                     className={`mt-1 h-11 ${errors.city ? "border-destructive" : ""}`}
                     maxLength={50}
+                    autoComplete="off"
                   />
                   {errors.city && (
                     <p className="mt-1 text-xs text-destructive">{errors.city}</p>
@@ -264,6 +268,7 @@ const AddressForm = () => {
                   placeholder="House/Flat No., Building Name"
                   className={`mt-1 h-11 ${errors.houseNo ? "border-destructive" : ""}`}
                   maxLength={200}
+                  autoComplete="off"
                 />
                 {errors.houseNo && (
                   <p className="mt-1 text-xs text-destructive">{errors.houseNo}</p>
@@ -283,6 +288,7 @@ const AddressForm = () => {
                   placeholder="Road Name, Area, Colony"
                   className={`mt-1 h-11 ${errors.area ? "border-destructive" : ""}`}
                   maxLength={200}
+                  autoComplete="off"
                 />
                 {errors.area && (
                   <p className="mt-1 text-xs text-destructive">{errors.area}</p>
