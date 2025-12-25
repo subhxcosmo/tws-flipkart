@@ -93,11 +93,12 @@ export interface Product {
 }
 
 export const products: Product[] = [
+  // 1st - AirPods 4
   {
     id: "1",
     name: "AirPods 4 Wireless Earbuds, Personalised Spatial Audio, Sweat and Water Resistant Bluetooth Headset (White, True Wireless)",
     brand: "Apple",
-    image: airpods4, // Earbuds image for homepage thumbnail
+    image: airpods4,
     rating: 4.8,
     reviews: 24567,
     price: 149,
@@ -108,10 +109,53 @@ export const products: Product[] = [
     hasWirelessCharging: true,
     colorVariants: [],
     description: "Experience next-level audio with Apple AirPods 4th Generation. Featuring the powerful H2 chip, these earbuds deliver exceptional sound quality with richer bass and crisp highs. Personalized Spatial Audio with dynamic head tracking creates an immersive listening experience that surrounds you in sound. With up to 30 hours of total listening time using the charging case, seamless switching between Apple devices, and one-touch setup, AirPods 4 redefine wireless convenience. The redesigned contoured fit ensures all-day comfort, while the force sensor stem lets you control music and calls effortlessly.",
-    images: [airpods1, airpods2, airpods3, airpods5, airpods6], // Detail page uses all images - first image used in cart/summary/payment
+    images: [airpods1, airpods2, airpods3, airpods5, airpods6],
   },
+  // 2nd - OnePlus Buds Pro 2
   {
     id: "2",
+    name: "OnePlus Buds Pro 2, Obsidian Black, Audiophile-Grade Sound Quality Co-Created with Dynaudio, Best-in-Class ANC",
+    brand: "OnePlus",
+    image: oneplusBudsPro2_1,
+    rating: 4.7,
+    reviews: 11234,
+    price: 99,
+    originalPrice: 9500,
+    highlights: ["39H Battery", "48dB ANC", "Spatial Audio"],
+    batteryLife: 39,
+    hasANC: true,
+    hasWirelessCharging: true,
+    colorVariants: [],
+    description: "Experience audiophile-grade sound with OnePlus Buds Pro 2, co-created with legendary Danish audio experts Dynaudio. Featuring MelodyBoost Dual Drivers with BassWave enhancement algorithm, these earbuds deliver powerful, immersive audio. With up to 48dB Adaptive Noise Cancellation, 39 hours total playback, Google Spatial Audio, Hi-Res Audio certification, and 54ms low latency mode for gaming, these are the ultimate true wireless earbuds for discerning listeners.",
+    images: [oneplusBudsPro2_1, oneplusBudsPro2_2, oneplusBudsPro2_3, oneplusBudsPro2_4],
+  },
+  // 3rd - CMF Buds Pro 2
+  {
+    id: "3",
+    name: "CMF Buds Pro 2 Wireless Earbuds with Smart Dial, 50dB Hybrid Noise Cancelling, Wireless Bluetooth 5.3",
+    brand: "Nothing Inc.",
+    image: cmfBudsPro2White1,
+    rating: 4.5,
+    reviews: 8456,
+    price: 120,
+    originalPrice: 6000,
+    highlights: ["43H Battery", "50dB ANC", "Smart Dial"],
+    batteryLife: 43,
+    hasANC: true,
+    hasWirelessCharging: false,
+    colorVariants: [
+      {
+        name: "White",
+        color: "#F5F5F5",
+        images: [cmfBudsPro2White1, cmfBudsPro2White2, cmfBudsPro2White3, cmfBudsPro2White4],
+      },
+    ],
+    description: "CMF Buds Pro 2 from Nothing Inc. feature an innovative Smart Dial for intuitive control, industry-leading 50dB Hybrid Active Noise Cancellation, and Hi-Res LDAC-certified audio. With Audiodo hearing test and compensation for personalized sound, 43 hours total battery life, Bluetooth 5.3, and IP55 water resistance, these buds deliver premium features at an accessible price.",
+    images: [cmfBudsPro2White1, cmfBudsPro2White2, cmfBudsPro2White3, cmfBudsPro2White4],
+  },
+  // 4th onwards - other products
+  {
+    id: "4",
     name: "SoundPods Pro Max",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -155,7 +199,7 @@ export const products: Product[] = [
     ],
   },
   {
-    id: "3",
+    id: "5",
     name: "BassBuds Elite",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -170,7 +214,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "4",
+    id: "6",
     name: "ClearSound X1",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
@@ -185,7 +229,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "5",
+    id: "7",
     name: "BudZ Lite",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
@@ -200,7 +244,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "6",
+    id: "8",
     name: "NoisePods Ultra",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
@@ -215,7 +259,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "7",
+    id: "9",
     name: "FitBuds Sport",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1608156639585-b3a776ea2049?w=300&h=300&fit=crop",
@@ -230,7 +274,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "8",
+    id: "10",
     name: "StudioPods Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
@@ -245,7 +289,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "9",
+    id: "11",
     name: "EcoBuds Green",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=300&fit=crop",
@@ -260,7 +304,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "10",
+    id: "12",
     name: "AirPods Clone X",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=300&h=300&fit=crop",
@@ -275,7 +319,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "11",
+    id: "13",
     name: "GamePods Zero",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=300&fit=crop",
@@ -290,7 +334,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "12",
+    id: "14",
     name: "TravelPods Comfort",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=300&h=300&fit=crop",
@@ -305,7 +349,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "13",
+    id: "15",
     name: "BudZ Mini",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -320,7 +364,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "14",
+    id: "16",
     name: "SonicWave Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -335,7 +379,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "15",
+    id: "17",
     name: "QuietMax ANC",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -350,7 +394,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "16",
+    id: "18",
     name: "ActiveFit X2",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
@@ -363,82 +407,6 @@ export const products: Product[] = [
     batteryLife: 26,
     hasANC: false,
     hasWirelessCharging: false,
-  },
-  {
-    id: "17",
-    name: "AudioMax Elite",
-    brand: "AudioTech",
-    image: "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
-    rating: 4.8,
-    reviews: 2345,
-    price: 5499,
-    originalPrice: 7999,
-    discount: 31,
-    highlights: ["55H Battery", "Studio ANC", "Lossless Audio"],
-    batteryLife: 55,
-    hasANC: true,
-    hasWirelessCharging: true,
-  },
-  {
-    id: "18",
-    name: "BassKing Pro",
-    brand: "SoundWave",
-    image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
-    rating: 4.5,
-    reviews: 6234,
-    price: 2299,
-    originalPrice: 3999,
-    discount: 43,
-    highlights: ["38H Battery", "Extra Bass", "Touch Control"],
-    batteryLife: 38,
-    hasANC: true,
-    hasWirelessCharging: false,
-  },
-  {
-    id: "19",
-    name: "OnePlus Buds Pro 2, Obsidian Black, Audiophile-Grade Sound Quality Co-Created with Dynaudio, Best-in-Class ANC",
-    brand: "OnePlus",
-    image: oneplusBudsPro2_1,
-    rating: 4.7,
-    reviews: 11234,
-    price: 99,
-    originalPrice: 9500,
-    highlights: ["39H Battery", "48dB ANC", "Spatial Audio"],
-    batteryLife: 39,
-    hasANC: true,
-    hasWirelessCharging: true,
-    colorVariants: [],
-    description: "Experience audiophile-grade sound with OnePlus Buds Pro 2, co-created with legendary Danish audio experts Dynaudio. Featuring MelodyBoost Dual Drivers with BassWave enhancement algorithm, these earbuds deliver powerful, immersive audio. With up to 48dB Adaptive Noise Cancellation, 39 hours total playback, Google Spatial Audio, Hi-Res Audio certification, and 54ms low latency mode for gaming, these are the ultimate true wireless earbuds for discerning listeners.",
-    images: [oneplusBudsPro2_1, oneplusBudsPro2_2, oneplusBudsPro2_3, oneplusBudsPro2_4],
-  },
-  {
-    id: "20",
-    name: "CMF Buds Pro 2 Wireless Earbuds with Smart Dial, 50dB Hybrid Noise Cancelling, Wireless Bluetooth 5.3",
-    brand: "Nothing Inc.",
-    image: cmfBudsPro2White1,
-    rating: 4.5,
-    reviews: 8456,
-    price: 120,
-    originalPrice: 6000,
-    highlights: ["43H Battery", "50dB ANC", "Smart Dial"],
-    batteryLife: 43,
-    hasANC: true,
-    hasWirelessCharging: false,
-    colorVariants: [
-      {
-        name: "White",
-        color: "#F5F5F5",
-        images: [cmfBudsPro2White1, cmfBudsPro2White2, cmfBudsPro2White3, cmfBudsPro2White4],
-      },
-      // Black variant placeholder - images to be added later
-      // {
-      //   name: "Black",
-      //   color: "#1A1A1A",
-      //   images: [],
-      // },
-    ],
-    description: "CMF Buds Pro 2 from Nothing Inc. feature an innovative Smart Dial for intuitive control, industry-leading 50dB Hybrid Active Noise Cancellation, and Hi-Res LDAC-certified audio. With Audiodo hearing test and compensation for personalized sound, 43 hours total battery life, Bluetooth 5.3, and IP55 water resistance, these buds deliver premium features at an accessible price.",
-    images: [cmfBudsPro2White1, cmfBudsPro2White2, cmfBudsPro2White3, cmfBudsPro2White4],
   },
 ];
 
