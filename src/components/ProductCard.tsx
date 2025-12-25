@@ -20,6 +20,19 @@ const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardPro
     }).format(price);
   };
 
+  // Format review count as "x.xK+" or "x.xL+"
+  const formatReviewCount = (reviews: number) => {
+    if (reviews >= 100000) {
+      return `${(reviews / 100000).toFixed(1)}L+`;
+    } else if (reviews >= 1000) {
+      return `${(reviews / 1000).toFixed(1)}K+`;
+    }
+    return `${reviews}+`;
+  };
+
+  // Get display rating for this product
+  const displayRating = getDisplayRating(product);
+
   // Calculate bank offer price (approximately 5% extra off)
   const bankOfferPrice = Math.round(product.price * 0.95);
 
@@ -44,6 +57,13 @@ const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardPro
             alt={product.name}
             className="w-full h-full object-cover"
           />
+          {/* Review Bar - Bottom left, small minimal badge */}
+          <div className="absolute bottom-2 left-2 bg-white/95 rounded px-1.5 py-0.5 shadow-sm flex items-center gap-1">
+            <span className="text-[11px] font-medium text-[#212121]">{displayRating.toFixed(1)}</span>
+            <Star className="h-2.5 w-2.5 fill-[#388e3c] text-[#388e3c]" />
+            <span className="text-[10px] text-[#878787]">|</span>
+            <span className="text-[10px] text-[#878787]">{formatReviewCount(product.reviews)}</span>
+          </div>
         </div>
 
         {/* Content - All left-aligned, tight spacing */}

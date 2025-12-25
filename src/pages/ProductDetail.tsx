@@ -61,10 +61,12 @@ const ProductDetail = () => {
     .filter((p) => p.id !== id && (p.brand === product?.brand || Math.abs(p.price - (product?.price || 0)) < 1000))
     .slice(0, 6);
 
-  // Get images: use product's custom images, or color variant images, or fallback to product image
-  const images = product?.images && product.images.length > 0
-    ? product.images
-    : selectedColor?.images || (product ? [product.image, product.image, product.image] : []);
+  // Get images: if color variants exist, use selected color's images; otherwise use product's images array or fallback
+  const images = colorVariants.length > 0 && selectedColor?.images
+    ? selectedColor.images
+    : product?.images && product.images.length > 0
+      ? product.images
+      : (product ? [product.image, product.image, product.image] : []);
 
   const minSwipeDistance = 50;
 
@@ -229,14 +231,12 @@ const ProductDetail = () => {
             </div>
           </div>
           
-          {/* Floating Rating Badge - stays fixed while swiping */}
-          <div className="absolute left-3 top-3 bg-white/95 rounded-md px-2 py-1 shadow-sm">
-            <span className="text-sm font-medium text-[#212121] flex items-center gap-1">
-              {product.rating}
-              <Star className="h-3.5 w-3.5 fill-[#388e3c] text-[#388e3c]" />
-              <span className="text-[#878787] mx-0.5">|</span>
-              <span className="text-[#878787]">{formatReviews(product.reviews)}</span>
-            </span>
+          {/* Review Bar - Bottom left, small minimal badge like reference */}
+          <div className="absolute bottom-3 left-3 bg-white/95 rounded px-2 py-1 shadow-sm flex items-center gap-1">
+            <span className="text-sm font-medium text-[#212121]">{product.rating.toFixed(1)}</span>
+            <Star className="h-3.5 w-3.5 fill-[#388e3c] text-[#388e3c]" />
+            <span className="text-[#878787]">|</span>
+            <span className="text-[#878787]">{formatReviews(product.reviews)}</span>
           </div>
 
           {/* Pagination Dots */}

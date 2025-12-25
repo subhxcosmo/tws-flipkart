@@ -17,6 +17,12 @@ import cmfBudsPro2White2 from "@/assets/cmf-buds-pro2-white-2.png";
 import cmfBudsPro2White3 from "@/assets/cmf-buds-pro2-white-3.jpeg";
 import cmfBudsPro2White4 from "@/assets/cmf-buds-pro2-white-4.jpg";
 
+// CMF Buds Pro 2 images - Black variant
+import cmfBudsPro2Black1 from "@/assets/cmf-buds-pro2-black-1.png";
+import cmfBudsPro2Black2 from "@/assets/cmf-buds-pro2-black-2.jpg";
+import cmfBudsPro2Black3 from "@/assets/cmf-buds-pro2-black-3.jpg";
+import cmfBudsPro2Black4 from "@/assets/cmf-buds-pro2-black-4.png";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -152,6 +158,11 @@ export const products: Product[] = [
         name: "White",
         color: "#F5F5F5",
         images: [cmfBudsPro2White1, cmfBudsPro2White2, cmfBudsPro2White3, cmfBudsPro2White4],
+      },
+      {
+        name: "Black",
+        color: "#2A2A2A",
+        images: [cmfBudsPro2Black1, cmfBudsPro2Black2, cmfBudsPro2Black3, cmfBudsPro2Black4],
       },
     ],
     description: "CMF Buds Pro 2 from Nothing Inc. feature an innovative Smart Dial for intuitive control, industry-leading 50dB Hybrid Active Noise Cancellation, and Hi-Res LDAC-certified audio. With Audiodo hearing test and compensation for personalized sound, 43 hours total battery life, Bluetooth 5.3, and IP55 water resistance, these buds deliver premium features at an accessible price.",
