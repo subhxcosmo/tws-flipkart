@@ -88,7 +88,7 @@ const OrderSummary = () => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate(`/product/${id}`)}
               className="h-9 w-9 shrink-0"
             >
               <ArrowLeft className="h-5 w-5" />

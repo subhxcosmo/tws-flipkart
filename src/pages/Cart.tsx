@@ -61,7 +61,7 @@ const Cart = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => navigate(-1)}
+                onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
                 className="h-9 w-9 shrink-0"
               >
                 <ArrowLeft className="h-5 w-5" />
@@ -100,7 +100,7 @@ const Cart = () => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate(-1)}
+              onClick={() => window.history.length > 1 ? navigate(-1) : navigate("/")}
               className="h-9 w-9 shrink-0"
             >
               <ArrowLeft className="h-5 w-5" />
