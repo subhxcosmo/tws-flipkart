@@ -23,6 +23,13 @@ import cmfBudsPro2Black2 from "@/assets/cmf-buds-pro2-black-2.jpg";
 import cmfBudsPro2Black3 from "@/assets/cmf-buds-pro2-black-3.jpg";
 import cmfBudsPro2Black4 from "@/assets/cmf-buds-pro2-black-4.png";
 
+// Samsung Galaxy Buds 3 Pro images
+import samsungBuds3Pro1 from "@/assets/samsung-buds3-pro-1.png";
+import samsungBuds3Pro2 from "@/assets/samsung-buds3-pro-2.jpg";
+import samsungBuds3Pro3 from "@/assets/samsung-buds3-pro-3.jpg";
+import samsungBuds3Pro4 from "@/assets/samsung-buds3-pro-4.jpeg";
+import samsungBuds3Pro5 from "@/assets/samsung-buds3-pro-5.png";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -168,9 +175,28 @@ export const products: Product[] = [
     description: "CMF Buds Pro 2 from Nothing Inc. feature an innovative Smart Dial for intuitive control, industry-leading 50dB Hybrid Active Noise Cancellation, and Hi-Res LDAC-certified audio. With Audiodo hearing test and compensation for personalized sound, 43 hours total battery life, Bluetooth 5.3, and IP55 water resistance, these buds deliver premium features at an accessible price.",
     images: [cmfBudsPro2White1, cmfBudsPro2White2, cmfBudsPro2White3, cmfBudsPro2White4],
   },
-  // 4th onwards - other products
+  // 4th - Samsung Galaxy Buds 3 Pro
   {
     id: "4",
+    name: "Galaxy Buds 3 Pro Bluetooth Headset (Silver, In the Ear)",
+    brand: "Samsung",
+    seller: "Samsung Inc.",
+    image: samsungBuds3Pro1,
+    rating: 4.6,
+    reviews: 18732,
+    price: 15999,
+    originalPrice: 19999,
+    highlights: ["30H Battery", "360 Audio", "IP57 Rated"],
+    batteryLife: 30,
+    hasANC: true,
+    hasWirelessCharging: true,
+    colorVariants: [],
+    description: "Samsung Galaxy Buds 3 Pro deliver an immersive audio experience with Hi-Fi sound powered by AKG. Featuring 2-way speakers with planar tweeters, 360 Audio with head tracking, and Ultra High Quality Audio, these earbuds bring studio-quality sound to your ears. With up to 30 hours of total playback, IP57 water resistance, Adaptive ANC that automatically adjusts to your environment, and seamless Galaxy ecosystem integration, the Buds 3 Pro are the ultimate companion for Samsung users.",
+    images: [samsungBuds3Pro1, samsungBuds3Pro2, samsungBuds3Pro3, samsungBuds3Pro4, samsungBuds3Pro5],
+  },
+  // 5th onwards - other products
+  {
+    id: "5",
     name: "SoundPods Pro Max",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -214,7 +240,7 @@ export const products: Product[] = [
     ],
   },
   {
-    id: "5",
+    id: "6",
     name: "BassBuds Elite",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -229,7 +255,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "6",
+    id: "7",
     name: "ClearSound X1",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
@@ -244,7 +270,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "7",
+    id: "8",
     name: "BudZ Lite",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
@@ -259,7 +285,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "8",
+    id: "9",
     name: "NoisePods Ultra",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
@@ -274,7 +300,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "9",
+    id: "10",
     name: "FitBuds Sport",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1608156639585-b3a776ea2049?w=300&h=300&fit=crop",
@@ -289,7 +315,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "10",
+    id: "11",
     name: "StudioPods Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
@@ -304,7 +330,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "11",
+    id: "12",
     name: "EcoBuds Green",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=300&fit=crop",
@@ -319,7 +345,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "12",
+    id: "13",
     name: "AirPods Clone X",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=300&h=300&fit=crop",
@@ -334,7 +360,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "13",
+    id: "14",
     name: "GamePods Zero",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=300&fit=crop",
@@ -349,7 +375,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "14",
+    id: "15",
     name: "TravelPods Comfort",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=300&h=300&fit=crop",
@@ -364,7 +390,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "15",
+    id: "16",
     name: "BudZ Mini",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -379,7 +405,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "16",
+    id: "17",
     name: "SonicWave Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -394,7 +420,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "17",
+    id: "18",
     name: "QuietMax ANC",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -409,7 +435,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "18",
+    id: "19",
     name: "ActiveFit X2",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
@@ -425,7 +451,7 @@ export const products: Product[] = [
   },
 ];
 
-export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple", "OnePlus", "Nothing Inc."];
+export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple", "OnePlus", "Nothing Inc.", "Samsung"];
 
 export const priceRanges = [
   { label: "Under ₹500", min: 0, max: 500 },
