@@ -56,6 +56,9 @@ const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardPro
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover"
+            loading={index < 4 ? "eager" : "lazy"}
+            width={340}
+            height={340}
           />
           {/* Review Bar - Bottom left, small minimal badge */}
           <div className="absolute bottom-2 left-2 bg-white/95 rounded px-1.5 py-0.5 shadow-sm flex items-center gap-1">
@@ -105,6 +108,9 @@ const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardPro
               src={wowBadge} 
               alt="WOW" 
               className="h-[14px] w-auto"
+              loading="lazy"
+              width={32}
+              height={14}
             />
             <span className="text-[12px] text-[#212121]">
               {formatPrice(bankOfferPrice)} with Bank offer
@@ -140,6 +146,9 @@ const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardPro
               src={assuredBadge} 
               alt="Assured" 
               className="h-[16px] w-auto"
+              loading="lazy"
+              width={55}
+              height={16}
             />
           </div>
         </div>
