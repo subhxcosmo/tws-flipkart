@@ -203,17 +203,17 @@ const ProductDetail = () => {
               style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
             >
               {images.map((img, index) => {
-                // For AirPods (product id "1"), 4th image (index 3) uses contain to show full product
+                // For AirPods (product id "1"), 4th image (index 3) uses contain to show full product without cropping
                 const isAirPodsFourthImage = product.id === "1" && index === 3;
                 return (
                   <div 
                     key={index} 
-                    className="w-full h-full shrink-0 bg-[#f5f5f5] flex items-center justify-center"
+                    className={`w-full h-full shrink-0 ${isAirPodsFourthImage ? 'bg-white' : 'bg-[#f5f5f5]'}`}
                   >
                     <img
                       src={img}
                       alt={`${product.name} - Image ${index + 1}`}
-                      className={`w-full h-full ${isAirPodsFourthImage ? 'object-contain p-4' : 'object-cover'}`}
+                      className={`w-full h-full ${isAirPodsFourthImage ? 'object-contain' : 'object-cover'}`}
                       draggable={false}
                     />
                   </div>
@@ -468,7 +468,7 @@ const ProductDetail = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-muted-foreground">Seller</p>
-              <p className="text-sm font-medium text-primary">AudioMart Official</p>
+              <p className="text-sm font-medium text-primary">Apple Inc.</p>
             </div>
             <div className="flex items-center gap-1 rounded-sm bg-rating-bg px-2 py-0.5">
               <span className="text-xs font-bold text-rating-text">4.8</span>
@@ -507,16 +507,16 @@ const ProductDetail = () => {
           </div>
 
           {/* Total Reviews Count */}
-          <p className="mt-3 text-xs text-muted-foreground">350+ Reviews</p>
+          <p className="mt-3 text-xs text-muted-foreground">12,847 Reviews</p>
 
           {/* Star Distribution */}
           <div className="mt-3 space-y-2">
             {[
-              { stars: 5, count: '1,43,027', percentage: 70 },
-              { stars: 4, count: '39,003', percentage: 45 },
-              { stars: 3, count: '10,411', percentage: 20 },
-              { stars: 2, count: '4,844', percentage: 10 },
-              { stars: 1, count: '10,847', percentage: 15 },
+              { stars: 5, count: '4,521', percentage: 55 },
+              { stars: 4, count: '2,847', percentage: 35 },
+              { stars: 3, count: '1,234', percentage: 15 },
+              { stars: 2, count: '489', percentage: 6 },
+              { stars: 1, count: '356', percentage: 4 },
             ].map((item) => (
               <div key={item.stars} className="flex items-center gap-2">
                 <span className="text-xs text-muted-foreground w-5 flex items-center gap-0.5">
