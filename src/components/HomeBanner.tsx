@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
+import banner1 from "@/assets/banner-1.jpg";
+import banner2 from "@/assets/banner-2.jpeg";
+import banner3 from "@/assets/banner-3.jpeg";
 
-// Banner configuration - DO NOT MODIFY THIS LAYOUT
 const banners = [
-  { id: 1, image: "/images/banner-1.jpg" },
-  { id: 2, image: "/images/banner-2.jpeg" },
-  { id: 3, image: "/images/banner-3.jpeg" },
+  { id: 1, image: banner1 },
+  { id: 2, image: banner2 },
+  { id: 3, image: banner3 },
 ];
 
 const HomeBanner = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [imagesLoaded, setImagesLoaded] = useState<boolean[]>([false, false, false]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -18,48 +19,33 @@ const HomeBanner = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleImageLoad = (index: number) => {
-    setImagesLoaded(prev => {
-      const newState = [...prev];
-      newState[index] = true;
-      return newState;
-    });
-  };
-
   return (
-    // Full-width edge-to-edge container - NO padding, NO margin - DO NOT MODIFY
-    <div className="relative w-full overflow-hidden bg-muted">
-      {/* Fixed aspect ratio container 21:9 - DO NOT MODIFY */}
-      <div 
-        className="relative w-full"
-        style={{ aspectRatio: '21/9' }}
-      >
-        <div 
-          className="absolute inset-0 flex transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {banners.map((banner, index) => (
-            <div
-              key={banner.id}
-              className="relative w-full h-full shrink-0 flex-none"
-              style={{ minWidth: '100%' }}
-            >
-              {/* Image covers entire banner area - edge-to-edge, no gaps */}
-              <img 
-                src={banner.image} 
-                alt={`Banner ${banner.id}`}
-                className="absolute inset-0 w-full h-full object-cover"
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchPriority={index === 0 ? "high" : "auto"}
-                width={943}
-                height={405}
-                onLoad={() => handleImageLoad(index)}
-                onError={(e) => {
-                  console.error(`Failed to load banner ${index + 1}:`, banner.image);
-                }}
-              />
-            </div>
-          ))}
+    <div className="relative w-full bg-muted">
+      {/* Aspect ratio wrapper */}
+      <div className="relative w-full" style={{ paddingTop: '42.86%' }}>
+        {/* Slides container */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div 
+            className="flex h-full transition-transform duration-500 ease-out"
+            style={{ 
+              width: `${banners.length * 100}%`,
+              transform: `translateX(-${currentIndex * (100 / banners.length)}%)`
+            }}
+          >
+            {banners.map((banner) => (
+              <div
+                key={banner.id}
+                className="h-full"
+                style={{ width: `${100 / banners.length}%` }}
+              >
+                <img 
+                  src={banner.image} 
+                  alt={`Banner ${banner.id}`}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       

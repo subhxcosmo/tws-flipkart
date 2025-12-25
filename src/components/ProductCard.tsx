@@ -50,17 +50,15 @@ const ProductCard = ({ product, isSponsored = false, index = 0 }: ProductCardPro
           <Heart className="h-4 w-4 text-muted-foreground" />
         </button>
 
-        {/* Image Container - Large prominent images like Flipkart - DO NOT MODIFY */}
-        <div className="relative aspect-square w-full overflow-hidden bg-muted">
+        {/* Image Container */}
+        <div className="relative w-full overflow-hidden bg-muted" style={{ paddingTop: '100%' }}>
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover"
             loading={index < 4 ? "eager" : "lazy"}
-            width={340}
-            height={340}
           />
-          {/* Review Bar - Bottom left, small minimal badge */}
+          {/* Review Bar */}
           <div className="absolute bottom-2 left-2 bg-white/95 rounded px-1.5 py-0.5 shadow-sm flex items-center gap-1">
             <span className="text-[11px] font-medium text-[#212121]">{displayRating.toFixed(1)}</span>
             <Star className="h-2.5 w-2.5 fill-[#388e3c] text-[#388e3c]" />
