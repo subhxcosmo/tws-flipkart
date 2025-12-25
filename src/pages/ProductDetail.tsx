@@ -210,19 +210,28 @@ const ProductDetail = () => {
                 const isOnePlusFourthImage = product.id === "2" && index === 3;
                 const isCMFFourthImage = product.id === "3" && index === 3;
                 const isCMFFirstImage = product.id === "3" && index === 0;
+                const isSamsungFirstOrSecond = product.id === "4" && (index === 0 || index === 1);
                 
                 // Use contain for 4th images to avoid cropping
                 const useContain = isAirPodsFourthImage || isOnePlusFourthImage || isCMFFourthImage;
                 
+                // Get appropriate image class
+                const getImageClass = () => {
+                  if (useContain) return 'w-full h-full object-contain';
+                  if (isCMFFirstImage) return 'w-full h-full object-cover scale-110';
+                  if (isSamsungFirstOrSecond) return 'w-full h-full object-contain scale-90';
+                  return 'w-full h-full object-cover';
+                };
+                
                 return (
                   <div 
                     key={index} 
-                    className={`w-full h-full shrink-0 ${useContain ? 'bg-white' : 'bg-[#f5f5f5]'} flex items-center justify-center`}
+                    className={`w-full h-full shrink-0 ${useContain || isSamsungFirstOrSecond ? 'bg-white' : 'bg-[#f5f5f5]'} flex items-center justify-center`}
                   >
                     <img
                       src={img}
                       alt={`${product.name} - Image ${index + 1}`}
-                      className={`${useContain ? 'w-full h-full object-contain' : isCMFFirstImage ? 'w-full h-full object-cover scale-110' : 'w-full h-full object-cover'}`}
+                      className={getImageClass()}
                       draggable={false}
                     />
                   </div>
