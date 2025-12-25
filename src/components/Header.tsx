@@ -47,7 +47,12 @@ const Header = ({
   };
 
   const handleBack = () => {
-    navigate(-1);
+    // If there's history, go back; otherwise go to home
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
   };
 
   return (

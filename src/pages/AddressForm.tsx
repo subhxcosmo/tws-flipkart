@@ -129,7 +129,7 @@ const AddressForm = () => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate(`/checkout/order/${id}`)}
               className="h-9 w-9 shrink-0"
             >
               <ArrowLeft className="h-5 w-5" />
