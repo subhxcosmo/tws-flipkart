@@ -77,6 +77,7 @@ export interface Product {
   id: string;
   name: string;
   brand: string;
+  seller?: string; // optional seller name - defaults to brand if not set
   image: string;
   rating: number;
   reviews: number;
@@ -98,6 +99,7 @@ export const products: Product[] = [
     id: "1",
     name: "AirPods 4 Wireless Earbuds, Personalised Spatial Audio, Sweat and Water Resistant Bluetooth Headset (White, True Wireless)",
     brand: "Apple",
+    seller: "Apple Inc.",
     image: airpods4,
     rating: 4.8,
     reviews: 24567,
@@ -116,6 +118,7 @@ export const products: Product[] = [
     id: "2",
     name: "OnePlus Buds Pro 2, Obsidian Black, Audiophile-Grade Sound Quality Co-Created with Dynaudio, Best-in-Class ANC",
     brand: "OnePlus",
+    seller: "OnePlus",
     image: oneplusBudsPro2_1,
     rating: 4.7,
     reviews: 11234,
@@ -134,6 +137,7 @@ export const products: Product[] = [
     id: "3",
     name: "CMF Buds Pro 2 Wireless Earbuds with Smart Dial, 50dB Hybrid Noise Cancelling, Wireless Bluetooth 5.3",
     brand: "Nothing Inc.",
+    seller: "Nothing Inc.",
     image: cmfBudsPro2White1,
     rating: 4.5,
     reviews: 8456,

@@ -203,17 +203,24 @@ const ProductDetail = () => {
               style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
             >
               {images.map((img, index) => {
-                // For AirPods (product id "1"), 4th image (index 3) uses contain to show full product without cropping
+                // Special image handling for specific products
                 const isAirPodsFourthImage = product.id === "1" && index === 3;
+                const isOnePlusFourthImage = product.id === "2" && index === 3;
+                const isCMFFourthImage = product.id === "3" && index === 3;
+                const isCMFFirstImage = product.id === "3" && index === 0;
+                
+                // Use contain for 4th images to avoid cropping
+                const useContain = isAirPodsFourthImage || isOnePlusFourthImage || isCMFFourthImage;
+                
                 return (
                   <div 
                     key={index} 
-                    className={`w-full h-full shrink-0 ${isAirPodsFourthImage ? 'bg-white' : 'bg-[#f5f5f5]'}`}
+                    className={`w-full h-full shrink-0 ${useContain ? 'bg-white' : 'bg-[#f5f5f5]'} flex items-center justify-center`}
                   >
                     <img
                       src={img}
                       alt={`${product.name} - Image ${index + 1}`}
-                      className={`w-full h-full ${isAirPodsFourthImage ? 'object-contain' : 'object-cover'}`}
+                      className={`${useContain ? 'w-full h-full object-contain' : isCMFFirstImage ? 'w-full h-full object-cover scale-110' : 'w-full h-full object-cover'}`}
                       draggable={false}
                     />
                   </div>
@@ -468,7 +475,7 @@ const ProductDetail = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-muted-foreground">Seller</p>
-              <p className="text-sm font-medium text-primary">Apple Inc.</p>
+              <p className="text-sm font-medium text-primary">{product.seller || product.brand}</p>
             </div>
             <div className="flex items-center gap-1 rounded-sm bg-rating-bg px-2 py-0.5">
               <span className="text-xs font-bold text-rating-text">4.8</span>
