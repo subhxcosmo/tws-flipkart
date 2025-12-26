@@ -75,6 +75,14 @@ import noiseBudsN1_3 from "@/assets/noise-buds-n1-3.png";
 import noiseBudsN1_4 from "@/assets/noise-buds-n1-4.png";
 import noiseBudsN1_5 from "@/assets/noise-buds-n1-5.png";
 
+// OnePlus Nord Buds 3 Pro images
+import oneplusNordBuds3Pro_1 from "@/assets/oneplus-nord-buds-3-pro-1.png";
+import oneplusNordBuds3Pro_2 from "@/assets/oneplus-nord-buds-3-pro-2.png";
+import oneplusNordBuds3Pro_3 from "@/assets/oneplus-nord-buds-3-pro-3.jpeg";
+import oneplusNordBuds3Pro_4 from "@/assets/oneplus-nord-buds-3-pro-4.jpeg";
+import oneplusNordBuds3Pro_5 from "@/assets/oneplus-nord-buds-3-pro-5.png";
+import oneplusNordBuds3Pro_6 from "@/assets/oneplus-nord-buds-3-pro-6.png";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -364,51 +372,26 @@ export const products: Product[] = [
     description: "Noise Buds N1 feature a stunning metallic finish with Chrome Black elegance. With 32dB Active Noise Cancellation, an incredible 60 hours of total playtime, Instacharge technology for quick top-ups, Bluetooth 5.3 for stable connectivity, and Hyper Sync for seamless device switching. The premium build quality and comfortable fit make them perfect for all-day listening.",
     images: [noiseBudsN1_1, noiseBudsN1_2, noiseBudsN1_3, noiseBudsN1_4, noiseBudsN1_5],
   },
-  // 11th onwards - other products
+  // 11th - OnePlus Nord Buds 3 Pro
   {
     id: "11",
-    name: "SoundPods Pro Max",
-    brand: "AudioTech",
-    image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
-    rating: 4.5,
-    reviews: 12543,
-    price: 2499,
-    originalPrice: 4999,
-    discount: 50,
-    highlights: ["40H Battery", "ANC", "HD Calls"],
-    batteryLife: 40,
+    name: "OnePlus Nord Buds 3 Pro TWS Earbuds with Active Noise Cancellation (IP55 Water Resistant, Fast Charging, Starry Black)",
+    brand: "OnePlus",
+    seller: "OnePlus",
+    image: oneplusNordBuds3Pro_1,
+    rating: 4.4,
+    reviews: 6234,
+    price: 110,
+    originalPrice: 3500,
+    highlights: ["49dB ANC", "IP55 Rated", "Fast Charge"],
+    batteryLife: 44,
     hasANC: true,
-    hasWirelessCharging: true,
-    colorVariants: [
-      {
-        name: "Midnight Black",
-        color: "#1A1A1A",
-        images: [
-          "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
-          "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
-          "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
-        ],
-      },
-      {
-        name: "Pearl White",
-        color: "#F5F5F5",
-        images: [
-          "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
-          "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
-          "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
-        ],
-      },
-      {
-        name: "Ocean Blue",
-        color: "#1E3A5F",
-        images: [
-          "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
-          "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
-          "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
-        ],
-      },
-    ],
+    hasWirelessCharging: false,
+    colorVariants: [],
+    description: "OnePlus Nord Buds 3 Pro deliver exceptional audio with up to 49dB Hybrid Active Noise Cancellation that blocks out all distractions. Featuring 12.4mm Titanized Diaphragm drivers with BassWave 2.0 for rich, powerful sound, Crystal Clear 3-Mic Call Noise Cancellation, up to 44 hours of listening time, IP55 water and sweat resistance, and Speedy Fast Charging (10 mins = 11 hrs). With Bluetooth 5.4 connectivity and a stunning Starry Black finish, these earbuds are perfect for everyday use.",
+    images: [oneplusNordBuds3Pro_1, oneplusNordBuds3Pro_2, oneplusNordBuds3Pro_3, oneplusNordBuds3Pro_4, oneplusNordBuds3Pro_5, oneplusNordBuds3Pro_6],
   },
+  // 12th onwards - other products
   {
     id: "12",
     name: "BassBuds Elite",
