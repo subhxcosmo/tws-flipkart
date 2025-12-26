@@ -71,6 +71,9 @@ import boat141AncGreen3 from "@/assets/boat-141-anc-green-3.jpg";
 // Noise Buds N1 images
 import noiseBudsN1_1 from "@/assets/noise-buds-n1-1.png";
 import noiseBudsN1_2 from "@/assets/noise-buds-n1-2.png";
+import noiseBudsN1_3 from "@/assets/noise-buds-n1-3.png";
+import noiseBudsN1_4 from "@/assets/noise-buds-n1-4.png";
+import noiseBudsN1_5 from "@/assets/noise-buds-n1-5.png";
 
 // Color variant interface
 export interface ColorVariant {
@@ -331,7 +334,7 @@ export const products: Product[] = [
       {
         name: "Black",
         color: "#1A1A1A",
-        images: [boat141AncBlack1, boat141AncBlack2, boat141AncBlack3, boat141AncBlack4, boat141AncBlack5],
+        images: [boat141AncBlack2, boat141AncBlack1, boat141AncBlack3, boat141AncBlack4, boat141AncBlack5],
       },
       {
         name: "Green",
@@ -340,7 +343,7 @@ export const products: Product[] = [
       },
     ],
     description: "boAt Airdopes 141 ANC deliver immersive audio with 32dB Active Noise Cancellation that blocks out distractions. Featuring boAt Signature Sound with 10mm drivers, 42 hours of total playback with ASAP Charge (10 min charge = 150 min playtime), Bluetooth v5.3 for stable connectivity, IPX5 sweat and water resistance, dual EQ modes, and ENx technology for crystal-clear calls. The stylish pocketable design in Gunmetal Black makes a bold statement.",
-    images: [boat141AncBlack1, boat141AncBlack2, boat141AncBlack3, boat141AncBlack4, boat141AncBlack5],
+    images: [boat141AncBlack2, boat141AncBlack1, boat141AncBlack3, boat141AncBlack4, boat141AncBlack5],
   },
   // 10th - Noise Buds N1
   {
@@ -359,7 +362,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
     colorVariants: [],
     description: "Noise Buds N1 feature a stunning metallic finish with Chrome Black elegance. With 32dB Active Noise Cancellation, an incredible 60 hours of total playtime, Instacharge technology for quick top-ups, Bluetooth 5.3 for stable connectivity, and Hyper Sync for seamless device switching. The premium build quality and comfortable fit make them perfect for all-day listening.",
-    images: [noiseBudsN1_1, noiseBudsN1_2],
+    images: [noiseBudsN1_1, noiseBudsN1_2, noiseBudsN1_3, noiseBudsN1_4, noiseBudsN1_5],
   },
   // 11th onwards - other products
   {
