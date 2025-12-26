@@ -321,7 +321,7 @@ export const products: Product[] = [
     name: "boAt Airdopes 141 ANC TWS Earbuds Gunmetal Black 1 pc",
     brand: "boAt",
     seller: "boAt",
-    image: boat141AncBlack1,
+    image: boat141AncBlack2,
     rating: 4.3,
     reviews: 9821,
     price: 99,
