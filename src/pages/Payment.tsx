@@ -122,6 +122,11 @@ const Payment = () => {
     return `${method.deepLinkPrefix}?${upiParams}`;
   };
 
+  // Generate unique order ID
+  const generateOrderId = () => {
+    return `OD${Date.now()}${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+  };
+
   const handlePlaceOrder = () => {
     const selectedPaymentMethod = paymentMethods.find(m => m.id === selectedMethod);
     if (!selectedPaymentMethod) return;
@@ -144,6 +149,22 @@ const Payment = () => {
     setTimeout(() => {
       window.location.href = upiLink;
     }, 100);
+
+    // Navigate to order processing page after a short delay
+    // This gives time for the UPI app to open
+    setTimeout(() => {
+      const orderId = generateOrderId();
+      const orderDate = new Date().toISOString();
+      
+      navigate(`/order-processing/${id}`, {
+        state: {
+          productId: id,
+          orderId,
+          orderDate
+        },
+        replace: true
+      });
+    }, 1500);
   };
 
   return (
