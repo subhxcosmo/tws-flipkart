@@ -105,6 +105,12 @@ import goboultMustangDyno_4 from "@/assets/goboult-mustang-dyno-4.jpeg";
 import goboultMustangDyno_5 from "@/assets/goboult-mustang-dyno-5.jpeg";
 import goboultMustangDyno_6 from "@/assets/goboult-mustang-dyno-6.jpeg";
 
+// JBL Live Beam 3 images
+import jblBeam3_1 from "@/assets/jbl-beam3-1.png";
+import jblBeam3_2 from "@/assets/jbl-beam3-2.png";
+import jblBeam3_3 from "@/assets/jbl-beam3-3.jpg";
+import jblBeam3_4 from "@/assets/jbl-beam3-4.jpg";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -470,24 +476,28 @@ export const products: Product[] = [
     description: "GOBOULT Mustang Dyno TWS Earbuds feature an official Mustang partnership with iconic design inspired by the legendary car. Featuring Environmental Noise Cancellation with ZEN Quad Mic technology for crystal-clear calls, 60 hours of total playtime, 45ms ultra-low latency for gaming, Dual Device Connectivity, IPX5 water resistance, Bluetooth 5.4, and Fast Charging (10 min = 120 hrs playtime). The stunning Dyno Silver finish with Mustang branding makes a bold statement.",
     images: [goboultMustangDyno_1, goboultMustangDyno_2, goboultMustangDyno_3, goboultMustangDyno_4, goboultMustangDyno_5, goboultMustangDyno_6],
   },
-  // 15th onwards - other products
+  // 15th - JBL Live Beam 3
   {
     id: "15",
-    name: "ClearSound X1",
-    brand: "AudioTech",
-    image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
-    rating: 4.7,
-    reviews: 5632,
-    price: 3999,
-    originalPrice: 5999,
-    discount: 33,
-    highlights: ["50H Battery", "Premium ANC", "Spatial Audio"],
-    batteryLife: 50,
+    name: "JBL Live Beam 3 TWS Earbuds with Adaptive Noise Cancellation (IP55 Waterproof & Dustproof, Touchscreen Display, Black)",
+    brand: "JBL",
+    seller: "JBL",
+    image: jblBeam3_1,
+    rating: 4.6,
+    reviews: 7234,
+    price: 130,
+    originalPrice: 9999,
+    highlights: ["48H Battery", "Adaptive ANC", "Touchscreen"],
+    batteryLife: 48,
     hasANC: true,
     hasWirelessCharging: true,
+    colorVariants: [],
+    description: "JBL Live Beam 3 delivers premium audio with True Adaptive Noise Cancellation and Hi-Res Audio with LDAC support. Featuring an innovative SmartCase with touchscreen display for controls and customization, JBL Spatial Sound for immersive 3D audio, 48 hours total playtime, IP55 waterproof and dustproof rating, wireless charging, multipoint connectivity, and Speed Charge technology. The sleek black design with intuitive touch controls makes these the ultimate premium TWS earbuds.",
+    images: [jblBeam3_1, jblBeam3_2, jblBeam3_3, jblBeam3_4],
   },
+  // 16th onwards - other products
   {
-    id: "16",
+    id: "17",
     name: "BudZ Lite",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
@@ -502,7 +512,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "17",
+    id: "18",
     name: "NoisePods Ultra",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
@@ -517,7 +527,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "18",
+    id: "19",
     name: "FitBuds Sport",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1608156639585-b3a776ea2049?w=300&h=300&fit=crop",
@@ -532,7 +542,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "19",
+    id: "20",
     name: "StudioPods Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
@@ -547,7 +557,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "20",
+    id: "22",
     name: "EcoBuds Green",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=300&fit=crop",
@@ -562,7 +572,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "21",
+    id: "23",
     name: "AirPods Clone X",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=300&h=300&fit=crop",
@@ -577,7 +587,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "22",
+    id: "24",
     name: "GamePods Zero",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=300&fit=crop",
@@ -592,7 +602,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "23",
+    id: "25",
     name: "TravelPods Comfort",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=300&h=300&fit=crop",
@@ -607,7 +617,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "24",
+    id: "26",
     name: "BudZ Mini",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -622,7 +632,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "25",
+    id: "27",
     name: "SonicWave Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -637,7 +647,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "26",
+    id: "28",
     name: "QuietMax ANC",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -652,7 +662,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "27",
+    id: "29",
     name: "ActiveFit X2",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
@@ -668,7 +678,7 @@ export const products: Product[] = [
   },
 ];
 
-export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple", "OnePlus", "Nothing Inc.", "Samsung", "Realme", "Noise", "boAt"];
+export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple", "OnePlus", "Nothing Inc.", "Samsung", "Realme", "Noise", "boAt", "GOBOULT", "JBL"];
 
 export const priceRanges = [
   { label: "Under ₹500", min: 0, max: 500 },
