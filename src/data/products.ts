@@ -111,6 +111,13 @@ import jblBeam3_2 from "@/assets/jbl-beam3-2.png";
 import jblBeam3_3 from "@/assets/jbl-beam3-3.jpg";
 import jblBeam3_4 from "@/assets/jbl-beam3-4.jpg";
 
+// Noise Master Buds images
+import noiseMasterBuds_1 from "@/assets/noise-master-buds-1.png";
+import noiseMasterBuds_2 from "@/assets/noise-master-buds-2.png";
+import noiseMasterBuds_3 from "@/assets/noise-master-buds-3.jpg";
+import noiseMasterBuds_4 from "@/assets/noise-master-buds-4.jpg";
+import noiseMasterBuds_5 from "@/assets/noise-master-buds-5.jpg";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -495,7 +502,26 @@ export const products: Product[] = [
     description: "JBL Live Beam 3 delivers premium audio with True Adaptive Noise Cancellation and Hi-Res Audio with LDAC support. Featuring an innovative SmartCase with touchscreen display for controls and customization, JBL Spatial Sound for immersive 3D audio, 48 hours total playtime, IP55 waterproof and dustproof rating, wireless charging, multipoint connectivity, and Speed Charge technology. The sleek black design with intuitive touch controls makes these the ultimate premium TWS earbuds.",
     images: [jblBeam3_1, jblBeam3_2, jblBeam3_3, jblBeam3_4],
   },
-  // 16th onwards - other products
+  // 16th - Noise Master Buds
+  {
+    id: "16",
+    name: "noise Master Buds AUD-HDPHN-MASTERBUDS TWS Earbuds with Adaptive Noise Cancellation (Water Resistant, Immersive Spatial Audio, Onyx Black)",
+    brand: "Noise",
+    seller: "Noise",
+    image: noiseMasterBuds_1,
+    rating: 4.5,
+    reviews: 5821,
+    price: 99,
+    originalPrice: 6999,
+    highlights: ["44H Battery", "49dB ANC", "Spatial Audio"],
+    batteryLife: 44,
+    hasANC: true,
+    hasWirelessCharging: false,
+    colorVariants: [],
+    description: "noise Master Buds deliver premium audio with Adaptive ANC up to 49dB for immersive listening. Powered by LHDC codec and PEEK + Titanium drivers for audiophile-grade sound. Featuring Immersive Spatial Audio, 44 hours total playtime, Google Fast Pairing, Instacharge (10 min = 6 hrs), 50ms ultra-low latency gaming mode, and Sound by Bose partnership. The stunning Onyx Black metallic finish with premium build quality makes a bold statement.",
+    images: [noiseMasterBuds_1, noiseMasterBuds_2, noiseMasterBuds_3, noiseMasterBuds_4, noiseMasterBuds_5],
+  },
+  // 17th onwards - other products
   {
     id: "17",
     name: "BudZ Lite",
@@ -557,7 +583,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "22",
+    id: "21",
     name: "EcoBuds Green",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=300&fit=crop",
@@ -572,7 +598,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "23",
+    id: "22",
     name: "AirPods Clone X",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=300&h=300&fit=crop",
@@ -587,7 +613,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "24",
+    id: "23",
     name: "GamePods Zero",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=300&fit=crop",
@@ -602,7 +628,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "25",
+    id: "24",
     name: "TravelPods Comfort",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=300&h=300&fit=crop",
@@ -617,7 +643,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "26",
+    id: "25",
     name: "BudZ Mini",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -632,7 +658,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "27",
+    id: "26",
     name: "SonicWave Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -647,7 +673,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "28",
+    id: "27",
     name: "QuietMax ANC",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -662,7 +688,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "29",
+    id: "28",
     name: "ActiveFit X2",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
