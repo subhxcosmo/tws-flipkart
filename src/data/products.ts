@@ -118,6 +118,14 @@ import noiseMasterBuds_3 from "@/assets/noise-master-buds-3.jpg";
 import noiseMasterBuds_4 from "@/assets/noise-master-buds-4.jpg";
 import noiseMasterBuds_5 from "@/assets/noise-master-buds-5.jpg";
 
+// Apple AirPods 3 images
+import airpods3_1 from "@/assets/airpods3-1.png";
+import airpods3_2 from "@/assets/airpods3-2.png";
+import airpods3_3 from "@/assets/airpods3-3.png";
+import airpods3_4 from "@/assets/airpods3-4.jpg";
+import airpods3_5 from "@/assets/airpods3-5.png";
+import airpods3_6 from "@/assets/airpods3-6.jpeg";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -521,9 +529,28 @@ export const products: Product[] = [
     description: "noise Master Buds deliver premium audio with Adaptive ANC up to 49dB for immersive listening. Powered by LHDC codec and PEEK + Titanium drivers for audiophile-grade sound. Featuring Immersive Spatial Audio, 44 hours total playtime, Google Fast Pairing, Instacharge (10 min = 6 hrs), 50ms ultra-low latency gaming mode, and Sound by Bose partnership. The stunning Onyx Black metallic finish with premium build quality makes a bold statement.",
     images: [noiseMasterBuds_1, noiseMasterBuds_2, noiseMasterBuds_3, noiseMasterBuds_4, noiseMasterBuds_5],
   },
-  // 17th onwards - other products
+  // 17th - Apple AirPods 3
   {
     id: "17",
+    name: "Apple AirPods 3 (3rd Generation) with MagSafe Charging Case",
+    brand: "Apple",
+    seller: "Apple Inc.",
+    image: airpods3_1,
+    rating: 4.7,
+    reviews: 32145,
+    price: 110,
+    originalPrice: 12299,
+    highlights: ["30H Battery", "Spatial Audio", "MagSafe"],
+    batteryLife: 30,
+    hasANC: false,
+    hasWirelessCharging: true,
+    colorVariants: [],
+    description: "Apple AirPods 3 (3rd Generation) deliver immersive sound with Adaptive EQ that tunes music to your ears in real time. Featuring Spatial Audio with dynamic head tracking for theater-like sound, MagSafe Charging Case for convenient wireless charging, and sweat and water resistance (IPX4). With up to 30 hours total listening time, force sensor controls, seamless switching between Apple devices, and Audio Sharing, these earbuds offer the quintessential Apple experience.",
+    images: [airpods3_1, airpods3_2, airpods3_3, airpods3_4, airpods3_5, airpods3_6],
+  },
+  // 18th onwards - other products
+  {
+    id: "18",
     name: "BudZ Lite",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
@@ -538,7 +565,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "18",
+    id: "19",
     name: "NoisePods Ultra",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
@@ -553,7 +580,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "19",
+    id: "20",
     name: "FitBuds Sport",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1608156639585-b3a776ea2049?w=300&h=300&fit=crop",
@@ -568,7 +595,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "20",
+    id: "21",
     name: "StudioPods Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
@@ -583,7 +610,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "21",
+    id: "22",
     name: "EcoBuds Green",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=300&fit=crop",
@@ -598,7 +625,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "22",
+    id: "23",
     name: "AirPods Clone X",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=300&h=300&fit=crop",
@@ -613,7 +640,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "23",
+    id: "24",
     name: "GamePods Zero",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=300&fit=crop",
@@ -628,7 +655,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "24",
+    id: "25",
     name: "TravelPods Comfort",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=300&h=300&fit=crop",
@@ -643,7 +670,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "25",
+    id: "26",
     name: "BudZ Mini",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -658,7 +685,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "26",
+    id: "27",
     name: "SonicWave Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -673,7 +700,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "27",
+    id: "28",
     name: "QuietMax ANC",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -688,7 +715,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "28",
+    id: "29",
     name: "ActiveFit X2",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
