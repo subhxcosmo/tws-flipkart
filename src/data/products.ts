@@ -126,6 +126,12 @@ import airpods3_4 from "@/assets/airpods3-4.jpg";
 import airpods3_5 from "@/assets/airpods3-5.png";
 import airpods3_6 from "@/assets/airpods3-6.jpeg";
 
+// BOSE QuietComfort II images
+import boseQc2_1 from "@/assets/bose-qc2-1.png";
+import boseQc2_2 from "@/assets/bose-qc2-2.png";
+import boseQc2_3 from "@/assets/bose-qc2-3.jpeg";
+import boseQc2_4 from "@/assets/bose-qc2-4.jpeg";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -548,9 +554,28 @@ export const products: Product[] = [
     description: "Apple AirPods 3 (3rd Generation) deliver immersive sound with Adaptive EQ that tunes music to your ears in real time. Featuring Spatial Audio with dynamic head tracking for theater-like sound, MagSafe Charging Case for convenient wireless charging, and sweat and water resistance (IPX4). With up to 30 hours total listening time, force sensor controls, seamless switching between Apple devices, and Audio Sharing, these earbuds offer the quintessential Apple experience.",
     images: [airpods3_1, airpods3_2, airpods3_3, airpods3_4, airpods3_5, airpods3_6],
   },
-  // 18th onwards - other products
+  // 18th - BOSE QuietComfort II
   {
     id: "18",
+    name: "BOSE QuietComfort II TWS Earbuds with Active Noise Cancellation (IPX4 Water Resistant, Up to 6 Hours Playback, Triple Black)",
+    brand: "BOSE",
+    seller: "BOSE",
+    image: boseQc2_1,
+    rating: 4.7,
+    reviews: 8234,
+    price: 139,
+    originalPrice: 17122,
+    highlights: ["6H Battery", "Active ANC", "IPX4 Rated"],
+    batteryLife: 24,
+    hasANC: true,
+    hasWirelessCharging: true,
+    colorVariants: [],
+    description: "Experience legendary BOSE sound with the QuietComfort II TWS Earbuds. Featuring world-class Active Noise Cancellation with ActiveSense technology, these earbuds adapt to your environment for immersive listening. With Bluetooth 5.3, IPX4 sweat and water resistance, up to 6 hours of playback (24 hours with case), crystal-clear phone calls, and a comfortable secure fit, these premium earbuds deliver the acoustic excellence BOSE is known for.",
+    images: [boseQc2_1, boseQc2_2, boseQc2_3, boseQc2_4],
+  },
+  // 19th onwards - other products
+  {
+    id: "19",
     name: "BudZ Lite",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
@@ -565,7 +590,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "19",
+    id: "20",
     name: "NoisePods Ultra",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
@@ -580,7 +605,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "20",
+    id: "21",
     name: "FitBuds Sport",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1608156639585-b3a776ea2049?w=300&h=300&fit=crop",
@@ -595,7 +620,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "21",
+    id: "22",
     name: "StudioPods Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
@@ -610,7 +635,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "22",
+    id: "23",
     name: "EcoBuds Green",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=300&fit=crop",
@@ -625,7 +650,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "23",
+    id: "24",
     name: "AirPods Clone X",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=300&h=300&fit=crop",
@@ -640,7 +665,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "24",
+    id: "25",
     name: "GamePods Zero",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=300&fit=crop",
@@ -655,7 +680,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "25",
+    id: "26",
     name: "TravelPods Comfort",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=300&h=300&fit=crop",
@@ -670,7 +695,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "26",
+    id: "27",
     name: "BudZ Mini",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -685,7 +710,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "27",
+    id: "28",
     name: "SonicWave Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -700,7 +725,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "28",
+    id: "29",
     name: "QuietMax ANC",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -715,7 +740,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "29",
+    id: "30",
     name: "ActiveFit X2",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
@@ -731,7 +756,7 @@ export const products: Product[] = [
   },
 ];
 
-export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple", "OnePlus", "Nothing Inc.", "Samsung", "Realme", "Noise", "boAt", "GOBOULT", "JBL"];
+export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple", "OnePlus", "Nothing Inc.", "Samsung", "Realme", "Noise", "boAt", "GOBOULT", "JBL", "BOSE"];
 
 export const priceRanges = [
   { label: "Under ₹500", min: 0, max: 500 },
