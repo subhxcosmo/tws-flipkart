@@ -90,6 +90,13 @@ import goboultEmber_3 from "@/assets/goboult-ember-3.png";
 import goboultEmber_4 from "@/assets/goboult-ember-4.jpeg";
 import goboultEmber_5 from "@/assets/goboult-ember-5.jpeg";
 
+// Realme Buds Air6 Pro images
+import realmeBudsAir6_1 from "@/assets/realme-buds-air6-1.png";
+import realmeBudsAir6_2 from "@/assets/realme-buds-air6-2.png";
+import realmeBudsAir6_3 from "@/assets/realme-buds-air6-3.jpeg";
+import realmeBudsAir6_4 from "@/assets/realme-buds-air6-4.jpeg";
+import realmeBudsAir6_5 from "@/assets/realme-buds-air6-5.jpeg";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -417,9 +424,28 @@ export const products: Product[] = [
     description: "GOBOULT (formerly Boult) Ember TWS Earbuds deliver powerful audio with Environmental Noise Cancellation for crystal-clear calls. Featuring 48 hours of total battery life, 120 hours standby time, IPX5 water resistance for sweat, rain, and splash protection, and Fast Charging technology. The sleek black design with striking orange LED accents makes a bold statement while the ergonomic fit ensures all-day comfort.",
     images: [goboultEmber_1, goboultEmber_2, goboultEmber_3, goboultEmber_4, goboultEmber_5],
   },
-  // 13th onwards - other products
+  // 13th - Realme Buds Air6 Pro
   {
     id: "13",
+    name: "realme Buds Air6 Pro RMA2401 TWS Earbuds with Active Noise Cancellation (IP55 Water Resistant, Dynamic Bass Boost, Titanium Twilight)",
+    brand: "Realme",
+    seller: "Realme",
+    image: realmeBudsAir6_1,
+    rating: 4.4,
+    reviews: 5823,
+    price: 110,
+    originalPrice: 6200,
+    highlights: ["40H Battery", "ANC", "IP55"],
+    batteryLife: 40,
+    hasANC: true,
+    hasWirelessCharging: false,
+    colorVariants: [],
+    description: "realme Buds Air6 Pro deliver premium audio with Active Noise Cancellation for immersive listening. Featuring Dynamic Bass Boost technology for powerful, deep bass, 40 hours of total playback, IP55 water and dust resistance, and ultra-low latency for gaming. The stunning Titanium Twilight finish combines premium aesthetics with superior comfort for all-day wear.",
+    images: [realmeBudsAir6_1, realmeBudsAir6_2, realmeBudsAir6_3, realmeBudsAir6_4, realmeBudsAir6_5],
+  },
+  // 14th onwards - other products
+  {
+    id: "14",
     name: "ClearSound X1",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
@@ -434,7 +460,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "14",
+    id: "15",
     name: "BudZ Lite",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
@@ -449,7 +475,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "15",
+    id: "16",
     name: "NoisePods Ultra",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
@@ -464,7 +490,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "16",
+    id: "17",
     name: "FitBuds Sport",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1608156639585-b3a776ea2049?w=300&h=300&fit=crop",
@@ -479,7 +505,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "17",
+    id: "18",
     name: "StudioPods Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
@@ -494,7 +520,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "18",
+    id: "19",
     name: "EcoBuds Green",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=300&fit=crop",
@@ -509,7 +535,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "19",
+    id: "20",
     name: "AirPods Clone X",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=300&h=300&fit=crop",
@@ -524,7 +550,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "20",
+    id: "21",
     name: "GamePods Zero",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=300&fit=crop",
@@ -539,7 +565,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "21",
+    id: "22",
     name: "TravelPods Comfort",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=300&h=300&fit=crop",
@@ -554,7 +580,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "22",
+    id: "23",
     name: "BudZ Mini",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -569,7 +595,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "23",
+    id: "24",
     name: "SonicWave Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -584,7 +610,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "24",
+    id: "25",
     name: "QuietMax ANC",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -599,7 +625,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "25",
+    id: "26",
     name: "ActiveFit X2",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
