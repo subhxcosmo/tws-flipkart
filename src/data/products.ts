@@ -83,6 +83,13 @@ import oneplusNordBuds3Pro_4 from "@/assets/oneplus-nord-buds-3-pro-4.jpeg";
 import oneplusNordBuds3Pro_5 from "@/assets/oneplus-nord-buds-3-pro-5.png";
 import oneplusNordBuds3Pro_6 from "@/assets/oneplus-nord-buds-3-pro-6.png";
 
+// GOBOULT Ember images
+import goboultEmber_1 from "@/assets/goboult-ember-1.png";
+import goboultEmber_2 from "@/assets/goboult-ember-2.png";
+import goboultEmber_3 from "@/assets/goboult-ember-3.png";
+import goboultEmber_4 from "@/assets/goboult-ember-4.jpeg";
+import goboultEmber_5 from "@/assets/goboult-ember-5.jpeg";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -391,22 +398,26 @@ export const products: Product[] = [
     description: "OnePlus Nord Buds 3 Pro deliver exceptional audio with up to 49dB Hybrid Active Noise Cancellation that blocks out all distractions. Featuring 12.4mm Titanized Diaphragm drivers with BassWave 2.0 for rich, powerful sound, Crystal Clear 3-Mic Call Noise Cancellation, up to 44 hours of listening time, IP55 water and sweat resistance, and Speedy Fast Charging (10 mins = 11 hrs). With Bluetooth 5.4 connectivity and a stunning Starry Black finish, these earbuds are perfect for everyday use.",
     images: [oneplusNordBuds3Pro_1, oneplusNordBuds3Pro_2, oneplusNordBuds3Pro_3, oneplusNordBuds3Pro_4, oneplusNordBuds3Pro_5, oneplusNordBuds3Pro_6],
   },
-  // 12th onwards - other products
+  // 12th - GOBOULT Ember
   {
     id: "12",
-    name: "BassBuds Elite",
-    brand: "SoundWave",
-    image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
-    rating: 4.3,
-    reviews: 8921,
-    price: 1799,
-    originalPrice: 2999,
-    discount: 40,
-    highlights: ["30H Battery", "Deep Bass", "IPX5"],
-    batteryLife: 30,
+    name: "GOBOULT (formerly Boult) Ember TWS Earbuds with Environmental Noise Cancellation (IPX5 Water Resistant, Fast Charging, Black)",
+    brand: "GOBOULT",
+    seller: "GOBOULT",
+    image: goboultEmber_1,
+    rating: 4.2,
+    reviews: 4521,
+    price: 120,
+    originalPrice: 2100,
+    highlights: ["48H Battery", "ENC", "IPX5"],
+    batteryLife: 48,
     hasANC: false,
     hasWirelessCharging: false,
+    colorVariants: [],
+    description: "GOBOULT (formerly Boult) Ember TWS Earbuds deliver powerful audio with Environmental Noise Cancellation for crystal-clear calls. Featuring 48 hours of total battery life, 120 hours standby time, IPX5 water resistance for sweat, rain, and splash protection, and Fast Charging technology. The sleek black design with striking orange LED accents makes a bold statement while the ergonomic fit ensures all-day comfort.",
+    images: [goboultEmber_1, goboultEmber_2, goboultEmber_3, goboultEmber_4, goboultEmber_5],
   },
+  // 13th onwards - other products
   {
     id: "13",
     name: "ClearSound X1",
