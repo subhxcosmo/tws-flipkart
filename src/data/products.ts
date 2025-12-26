@@ -97,6 +97,14 @@ import realmeBudsAir6_3 from "@/assets/realme-buds-air6-3.jpeg";
 import realmeBudsAir6_4 from "@/assets/realme-buds-air6-4.jpeg";
 import realmeBudsAir6_5 from "@/assets/realme-buds-air6-5.jpeg";
 
+// GOBOULT Mustang Dyno images
+import goboultMustangDyno_1 from "@/assets/goboult-mustang-dyno-1.png";
+import goboultMustangDyno_2 from "@/assets/goboult-mustang-dyno-2.png";
+import goboultMustangDyno_3 from "@/assets/goboult-mustang-dyno-3.jpeg";
+import goboultMustangDyno_4 from "@/assets/goboult-mustang-dyno-4.jpeg";
+import goboultMustangDyno_5 from "@/assets/goboult-mustang-dyno-5.jpeg";
+import goboultMustangDyno_6 from "@/assets/goboult-mustang-dyno-6.jpeg";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -443,9 +451,28 @@ export const products: Product[] = [
     description: "realme Buds Air6 Pro deliver premium audio with Active Noise Cancellation for immersive listening. Featuring Dynamic Bass Boost technology for powerful, deep bass, 40 hours of total playback, IP55 water and dust resistance, and ultra-low latency for gaming. The stunning Titanium Twilight finish combines premium aesthetics with superior comfort for all-day wear.",
     images: [realmeBudsAir6_1, realmeBudsAir6_2, realmeBudsAir6_3, realmeBudsAir6_4, realmeBudsAir6_5],
   },
-  // 14th onwards - other products
+  // 14th - GOBOULT Mustang Dyno
   {
     id: "14",
+    name: "GOBOULT Mustang Dyno TWS Earbuds with Environmental Noise Cancellation (IPX5 Water Resistant, Fast Charging, Dyno Silver)",
+    brand: "GOBOULT",
+    seller: "GOBOULT",
+    image: goboultMustangDyno_1,
+    rating: 4.3,
+    reviews: 3821,
+    price: 99,
+    originalPrice: 2400,
+    highlights: ["60H Battery", "ENC", "IPX5"],
+    batteryLife: 60,
+    hasANC: false,
+    hasWirelessCharging: false,
+    colorVariants: [],
+    description: "GOBOULT Mustang Dyno TWS Earbuds feature an official Mustang partnership with iconic design inspired by the legendary car. Featuring Environmental Noise Cancellation with ZEN Quad Mic technology for crystal-clear calls, 60 hours of total playtime, 45ms ultra-low latency for gaming, Dual Device Connectivity, IPX5 water resistance, Bluetooth 5.4, and Fast Charging (10 min = 120 hrs playtime). The stunning Dyno Silver finish with Mustang branding makes a bold statement.",
+    images: [goboultMustangDyno_1, goboultMustangDyno_2, goboultMustangDyno_3, goboultMustangDyno_4, goboultMustangDyno_5, goboultMustangDyno_6],
+  },
+  // 15th onwards - other products
+  {
+    id: "15",
     name: "ClearSound X1",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
@@ -460,7 +487,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "15",
+    id: "16",
     name: "BudZ Lite",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
@@ -475,7 +502,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "16",
+    id: "17",
     name: "NoisePods Ultra",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
@@ -490,7 +517,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "17",
+    id: "18",
     name: "FitBuds Sport",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1608156639585-b3a776ea2049?w=300&h=300&fit=crop",
@@ -505,7 +532,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "18",
+    id: "19",
     name: "StudioPods Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
@@ -520,7 +547,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "19",
+    id: "20",
     name: "EcoBuds Green",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=300&fit=crop",
@@ -535,7 +562,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "20",
+    id: "21",
     name: "AirPods Clone X",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=300&h=300&fit=crop",
@@ -550,7 +577,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "21",
+    id: "22",
     name: "GamePods Zero",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=300&fit=crop",
@@ -565,7 +592,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "22",
+    id: "23",
     name: "TravelPods Comfort",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=300&h=300&fit=crop",
@@ -580,7 +607,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "23",
+    id: "24",
     name: "BudZ Mini",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -595,7 +622,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "24",
+    id: "25",
     name: "SonicWave Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -610,7 +637,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "25",
+    id: "26",
     name: "QuietMax ANC",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -625,7 +652,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "26",
+    id: "27",
     name: "ActiveFit X2",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
