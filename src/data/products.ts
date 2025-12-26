@@ -56,6 +56,22 @@ import noiseBudsMarine_2 from "@/assets/noise-buds-marine-2.png";
 import noiseBudsMarine_3 from "@/assets/noise-buds-marine-3.jpeg";
 import noiseBudsMarine_4 from "@/assets/noise-buds-marine-4.jpeg";
 
+// boAt 141 ANC images - Black variant
+import boat141AncBlack1 from "@/assets/boat-141-anc-black-1.webp";
+import boat141AncBlack2 from "@/assets/boat-141-anc-black-2.jpg";
+import boat141AncBlack3 from "@/assets/boat-141-anc-black-3.jpg";
+import boat141AncBlack4 from "@/assets/boat-141-anc-black-4.jpg";
+import boat141AncBlack5 from "@/assets/boat-141-anc-black-5.png";
+
+// boAt 141 ANC images - Green variant
+import boat141AncGreen1 from "@/assets/boat-141-anc-green-1.jpg";
+import boat141AncGreen2 from "@/assets/boat-141-anc-green-2.jpg";
+import boat141AncGreen3 from "@/assets/boat-141-anc-green-3.jpg";
+
+// Noise Buds N1 images
+import noiseBudsN1_1 from "@/assets/noise-buds-n1-1.png";
+import noiseBudsN1_2 from "@/assets/noise-buds-n1-2.png";
+
 // Color variant interface
 export interface ColorVariant {
   name: string;
@@ -296,9 +312,58 @@ export const products: Product[] = [
     description: "Noise Buds Marine feature a stunning alloy metal case with chain for a bold statement. With 32dB Active Noise Cancellation, 35 hours of total playback, Dual Device Pairing for seamless switching, and Instacharge technology, these earbuds combine style with substance. The Marine Black finish and premium build quality make them perfect for those who want their earbuds to stand out.",
     images: [noiseBudsMarine_1, noiseBudsMarine_2, noiseBudsMarine_3, noiseBudsMarine_4],
   },
-  // 9th onwards - other products
+  // 9th - boAt 141 ANC
   {
     id: "9",
+    name: "boAt Airdopes 141 ANC TWS Earbuds Gunmetal Black 1 pc",
+    brand: "boAt",
+    seller: "boAt",
+    image: boat141AncBlack1,
+    rating: 4.3,
+    reviews: 9821,
+    price: 99,
+    originalPrice: 2000,
+    highlights: ["42H Battery", "32dB ANC", "IPX5"],
+    batteryLife: 42,
+    hasANC: true,
+    hasWirelessCharging: false,
+    colorVariants: [
+      {
+        name: "Black",
+        color: "#1A1A1A",
+        images: [boat141AncBlack1, boat141AncBlack2, boat141AncBlack3, boat141AncBlack4, boat141AncBlack5],
+      },
+      {
+        name: "Green",
+        color: "#3A5F3A",
+        images: [boat141AncGreen1, boat141AncGreen2, boat141AncGreen3],
+      },
+    ],
+    description: "boAt Airdopes 141 ANC deliver immersive audio with 32dB Active Noise Cancellation that blocks out distractions. Featuring boAt Signature Sound with 10mm drivers, 42 hours of total playback with ASAP Charge (10 min charge = 150 min playtime), Bluetooth v5.3 for stable connectivity, IPX5 sweat and water resistance, dual EQ modes, and ENx technology for crystal-clear calls. The stylish pocketable design in Gunmetal Black makes a bold statement.",
+    images: [boat141AncBlack1, boat141AncBlack2, boat141AncBlack3, boat141AncBlack4, boat141AncBlack5],
+  },
+  // 10th - Noise Buds N1
+  {
+    id: "10",
+    name: "Buds N1 with Metallic Finish, 32dB ANC, 60H Playtime and Instacharge, BT5.3 Bluetooth Headset (Chrome Black, True Wireless)",
+    brand: "Noise",
+    seller: "Noise",
+    image: noiseBudsN1_1,
+    rating: 4.1,
+    reviews: 3456,
+    price: 99,
+    originalPrice: 1400,
+    highlights: ["60H Battery", "32dB ANC", "Instacharge"],
+    batteryLife: 60,
+    hasANC: true,
+    hasWirelessCharging: false,
+    colorVariants: [],
+    description: "Noise Buds N1 feature a stunning metallic finish with Chrome Black elegance. With 32dB Active Noise Cancellation, an incredible 60 hours of total playtime, Instacharge technology for quick top-ups, Bluetooth 5.3 for stable connectivity, and Hyper Sync for seamless device switching. The premium build quality and comfortable fit make them perfect for all-day listening.",
+    images: [noiseBudsN1_1, noiseBudsN1_2],
+  },
+  // 11th onwards - other products
+  {
+    id: "11",
     name: "SoundPods Pro Max",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -342,7 +407,7 @@ export const products: Product[] = [
     ],
   },
   {
-    id: "10",
+    id: "12",
     name: "BassBuds Elite",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -357,7 +422,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "11",
+    id: "13",
     name: "ClearSound X1",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
@@ -372,7 +437,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "12",
+    id: "14",
     name: "BudZ Lite",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1598331668826-20cecc596b86?w=300&h=300&fit=crop",
@@ -387,7 +452,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "13",
+    id: "15",
     name: "NoisePods Ultra",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=300&h=300&fit=crop",
@@ -402,7 +467,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "14",
+    id: "16",
     name: "FitBuds Sport",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1608156639585-b3a776ea2049?w=300&h=300&fit=crop",
@@ -417,7 +482,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "15",
+    id: "17",
     name: "StudioPods Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=300&fit=crop",
@@ -432,7 +497,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "16",
+    id: "18",
     name: "EcoBuds Green",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=300&h=300&fit=crop",
@@ -447,7 +512,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "17",
+    id: "19",
     name: "AirPods Clone X",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=300&h=300&fit=crop",
@@ -462,7 +527,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "18",
+    id: "20",
     name: "GamePods Zero",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=300&h=300&fit=crop",
@@ -477,7 +542,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "19",
+    id: "21",
     name: "TravelPods Comfort",
     brand: "AudioTech",
     image: "https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?w=300&h=300&fit=crop",
@@ -492,7 +557,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "20",
+    id: "22",
     name: "BudZ Mini",
     brand: "EchoSound",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -507,7 +572,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "21",
+    id: "23",
     name: "SonicWave Pro",
     brand: "SoundWave",
     image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop",
@@ -522,7 +587,7 @@ export const products: Product[] = [
     hasWirelessCharging: false,
   },
   {
-    id: "22",
+    id: "24",
     name: "QuietMax ANC",
     brand: "QuietZone",
     image: "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=300&h=300&fit=crop",
@@ -537,7 +602,7 @@ export const products: Product[] = [
     hasWirelessCharging: true,
   },
   {
-    id: "23",
+    id: "25",
     name: "ActiveFit X2",
     brand: "ActiveGear",
     image: "https://images.unsplash.com/photo-1631867675167-90a456a90863?w=300&h=300&fit=crop",
@@ -553,7 +618,7 @@ export const products: Product[] = [
   },
 ];
 
-export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple", "OnePlus", "Nothing Inc.", "Samsung", "Realme", "Noise"];
+export const brands = ["AudioTech", "SoundWave", "EchoSound", "QuietZone", "ActiveGear", "Apple", "OnePlus", "Nothing Inc.", "Samsung", "Realme", "Noise", "boAt"];
 
 export const priceRanges = [
   { label: "Under ₹500", min: 0, max: 500 },
