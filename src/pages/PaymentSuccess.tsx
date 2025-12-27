@@ -61,12 +61,13 @@ const PaymentSuccess = () => {
   const [showCheck, setShowCheck] = useState(false);
   const [showText, setShowText] = useState(false);
   
-  // Get data from navigation state
+  // Get data from navigation state - supports both single product and cart orders
   const paymentData = location.state as {
-    productId: string;
+    productId?: string;
     orderId: string;
     orderDate: string;
     amount: number;
+    cartItems?: Array<{ product: { id: string }; quantity: number }>;
   } | null;
 
   useEffect(() => {

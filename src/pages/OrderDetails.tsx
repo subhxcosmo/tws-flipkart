@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate, useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { 
@@ -7,14 +7,18 @@ import {
   ChevronRight,
   MapPin,
   MessageCircle,
-  HelpCircle,
   FileText,
   ShoppingCart
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { products } from "@/data/products";
+import { products, Product } from "@/data/products";
 import MobileContainer from "@/components/MobileContainer";
 import { format, addDays } from "date-fns";
+
+interface CartItem {
+  product: Product;
+  quantity: number;
+}
 
 interface OrderStep {
   id: string;
@@ -25,21 +29,23 @@ interface OrderStep {
   isCurrent: boolean;
 }
 
+interface OrderState {
+  productId?: string;
+  orderId: string;
+  orderDate: string;
+  cartItems?: CartItem[];
+}
+
 const OrderDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Get order data from navigation state or generate new
-  const orderState = location.state as {
-    productId: string;
-    orderId: string;
-    orderDate: string;
-  } | null;
+  // Get order data from navigation state
+  const orderState = location.state as OrderState | null;
 
   const [orderId] = useState(() => {
     if (orderState?.orderId) return orderState.orderId;
-    // Generate unique order ID
     return `OD${Date.now()}${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
   });
 
@@ -48,9 +54,19 @@ const OrderDetails = () => {
     return new Date();
   });
 
-  const product = products.find((p) => p.id === id);
+  // Get products - either from cart items or single product
+  const orderProducts: { product: Product; quantity: number }[] = (() => {
+    if (orderState?.cartItems && orderState.cartItems.length > 0) {
+      return orderState.cartItems;
+    }
+    const product = products.find((p) => p.id === id);
+    if (product) {
+      return [{ product, quantity: 1 }];
+    }
+    return [];
+  })();
   
-  if (!product) {
+  if (orderProducts.length === 0) {
     return (
       <MobileContainer>
         <div className="flex min-h-screen items-center justify-center">
@@ -74,13 +90,15 @@ const OrderDetails = () => {
     }).format(price);
   };
 
+  const totalPrice = orderProducts.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const totalItems = orderProducts.reduce((sum, item) => sum + item.quantity, 0);
+
   // Calculate dynamic dates based on order date
   const confirmedDate = orderDate;
   const shippedDate = addDays(orderDate, 2);
-  const outForDeliveryDate = addDays(orderDate, 4);
   const deliveryDate = addDays(orderDate, 4);
 
-  // Order tracking steps - Order Confirmed is always the current step for new orders
+  // Order tracking steps
   const orderSteps: OrderStep[] = [
     {
       id: "confirmed",
@@ -154,28 +172,49 @@ const OrderDetails = () => {
           </p>
         </section>
 
-        {/* Product Details Card */}
+        {/* Product Details Cards */}
         <section className="bg-card px-4 py-4 border-b border-border">
-          <div className="flex gap-4">
-            <div className="flex-1 min-w-0">
-              <h2 className="text-sm font-medium text-foreground line-clamp-2 leading-5">
-                {product.name}
-              </h2>
-              <p className="text-xs text-muted-foreground mt-1">
-                Seller: {product.seller || product.brand}
-              </p>
-              <p className="text-base font-bold text-foreground mt-2">
-                {formatPrice(product.price)}
-              </p>
-            </div>
-            <div className="w-16 h-16 shrink-0 rounded-md overflow-hidden bg-muted">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
+          {orderProducts.length > 1 && (
+            <p className="text-sm font-semibold text-foreground mb-3">{totalItems} Items</p>
+          )}
+          
+          <div className="space-y-4">
+            {orderProducts.map((item, index) => (
+              <div key={item.product.id} className={`flex gap-4 ${index > 0 ? 'pt-4 border-t border-border' : ''}`}>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-sm font-medium text-foreground line-clamp-2 leading-5">
+                    {item.product.name}
+                  </h2>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Seller: {item.product.seller || item.product.brand}
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <p className="text-base font-bold text-foreground">
+                      {formatPrice(item.product.price)}
+                    </p>
+                    {item.quantity > 1 && (
+                      <span className="text-xs text-muted-foreground">x{item.quantity}</span>
+                    )}
+                  </div>
+                </div>
+                <div className="w-16 h-16 shrink-0 rounded-md overflow-hidden bg-muted">
+                  <img
+                    src={item.product.image}
+                    alt={item.product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            ))}
           </div>
+          
+          {orderProducts.length > 1 && (
+            <div className="mt-4 pt-3 border-t border-border">
+              <p className="text-sm font-semibold text-foreground">
+                Total: {formatPrice(totalPrice)}
+              </p>
+            </div>
+          )}
         </section>
 
         {/* Share Location Card */}
@@ -302,7 +341,7 @@ const OrderDetails = () => {
           <div className="mx-auto max-w-md bg-card border-t border-border px-4 py-3 shadow-lg">
             <Button
               onClick={() => navigate("/")}
-              className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm rounded-lg"
+              className="w-full h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm rounded-full"
             >
               Continue Shopping
             </Button>

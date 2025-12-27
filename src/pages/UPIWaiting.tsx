@@ -3,6 +3,20 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import MobileContainer from "@/components/MobileContainer";
 import { Progress } from "@/components/ui/progress";
+import { Product } from "@/data/products";
+
+interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
+interface PaymentData {
+  productId?: string;
+  orderId: string;
+  orderDate: string;
+  amount: number;
+  cartItems?: CartItem[];
+}
 
 const UPIWaiting = () => {
   const { id } = useParams<{ id: string }>();
@@ -10,12 +24,7 @@ const UPIWaiting = () => {
   const location = useLocation();
   
   // Get data from navigation state
-  const paymentData = location.state as {
-    productId: string;
-    orderId: string;
-    orderDate: string;
-    amount: number;
-  } | null;
+  const paymentData = location.state as PaymentData | null;
 
   const [timeLeft, setTimeLeft] = useState(120); // 2 minutes = 120 seconds
   const [elapsedSeconds, setElapsedSeconds] = useState(0);

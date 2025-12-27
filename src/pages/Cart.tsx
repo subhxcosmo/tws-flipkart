@@ -353,8 +353,10 @@ const Cart = () => {
 
             {/* Place Order Button */}
             <Button
-              onClick={() => navigate(`/checkout/order/${items[0]?.product.id}`)}
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-sm h-12 px-8 rounded-lg"
+              onClick={() => navigate('/checkout/cart-order', {
+                state: { cartItems: items }
+              })}
+              className="bg-marketplace-flipkart hover:bg-marketplace-flipkart/90 text-white font-semibold text-sm h-12 px-8 rounded-full"
             >
               Place Order
             </Button>

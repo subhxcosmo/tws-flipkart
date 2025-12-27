@@ -1,26 +1,33 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { 
   ArrowLeft, 
   Check,
   ChevronRight,
-  Shield,
-  Loader2
+  Shield
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { products } from "@/data/products";
+import { Product } from "@/data/products";
 import StepIndicator from "@/components/checkout/StepIndicator";
 import MobileContainer from "@/components/MobileContainer";
+import { useCart } from "@/contexts/CartContext";
+
 // UPI logos from public folder for reliable loading
 const phonepeLogo = "/images/phonepe-logo.png";
 const paytmLogo = "/images/paytm-logo.png";
 const gpayLogo = "/images/gpay-logo.png";
 const upiLogo = "/images/upi-logo.png";
 const bhimLogo = "/images/bhim-logo.png";
+
 // UPI ID for receiving payments
 const UPI_ID = "trendaura432220.rzp@icici";
 const MERCHANT_NAME = "TrendAura";
+
+interface CartItem {
+  product: Product;
+  quantity: number;
+}
 
 const paymentMethods = [
   {
@@ -66,22 +73,22 @@ const paymentMethods = [
   }
 ];
 
-const Payment = () => {
-  const { id } = useParams<{ id: string }>();
+const CartPayment = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { clearCart } = useCart();
+  const cartItems: CartItem[] = location.state?.cartItems || [];
   const [selectedMethod, setSelectedMethod] = useState<string>("phonepe");
   const [isProcessing, setIsProcessing] = useState(false);
   
-  const product = products.find((p) => p.id === id);
-  
-  if (!product) {
+  if (cartItems.length === 0) {
     return (
       <MobileContainer>
         <div className="flex min-h-screen items-center justify-center">
           <div className="text-center">
-            <h1 className="text-xl font-semibold text-foreground">Product not found</h1>
-            <Link to="/" className="mt-4 text-primary underline">
-              Back to home
+            <h1 className="text-xl font-semibold text-foreground">No items in cart</h1>
+            <Link to="/cart" className="mt-4 text-primary underline">
+              Back to cart
             </Link>
           </div>
         </div>
@@ -98,27 +105,23 @@ const Payment = () => {
     }).format(price);
   };
 
-  const deliveryCharge = 0; // Always FREE delivery
-  const total = product.price;
-  const discount = product.originalPrice - product.price;
-  const discountPercentage = Math.round((discount / product.originalPrice) * 100);
+  const totalOriginalPrice = cartItems.reduce((sum, item) => sum + item.product.originalPrice * item.quantity, 0);
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const totalDiscount = totalOriginalPrice - totalPrice;
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const steps = ["Address", "Order Summary", "Payment"];
 
-  // Generate UPI deep link URL - uses upi:// scheme for all methods
+  // Generate UPI deep link URL
   const generateUPILink = (method: typeof paymentMethods[0], amount: number) => {
-    const transactionNote = `Order Payment - ${product.name.substring(0, 30)}`;
+    const transactionNote = `Order Payment - ${totalItems} items`;
     
-    // Build UPI params with proper encoding
     const upiParams = `pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent(transactionNote)}`;
     
-    // For generic UPI or BHIM, use universal upi://pay scheme
-    // This opens the system UPI app chooser on Android
     if (method.isGenericUPI || method.id === "bhim") {
       return `upi://pay?${upiParams}`;
     }
     
-    // For specific apps, use their dedicated deep links
     return `${method.deepLinkPrefix}?${upiParams}`;
   };
 
@@ -133,11 +136,8 @@ const Payment = () => {
 
     setIsProcessing(true);
 
-    // Generate the UPI deep link with total amount
-    const upiLink = generateUPILink(selectedPaymentMethod, total);
+    const upiLink = generateUPILink(selectedPaymentMethod, totalPrice);
     
-    // Method 1: Create hidden anchor tag and click it programmatically
-    // This is more reliable on mobile browsers than window.location.href
     const link = document.createElement('a');
     link.href = upiLink;
     link.style.display = 'none';
@@ -145,23 +145,24 @@ const Payment = () => {
     link.click();
     document.body.removeChild(link);
     
-    // Method 2: Fallback with window.location after small delay
     setTimeout(() => {
       window.location.href = upiLink;
     }, 100);
 
-    // Navigate to UPI waiting page after a short delay
-    // This gives time for the UPI app to open
+    // Navigate to UPI waiting page
     setTimeout(() => {
       const orderId = generateOrderId();
       const orderDate = new Date().toISOString();
       
-      navigate(`/upi-waiting/${id}`, {
+      // Clear cart after successful order
+      clearCart();
+      
+      navigate(`/upi-waiting/cart`, {
         state: {
-          productId: id,
+          cartItems,
           orderId,
           orderDate,
-          amount: total
+          amount: totalPrice
         },
         replace: true
       });
@@ -179,17 +180,12 @@ const Payment = () => {
         {/* Payment Processing Overlay */}
         {isProcessing && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center">
-            {/* Blurred backdrop */}
             <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
-            
-            {/* Loader content */}
             <div className="relative z-10 flex flex-col items-center gap-4 px-8 text-center">
-              {/* Circular loader */}
               <div className="relative h-16 w-16">
                 <div className="absolute inset-0 rounded-full border-4 border-muted" />
                 <div className="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin" />
               </div>
-              
               <div className="space-y-1">
                 <p className="text-base font-medium text-foreground">Processing your payment...</p>
                 <p className="text-sm text-muted-foreground">Please complete the payment in your UPI app.</p>
@@ -197,13 +193,14 @@ const Payment = () => {
             </div>
           </div>
         )}
+
         {/* Header */}
         <header className="sticky top-0 z-50 bg-card border-b border-border">
           <div className="flex items-center gap-3 px-3 py-3">
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate(`/checkout/order/${id}`)}
+              onClick={() => navigate('/checkout/cart-order', { state: { cartItems } })}
               className="h-9 w-9 shrink-0"
             >
               <ArrowLeft className="h-5 w-5" />
@@ -212,7 +209,7 @@ const Payment = () => {
           </div>
         </header>
 
-        {/* Step Indicator - All steps checked except current */}
+        {/* Step Indicator */}
         <StepIndicator currentStep={2} steps={steps} />
 
         {/* Delivery Address Card */}
@@ -235,27 +232,32 @@ const Payment = () => {
 
         {/* Order Summary Card */}
         <section className="mt-2 bg-card px-4 py-3">
-          <div className="flex gap-3">
-            {/* Image - Fixed container with edge-to-edge image */}
-            <div className="w-16 h-16 shrink-0 rounded-sm overflow-hidden bg-muted">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-cover"
-                style={{ objectFit: 'cover' }}
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <h2 className="text-sm font-medium text-foreground line-clamp-2">
-                {product.name}
-              </h2>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-sm font-bold text-foreground">{formatPrice(product.price)}</span>
-                <span className="text-xs text-muted-foreground line-through">{formatPrice(product.originalPrice)}</span>
-                <span className="text-xs font-medium text-success">{discountPercentage}% off</span>
+          <p className="text-sm font-semibold text-foreground mb-3">{totalItems} Item{totalItems > 1 ? 's' : ''}</p>
+          
+          <div className="space-y-3">
+            {cartItems.slice(0, 2).map((item) => (
+              <div key={item.product.id} className="flex gap-3">
+                <div className="w-12 h-12 shrink-0 rounded-sm overflow-hidden bg-muted">
+                  <img
+                    src={item.product.image}
+                    alt={item.product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-sm font-medium text-foreground line-clamp-1">
+                    {item.product.name}
+                  </h2>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="text-sm font-bold text-foreground">{formatPrice(item.product.price)}</span>
+                    <span className="text-xs text-muted-foreground">x{item.quantity}</span>
+                  </div>
+                </div>
               </div>
-              <p className="text-xs text-muted-foreground mt-1">Qty: 1</p>
-            </div>
+            ))}
+            {cartItems.length > 2 && (
+              <p className="text-xs text-muted-foreground">+{cartItems.length - 2} more item{cartItems.length - 2 > 1 ? 's' : ''}</p>
+            )}
           </div>
         </section>
 
@@ -272,7 +274,6 @@ const Payment = () => {
                 onClick={() => setSelectedMethod(method.id)}
                 className="w-full flex items-center gap-3 px-4 py-4 text-left transition-colors hover:bg-muted/50"
               >
-                {/* Selection Circle */}
                 <div className={`h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors ${
                   selectedMethod === method.id 
                     ? "border-primary bg-primary" 
@@ -283,23 +284,16 @@ const Payment = () => {
                   )}
                 </div>
                 
-                {/* Icon - Using relative positioning with explicit sizing */}
                 <div className="relative h-10 w-10 shrink-0 rounded-md bg-white flex items-center justify-center overflow-hidden border border-border">
                   {method.isImage ? (
                     <img 
                       src={method.icon as string} 
                       alt={method.name} 
                       className="absolute inset-0 w-full h-full object-contain p-1"
-                      onError={(e) => {
-                        console.error(`Failed to load logo: ${method.icon}`);
-                      }}
                     />
-                  ) : (
-                    <method.icon />
-                  )}
+                  ) : null}
                 </div>
                 
-                {/* Info */}
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-foreground">{method.name}</p>
                   <p className="text-xs text-muted-foreground">{method.description}</p>
@@ -311,15 +305,10 @@ const Payment = () => {
 
             {/* Cash on Delivery - Disabled */}
             <div className="w-full flex items-center gap-3 px-4 py-4 text-left opacity-50 cursor-not-allowed">
-              {/* Selection Circle - Disabled */}
               <div className="h-5 w-5 shrink-0 rounded-full border-2 border-muted-foreground/30" />
-              
-              {/* COD Icon */}
               <div className="h-7 w-7 rounded bg-muted flex items-center justify-center">
                 <span className="text-xs font-bold text-muted-foreground">₹</span>
               </div>
-              
-              {/* Info */}
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-muted-foreground">Cash on Delivery</p>
                 <p className="text-xs text-muted-foreground">Pay when you receive</p>
@@ -343,13 +332,13 @@ const Payment = () => {
           
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-muted-foreground">Price (1 item)</span>
-              <span className="text-sm text-muted-foreground line-through">{formatPrice(product.originalPrice)}</span>
+              <span className="text-sm text-muted-foreground">Price ({totalItems} item{totalItems > 1 ? 's' : ''})</span>
+              <span className="text-sm text-muted-foreground line-through">{formatPrice(totalOriginalPrice)}</span>
             </div>
             
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted-foreground">Discount</span>
-              <span className="text-sm font-medium text-success">-{formatPrice(discount)} ({discountPercentage}% off)</span>
+              <span className="text-sm font-medium text-success">-{formatPrice(totalDiscount)}</span>
             </div>
             
             <div className="flex items-center justify-between">
@@ -362,7 +351,7 @@ const Payment = () => {
           
           <div className="flex items-center justify-between">
             <span className="text-sm font-semibold text-foreground">Amount Payable</span>
-            <span className="text-sm font-bold text-foreground">{formatPrice(total)}</span>
+            <span className="text-sm font-bold text-foreground">{formatPrice(totalPrice)}</span>
           </div>
         </section>
 
@@ -373,7 +362,7 @@ const Payment = () => {
               onClick={handlePlaceOrder}
               className="w-full h-12 bg-cta hover:bg-cta/90 text-cta-foreground font-semibold text-sm rounded-full"
             >
-              PAY {formatPrice(total)}
+              PAY {formatPrice(totalPrice)}
             </Button>
           </div>
         </div>
@@ -382,4 +371,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default CartPayment;
