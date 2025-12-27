@@ -1,14 +1,16 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Product } from '@/data/products';
+import { Product, ColorVariant } from '@/data/products';
 
 interface CartItem {
   product: Product;
   quantity: number;
+  selectedColor?: ColorVariant; // Store the selected color variant
+  selectedImage?: string; // Store the selected color's main image
 }
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (product: Product, quantity?: number) => void;
+  addToCart: (product: Product, quantity?: number, selectedColor?: ColorVariant) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
@@ -23,17 +25,28 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product, quantity = 1) => {
+  const addToCart = (product: Product, quantity = 1, selectedColor?: ColorVariant) => {
     setItems((prev) => {
-      const existingItem = prev.find((item) => item.product.id === product.id);
+      // Create a unique key based on product id AND color name
+      const colorKey = selectedColor?.name || 'default';
+      const existingItem = prev.find(
+        (item) => item.product.id === product.id && (item.selectedColor?.name || 'default') === colorKey
+      );
+      
       if (existingItem) {
         return prev.map((item) =>
-          item.product.id === product.id
+          item.product.id === product.id && (item.selectedColor?.name || 'default') === colorKey
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
-      return [...prev, { product, quantity }];
+      
+      return [...prev, { 
+        product, 
+        quantity, 
+        selectedColor,
+        selectedImage: selectedColor?.images?.[0] || product.image
+      }];
     });
   };
 

@@ -93,7 +93,7 @@ const Cart = () => {
         <title>{`My Cart (${getTotalItems()}) - AudioMart`}</title>
       </Helmet>
 
-      <div className="min-h-screen bg-background pb-24">
+      <div className="min-h-screen bg-background pb-32">
         {/* Header */}
         <header className="sticky top-0 z-50 bg-card border-b border-border">
           <div className="flex items-center gap-3 px-4 py-3">
@@ -130,7 +130,7 @@ const Cart = () => {
                 {/* Product Image - Fixed container with edge-to-edge image */}
                 <div className="w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-muted">
                   <img
-                    src={item.product.image}
+                    src={item.selectedImage || item.product.image}
                     alt={item.product.name}
                     className="w-full h-full object-cover"
                     style={{ objectFit: 'cover' }}
@@ -143,7 +143,7 @@ const Cart = () => {
                     {item.product.name}
                   </h3>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    {item.product.brand}, True Wireless
+                    {item.product.brand}{item.selectedColor ? `, ${item.selectedColor.name}` : ''}, True Wireless
                   </p>
 
                   {/* Rating Row */}
