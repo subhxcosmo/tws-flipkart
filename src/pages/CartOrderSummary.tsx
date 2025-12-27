@@ -18,6 +18,8 @@ import MobileContainer from "@/components/MobileContainer";
 interface CartItem {
   product: Product;
   quantity: number;
+  selectedColor?: { name: string; images?: string[] };
+  selectedImage?: string;
 }
 
 const CartOrderSummary = () => {
@@ -148,11 +150,11 @@ const CartOrderSummary = () => {
                 : 0;
               
               return (
-                <div key={item.product.id} className="flex gap-3 pb-4 border-b border-border last:border-0 last:pb-0">
+                <div key={`${item.product.id}-${item.selectedColor?.name || 'default'}`} className="flex gap-3 pb-4 border-b border-border last:border-0 last:pb-0">
                   {/* Image */}
                   <div className="w-20 h-20 shrink-0 rounded-sm overflow-hidden bg-muted">
                     <img
-                      src={item.product.image}
+                      src={item.selectedImage || item.product.image}
                       alt={item.product.name}
                       className="w-full h-full object-cover"
                     />
@@ -163,7 +165,9 @@ const CartOrderSummary = () => {
                     <h2 className="text-sm font-medium text-foreground line-clamp-2">
                       {item.product.name}
                     </h2>
-                    <p className="mt-1 text-xs text-muted-foreground">{item.product.brand}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {item.product.brand}{item.selectedColor ? `, ${item.selectedColor.name}` : ''}
+                    </p>
                     
                     {/* Price */}
                     <div className="mt-1.5 flex items-baseline gap-2">

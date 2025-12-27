@@ -11,8 +11,8 @@ interface CartItem {
 interface CartContextType {
   items: CartItem[];
   addToCart: (product: Product, quantity?: number, selectedColor?: ColorVariant) => void;
-  removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
+  removeFromCart: (productId: string, colorName?: string) => void;
+  updateQuantity: (productId: string, quantity: number, colorName?: string) => void;
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
@@ -50,19 +50,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const removeFromCart = (productId: string) => {
-    setItems((prev) => prev.filter((item) => item.product.id !== productId));
+  const removeFromCart = (productId: string, colorName?: string) => {
+    setItems((prev) => prev.filter((item) => {
+      const itemColorKey = item.selectedColor?.name || 'default';
+      const targetColorKey = colorName || 'default';
+      return !(item.product.id === productId && itemColorKey === targetColorKey);
+    }));
   };
 
-  const updateQuantity = (productId: string, quantity: number) => {
+  const updateQuantity = (productId: string, quantity: number, colorName?: string) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(productId, colorName);
       return;
     }
     setItems((prev) =>
-      prev.map((item) =>
-        item.product.id === productId ? { ...item, quantity } : item
-      )
+      prev.map((item) => {
+        const itemColorKey = item.selectedColor?.name || 'default';
+        const targetColorKey = colorName || 'default';
+        return item.product.id === productId && itemColorKey === targetColorKey
+          ? { ...item, quantity }
+          : item;
+      })
     );
   };
 
