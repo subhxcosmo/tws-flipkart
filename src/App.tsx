@@ -11,6 +11,8 @@ const Index = lazy(() => import("./pages/Index"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Cart = lazy(() => import("./pages/Cart"));
 const OrderSummary = lazy(() => import("./pages/OrderSummary"));
+const CartOrderSummary = lazy(() => import("./pages/CartOrderSummary"));
+const CartPayment = lazy(() => import("./pages/CartPayment"));
 const AddressForm = lazy(() => import("./pages/AddressForm"));
 const Payment = lazy(() => import("./pages/Payment"));
 const UPIWaiting = lazy(() => import("./pages/UPIWaiting"));
@@ -40,6 +42,8 @@ const App = () => (
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout/order/:id" element={<OrderSummary />} />
+              <Route path="/checkout/cart-order" element={<CartOrderSummary />} />
+              <Route path="/checkout/cart-payment" element={<CartPayment />} />
               <Route path="/checkout/address/:id" element={<AddressForm />} />
               <Route path="/checkout/payment/:id" element={<Payment />} />
               <Route path="/upi-waiting/:id" element={<UPIWaiting />} />

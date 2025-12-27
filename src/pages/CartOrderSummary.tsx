@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { 
   ArrowLeft, 
@@ -11,16 +11,19 @@ import {
   Plus
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { products } from "@/data/products";
+import { Product } from "@/data/products";
 import StepIndicator from "@/components/checkout/StepIndicator";
 import MobileContainer from "@/components/MobileContainer";
 
-const OrderSummary = () => {
-  const { id } = useParams<{ id: string }>();
+interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
+const CartOrderSummary = () => {
   const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(1);
-  
-  const product = products.find((p) => p.id === id);
+  const location = useLocation();
+  const cartItems: CartItem[] = location.state?.cartItems || [];
   
   // Mock saved address
   const [savedAddress, setSavedAddress] = useState<{
@@ -40,14 +43,14 @@ const OrderSummary = () => {
     }
   }, []);
 
-  if (!product) {
+  if (cartItems.length === 0) {
     return (
       <MobileContainer>
         <div className="flex min-h-screen items-center justify-center">
           <div className="text-center">
-            <h1 className="text-xl font-semibold text-foreground">Product not found</h1>
-            <Link to="/" className="mt-4 text-primary underline">
-              Back to home
+            <h1 className="text-xl font-semibold text-foreground">No items in cart</h1>
+            <Link to="/cart" className="mt-4 text-primary underline">
+              Back to cart
             </Link>
           </div>
         </div>
@@ -64,13 +67,11 @@ const OrderSummary = () => {
     }).format(price);
   };
 
-  const discountPercentage = product.originalPrice > product.price 
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) 
-    : 0;
-  const subtotal = product.price * quantity;
-  const discount = (product.originalPrice - product.price) * quantity;
-  const deliveryCharge = 0; // Always FREE delivery
-  const total = subtotal;
+  const totalOriginalPrice = cartItems.reduce((sum, item) => sum + item.product.originalPrice * item.quantity, 0);
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const totalDiscount = totalOriginalPrice - totalPrice;
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const deliveryCharge = 0;
 
   const steps = ["Address", "Order Summary", "Payment"];
 
@@ -88,7 +89,7 @@ const OrderSummary = () => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate(`/product/${id}`)}
+              onClick={() => navigate('/cart')}
               className="h-9 w-9 shrink-0"
             >
               <ArrowLeft className="h-5 w-5" />
@@ -110,7 +111,7 @@ const OrderSummary = () => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate(`/checkout/address/${id}`)}
+              onClick={() => navigate('/checkout/address/cart', { state: { cartItems } })}
               className="h-8 text-primary text-xs font-medium"
             >
               {savedAddress ? "Change" : "Add"}
@@ -127,7 +128,7 @@ const OrderSummary = () => {
             </div>
           ) : (
             <button
-              onClick={() => navigate(`/checkout/address/${id}`)}
+              onClick={() => navigate('/checkout/address/cart', { state: { cartItems } })}
               className="w-full flex items-center justify-center gap-2 px-4 py-4 text-primary"
             >
               <Plus className="h-4 w-4" />
@@ -136,53 +137,53 @@ const OrderSummary = () => {
           )}
         </section>
 
-        {/* Product Card */}
+        {/* Product Cards */}
         <section className="mt-2 bg-card px-4 py-3">
-          <div className="flex gap-3">
-            {/* Image - Fixed container with edge-to-edge image */}
-            <div className="w-20 h-20 shrink-0 rounded-sm overflow-hidden bg-muted">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-cover"
-                style={{ objectFit: 'cover' }}
-              />
-            </div>
-            
-            {/* Info */}
-            <div className="flex-1 min-w-0">
-              <h2 className="text-sm font-medium text-foreground line-clamp-2">
-                {product.name}
-              </h2>
-              <p className="mt-1 text-xs text-muted-foreground">{product.brand}</p>
+          <p className="text-sm font-semibold text-foreground mb-3">{totalItems} Item{totalItems > 1 ? 's' : ''}</p>
+          
+          <div className="space-y-4">
+            {cartItems.map((item) => {
+              const discountPercentage = item.product.originalPrice > item.product.price 
+                ? Math.round(((item.product.originalPrice - item.product.price) / item.product.originalPrice) * 100) 
+                : 0;
               
-              {/* Price */}
-              <div className="mt-1.5 flex items-baseline gap-2">
-                <span className="text-base font-bold text-price">
-                  {formatPrice(product.price)}
-                </span>
-                <span className="text-xs text-price-original line-through">
-                  {formatPrice(product.originalPrice)}
-                </span>
-                <span className="text-xs font-medium text-discount">
-                  {discountPercentage}% off
-                </span>
-              </div>
-              
-              {/* Quantity */}
-              <div className="mt-2 flex items-center gap-2">
-                <span className="text-xs text-muted-foreground">Qty:</span>
-                <select
-                  value={quantity}
-                  onChange={(e) => setQuantity(Number(e.target.value))}
-                  className="h-7 rounded-sm border border-border bg-card px-2 text-xs text-foreground"
-                >
-                  {[1, 2, 3, 4, 5].map((n) => (
-                    <option key={n} value={n}>{n}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
+              return (
+                <div key={item.product.id} className="flex gap-3 pb-4 border-b border-border last:border-0 last:pb-0">
+                  {/* Image */}
+                  <div className="w-20 h-20 shrink-0 rounded-sm overflow-hidden bg-muted">
+                    <img
+                      src={item.product.image}
+                      alt={item.product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-sm font-medium text-foreground line-clamp-2">
+                      {item.product.name}
+                    </h2>
+                    <p className="mt-1 text-xs text-muted-foreground">{item.product.brand}</p>
+                    
+                    {/* Price */}
+                    <div className="mt-1.5 flex items-baseline gap-2">
+                      <span className="text-base font-bold text-price">
+                        {formatPrice(item.product.price)}
+                      </span>
+                      <span className="text-xs text-price-original line-through">
+                        {formatPrice(item.product.originalPrice)}
+                      </span>
+                      <span className="text-xs font-medium text-discount">
+                        {discountPercentage}% off
+                      </span>
+                    </div>
+                    
+                    {/* Quantity */}
+                    <p className="mt-1 text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
           
           {/* Assurance Badge */}
@@ -218,13 +219,13 @@ const OrderSummary = () => {
           
           <div className="space-y-2.5">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-foreground">Price ({quantity} item{quantity > 1 ? 's' : ''})</span>
-              <span className="text-foreground">{formatPrice(product.originalPrice * quantity)}</span>
+              <span className="text-foreground">Price ({totalItems} item{totalItems > 1 ? 's' : ''})</span>
+              <span className="text-foreground">{formatPrice(totalOriginalPrice)}</span>
             </div>
             
             <div className="flex items-center justify-between text-sm">
               <span className="text-foreground">Discount</span>
-              <span className="text-discount">− {formatPrice(discount)}</span>
+              <span className="text-discount">− {formatPrice(totalDiscount)}</span>
             </div>
             
             <div className="flex items-center justify-between text-sm">
@@ -235,12 +236,12 @@ const OrderSummary = () => {
             <div className="border-t border-dashed border-border pt-2.5 mt-2.5">
               <div className="flex items-center justify-between">
                 <span className="text-base font-bold text-foreground">Total Amount</span>
-                <span className="text-base font-bold text-foreground">{formatPrice(total)}</span>
+                <span className="text-base font-bold text-foreground">{formatPrice(totalPrice)}</span>
               </div>
             </div>
             
             <p className="text-xs text-success font-medium pt-1">
-              You will save {formatPrice(discount)} on this order
+              You will save {formatPrice(totalDiscount)} on this order
             </p>
           </div>
         </section>
@@ -249,15 +250,15 @@ const OrderSummary = () => {
         <div className="fixed bottom-0 left-0 right-0 z-50">
           <div className="mx-auto max-w-md bg-card border-t border-border px-4 py-3 shadow-lg">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-lg font-bold text-price">{formatPrice(total)}</span>
+              <span className="text-lg font-bold text-price">{formatPrice(totalPrice)}</span>
               <button className="text-xs text-primary font-medium">View Details</button>
             </div>
             <Button
               onClick={() => {
                 if (!savedAddress) {
-                  navigate(`/checkout/address/${id}`);
+                  navigate('/checkout/address/cart', { state: { cartItems } });
                 } else {
-                  navigate(`/checkout/payment/${id}`);
+                  navigate('/checkout/cart-payment', { state: { cartItems } });
                 }
               }}
               className="w-full h-12 bg-cta hover:bg-cta/90 text-cta-foreground font-semibold text-sm rounded-full"
@@ -271,4 +272,4 @@ const OrderSummary = () => {
   );
 };
 
-export default OrderSummary;
+export default CartOrderSummary;
