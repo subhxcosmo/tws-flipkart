@@ -13,6 +13,8 @@ const Cart = lazy(() => import("./pages/Cart"));
 const OrderSummary = lazy(() => import("./pages/OrderSummary"));
 const AddressForm = lazy(() => import("./pages/AddressForm"));
 const Payment = lazy(() => import("./pages/Payment"));
+const UPIWaiting = lazy(() => import("./pages/UPIWaiting"));
+const PaymentSuccess = lazy(() => import("./pages/PaymentSuccess"));
 const OrderProcessing = lazy(() => import("./pages/OrderProcessing"));
 const OrderDetails = lazy(() => import("./pages/OrderDetails"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -40,6 +42,8 @@ const App = () => (
               <Route path="/checkout/order/:id" element={<OrderSummary />} />
               <Route path="/checkout/address/:id" element={<AddressForm />} />
               <Route path="/checkout/payment/:id" element={<Payment />} />
+              <Route path="/upi-waiting/:id" element={<UPIWaiting />} />
+              <Route path="/payment-success/:id" element={<PaymentSuccess />} />
               <Route path="/order-processing/:id" element={<OrderProcessing />} />
               <Route path="/order/:id" element={<OrderDetails />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
