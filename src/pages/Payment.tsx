@@ -150,17 +150,18 @@ const Payment = () => {
       window.location.href = upiLink;
     }, 100);
 
-    // Navigate to order processing page after a short delay
+    // Navigate to UPI waiting page after a short delay
     // This gives time for the UPI app to open
     setTimeout(() => {
       const orderId = generateOrderId();
       const orderDate = new Date().toISOString();
       
-      navigate(`/order-processing/${id}`, {
+      navigate(`/upi-waiting/${id}`, {
         state: {
           productId: id,
           orderId,
-          orderDate
+          orderDate,
+          amount: total
         },
         replace: true
       });
