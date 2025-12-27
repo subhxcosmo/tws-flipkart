@@ -17,13 +17,13 @@ const OrderProcessing = () => {
   } | null;
 
   useEffect(() => {
-    // Redirect to order details after 40 seconds
+    // Redirect to order details after 30 seconds
     const timer = setTimeout(() => {
       navigate(`/order/${id}`, { 
         state: orderData,
         replace: true 
       });
-    }, 40000); // 40 seconds
+    }, 30000); // 30 seconds
 
     return () => clearTimeout(timer);
   }, [id, navigate, orderData]);
