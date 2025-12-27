@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: tws-flipkart
+    env: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    nodeVersion: 18.17.0
+    staticPublishPath: ./dist
+    autoDeploy: true
