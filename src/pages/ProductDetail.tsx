@@ -128,13 +128,18 @@ const ProductDetail = () => {
   };
 
   const handleBuyNow = () => {
-    navigate(`/checkout/order/${id}`);
+    navigate(`/checkout/order/${id}`, {
+      state: { 
+        selectedColor: selectedColor,
+        selectedImage: selectedColor?.images?.[0] || product.image
+      }
+    });
   };
 
   const handleAddToCart = () => {
-    addToCart(product);
+    addToCart(product, 1, colorVariants.length > 0 ? selectedColor : undefined);
     toast.success("Added to cart", {
-      description: product.name,
+      description: `${product.name}${selectedColor ? ` - ${selectedColor.name}` : ''}`,
     });
   };
 
