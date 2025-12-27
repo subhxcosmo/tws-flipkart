@@ -356,7 +356,7 @@ const Cart = () => {
               onClick={() => navigate('/checkout/cart-order', {
                 state: { cartItems: items }
               })}
-              className="bg-marketplace-flipkart hover:bg-marketplace-flipkart/90 text-white font-semibold text-sm h-12 px-8 rounded-full"
+              className="bg-[#FFD814] hover:bg-[#F7CA00] text-[#0F1111] font-semibold text-sm h-12 px-8 rounded-full shrink-0"
             >
               Place Order
             </Button>
