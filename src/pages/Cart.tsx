@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { format, addDays } from "date-fns";
 import { Helmet } from "react-helmet";
 import {
   ArrowLeft,
@@ -124,7 +125,7 @@ const Cart = () => {
         {/* Cart Items */}
         <div className="mt-2">
           {items.map((item) => (
-            <div key={item.product.id} className="bg-card mb-2">
+            <div key={`${item.product.id}-${item.selectedColor?.name || 'default'}`} className="bg-card mb-2">
               {/* Product Info Row */}
               <div className="p-4 flex gap-3">
                 {/* Product Image - Fixed container with edge-to-edge image */}
@@ -190,7 +191,7 @@ const Cart = () => {
                           <button
                             key={qty}
                             onClick={() => {
-                              updateQuantity(item.product.id, qty);
+                              updateQuantity(item.product.id, qty, item.selectedColor?.name);
                               setOpenQuantityDropdown(null);
                             }}
                             className={`w-full px-3 py-2 text-sm text-left hover:bg-muted ${
@@ -232,7 +233,7 @@ const Cart = () => {
               {/* Delivery Date */}
               <div className="px-4 py-2 border-t border-border">
                 <p className="text-xs text-muted-foreground">
-                  Delivery by <span className="font-medium text-foreground">Fri Dec 26</span>
+                  Delivery by <span className="font-medium text-foreground">{format(addDays(new Date(), 2), "EEE MMM d")}</span>
                 </p>
               </div>
 
@@ -244,7 +245,7 @@ const Cart = () => {
                 </button>
                 <div className="w-px bg-border" />
                 <button
-                  onClick={() => removeFromCart(item.product.id)}
+                  onClick={() => removeFromCart(item.product.id, item.selectedColor?.name)}
                   className="flex-1 flex items-center justify-center gap-1.5 py-3 text-xs text-muted-foreground hover:bg-muted transition-colors"
                 >
                   <Trash2 className="h-4 w-4" />

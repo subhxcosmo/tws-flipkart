@@ -18,6 +18,8 @@ import { format, addDays } from "date-fns";
 interface CartItem {
   product: Product;
   quantity: number;
+  selectedColor?: { name: string; images?: string[] };
+  selectedImage?: string;
 }
 
 interface OrderStep {
@@ -55,7 +57,7 @@ const OrderDetails = () => {
   });
 
   // Get products - either from cart items or single product
-  const orderProducts: { product: Product; quantity: number }[] = (() => {
+  const orderProducts: CartItem[] = (() => {
     if (orderState?.cartItems && orderState.cartItems.length > 0) {
       return orderState.cartItems;
     }
@@ -180,13 +182,13 @@ const OrderDetails = () => {
           
           <div className="space-y-4">
             {orderProducts.map((item, index) => (
-              <div key={item.product.id} className={`flex gap-4 ${index > 0 ? 'pt-4 border-t border-border' : ''}`}>
+              <div key={`${item.product.id}-${item.selectedColor?.name || 'default'}`} className={`flex gap-4 ${index > 0 ? 'pt-4 border-t border-border' : ''}`}>
                 <div className="flex-1 min-w-0">
                   <h2 className="text-sm font-medium text-foreground line-clamp-2 leading-5">
                     {item.product.name}
                   </h2>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Seller: {item.product.seller || item.product.brand}
+                    {item.selectedColor ? `Color: ${item.selectedColor.name} · ` : ''}Seller: {item.product.seller || item.product.brand}
                   </p>
                   <div className="flex items-center gap-2 mt-2">
                     <p className="text-base font-bold text-foreground">
@@ -199,7 +201,7 @@ const OrderDetails = () => {
                 </div>
                 <div className="w-16 h-16 shrink-0 rounded-md overflow-hidden bg-muted">
                   <img
-                    src={item.product.image}
+                    src={item.selectedImage || item.product.image}
                     alt={item.product.name}
                     className="w-full h-full object-cover"
                   />
